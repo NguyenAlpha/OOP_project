@@ -39,7 +39,9 @@ public class test {
                                 String name = sc.nextLine();
                                 System.out.print("Nhập mật khẩu: ");
                                 String password = sc.nextLine();
-                                
+                                if(customerList.login(name, password)) {
+                                    System.out.println("đã đăng nhập");
+                                }
                                 
                                 break;
                             }   

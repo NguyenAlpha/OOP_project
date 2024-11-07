@@ -1,8 +1,8 @@
 package mainoop.user;
 
 public abstract class User {
-    private int userId;
-    private String userPassword;
+    static int userId;
+    static String userPassword;
 
     //hàm tạo
     public User() {

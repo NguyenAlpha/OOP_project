@@ -22,7 +22,7 @@ public class Customer extends User {
     }
 
     //==================geter======================
-    public String getName() {
+    public String getcustomerName() {
         return customerName;
     }
 
@@ -30,12 +30,20 @@ public class Customer extends User {
         return address;
     }
 
+    //==================seter======================
+    public void setcustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public  void setaddress(String address) {
+        this.address = address;
+    }
+
     
 
-
-
+    //
     @Override public String toString() {
-        return super.getUserId() + " | " + super.getUserPassword() + " | " + customerName + " | " + address + " | ";
+        return super.getUserId() + " , " + super.getUserPassword() + " , " + customerName + " , " + address + " , ";
     }
 
     @Override public void menu() {

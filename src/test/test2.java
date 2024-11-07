@@ -1,9 +1,13 @@
 package test;
 
-import mainoop.product.product;
-
 public class test2 {
-    public void search() {
-        
+
+    static public void AAA() {
+        System.out.println("xin chao");
+    }
+    
+    public static void main(String[] args) {
+        AAA();
+        test2.AAA();
     }
 }

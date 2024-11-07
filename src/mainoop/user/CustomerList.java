@@ -2,11 +2,13 @@ package mainoop.user;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import mainoop.ListAbstract;
+import mainoop.ListInterface;
 
-public class CustomerList extends ListAbstract{
+public class CustomerList implements ListInterface{
     private int customerCount;
     private ArrayList<Customer> customerList = new ArrayList<>();
 
@@ -14,6 +16,11 @@ public class CustomerList extends ListAbstract{
 
     public CustomerList(String path) {
         addFromFile(path);
+    }
+
+    //==================geter======================
+    public int getCustomerCount() {
+        return customerCount;
     }
 
     @Override
@@ -27,6 +34,7 @@ public class CustomerList extends ListAbstract{
                 Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]);
                 customerList.add(temp);
             }
+            reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -37,14 +45,24 @@ public class CustomerList extends ListAbstract{
 
     @Override
     public void writeToFile() {
-
+        try {
+            FileWriter writer = new FileWriter("src/mainoop/user/Customer.txt");
+            System.out.println("OK write");
+        } catch(IOException e) {
+            System.out.println("error write");
+            e.printStackTrace();
+        }
     }
+
+    
 
 
     public boolean login(String name, String password) {
         for(Customer customer : customerList) {
-            
+            if((customer.getcustomerName().equals(name)) && customer.getUserPassword().equals(password)) {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 }

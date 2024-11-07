@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import mainoop.ListAbstract;
+import mainoop.ListInterface;
 
-public class AdminList extends ListAbstract{
+public class AdminList implements ListInterface{
     private int adminCount;
     private ArrayList<Admin> customerList = new ArrayList<>();
 

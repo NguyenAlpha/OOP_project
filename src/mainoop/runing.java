@@ -3,6 +3,7 @@ package mainoop;
 import java.util.Scanner;
 import mainoop.product.ProductList;
 import mainoop.user.AdminList;
+import mainoop.user.Customer;
 import mainoop.user.CustomerList;
 
 //mỗi lần thêm sản phẩm, xóa sản phẩm, sửa sản phẩm sẽ có cùng method viết lại product.txt
@@ -15,15 +16,10 @@ import mainoop.user.CustomerList;
 
 
 public class runing {
-    private static ProductList productList = new ProductList("src/mainoop/data/product.txt");
-    private static CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
-    private static AdminList adminList= new AdminList("src/mainoop/data/Admin.txt");
-
-    public runing() {
-        menu();
-    }
-    
-    public static void menu() {
+    public static void main(String[] args) {
+        ProductList productList = new ProductList("src/mainoop/data/product.txt");
+        CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
+        AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
         Scanner sc = new Scanner(System.in);
         boolean check = true;
 
@@ -37,27 +33,53 @@ public class runing {
             sc.nextLine();
             switch(temp) {
                 case 1: {
-                    System.out.println("==================MENU KHÁCH HÀNG=======================");
-                    System.out.println("1. Đăng nhập");
-                    System.out.println("2. Đăng ký");
-                    System.out.println("==============================================");
-
                     boolean check1 = true;
-                    int temp1 = sc.nextInt();
-                    sc.nextLine();
-                    
+                    boolean loginCheck = false;
                     while(check1) {
+                        System.out.println("==================MENU KHÁCH HÀNG=======================");
+                        if(!loginCheck) {
+                            System.out.println("1. Đăng nhập");
+                            System.out.println("2. Đăng ký");
+                        } else {
+                            System.out.println("3. Xem Danh sách sản phẩm");
+                            System.out.println("4. Tìm sản phẩm");
+                            System.out.println("5. Thêm sản phẩm vào giỏ hàng");
+                            System.out.println("5. Xóa sản phẩm khỏi giỏ hàng");
+                            System.out.println("6. Đăng xuất");
+                        }
+                        System.out.println("==============================================");
+                        
+                        int temp1 = sc.nextInt();
+                        sc.nextLine();
                         switch(temp1) {
                             case 1: {
                                 System.out.print("Nhập tên tài khoản: ");
                                 String name = sc.nextLine();
                                 System.out.print("Nhập mật khẩu: ");
-                                String passworc = sc.nextLine();
-                                
+                                String password = sc.nextLine();
+                                if(customerList.login(name, password)) {
+                                    loginCheck = true;
+                                } else {
+                                    System.out.println("Sai thông tin đăng nhập");
+                                }
                                 break;
-                            }   
-                        }
+                            }
 
+                            case 2: {
+                                System.out.print("Nhập tên tài khoản: ");
+                                String name = sc.nextLine();
+                                System.out.print("Nhập mật khẩu: ");
+                                String password = sc.nextLine();
+                                System.out.print("Nhập Địa chỉ: ");
+                                String address = sc.nextLine();
+                                Customer cs = new Customer(customerList.getCustomerCount()+1, password, name, address);
+                                
+                            }
+                            case 6: {
+                                System.out.println("Đã đăng Xuất");
+                                check1 = false;
+                            }
+                        }
                     }
 
                     break;
@@ -70,62 +92,4 @@ public class runing {
             }
         }
     }
-
-
-    // public runing() {
-    //     Scanner sc = new Scanner(System.in);
-    //     boolean kt = true;  //điều kiện để vòng while được thực hiện
-    //     boolean kt1 = false;
-
-    //     while(kt) {
-    //         System.out.println("=======================MENU=======================");
-    //         System.out.println("0: thoát");
-    //         // System.out.println("1: Thêm danh sách sản phẩm từ file");
-    //         System.out.println("2: Thêm 1 sản phẩm");
-    //         System.out.println("3: xem danh sách sản phẩm");
-    //         System.out.println("==============================================");
-            
-    //         System.out.printf("chọn thao tác: ");
-    //         int tt = sc.nextInt();
-    //         sc.nextLine();
-    //         System.out.println("==============================================");
-            
-    //         switch(tt) {
-    //             case 0: {   //thao thác 0.thoát menu
-    //                 kt = false;
-    //                 break;
-    //             }
-                
-    //             // case 1: {
-    //             //     productList.addFileProductList("src/main/input/product.txt");
-    //             //     System.out.println("Đã thêm danh sách sản phẩm!");
-    //             //     kt1 = true;
-    //             //     break;
-    //             // }
-
-    //             case 2: {
-                    
-    //                 break;
-    //             }
-
-    //             case 3: {
-    //                 if(!kt1) {
-    //                     System.out.println("chưa thêm sản phẩm");
-    //                     break;
-    //                 }
-    //                 productList.printProducts();
-    //                 break;
-    //             }
-    //             case 4: {
-                    
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     sc.close();
-    // }
-
-    // public static void main(String[] args) {
-    //     manager menu = new manager();
-    // }
 }
