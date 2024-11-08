@@ -8,7 +8,7 @@ import mainoop.AddAndRemove;
 
 public class ProductList extends AddAndRemove{
     private static int productCount = 0;
-    private ArrayList<product> productList = new ArrayList<>();
+    private ArrayList<Product> productList = new ArrayList<>();
     
     public ProductList() {}
 
@@ -27,7 +27,7 @@ public class ProductList extends AddAndRemove{
 
                 //lưu vào dữ liệu danh sách sản phẩm
                 //phân tích string thành long https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html
-                product pd = new product(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], Long.parseLong(sSplit[3]));
+                Product pd = new Product(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], Long.parseLong(sSplit[3]));
                 productList.add(pd);
                 productCount++;
             }
@@ -47,7 +47,7 @@ public class ProductList extends AddAndRemove{
     }
 
     public void printProducts() {
-        for (product p : productList) {
+        for (Product p : productList) {
             System.out.println(p);
         }
         System.out.println("Total products: " + getProductCount());
@@ -55,7 +55,7 @@ public class ProductList extends AddAndRemove{
 
     @Override
     public void addProduct(int productID, String productName, String productType, long productPrice) {
-        product p = new product(productID, productName, productType, productPrice);
+        Product p = new Product(productID, productName, productType, productPrice);
         productList.add(p);
     }
 

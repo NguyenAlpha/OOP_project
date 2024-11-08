@@ -9,13 +9,14 @@ import java.util.Scanner;
 import mainoop.ListInterface;
 
 public class CustomerList implements ListInterface{
-    private int customerCount;
-    private ArrayList<Customer> customerList = new ArrayList<>();
-    //int customerList[100];
-    //2 3 5 7 9
-    // return customerList[2];
+    // các thuộc tính của dánh sách khách hàng
+    private int customerCount;  //số lượng khách hàng
+    private ArrayList<Customer> customerList = new ArrayList<>();   //danh sách khách hàng
+
+    // Hàm tạo không tham số
     public CustomerList() {}
 
+    // Hàm tạo có tham số
     public CustomerList(String path) {
         addFromFile(path);
     }
@@ -25,30 +26,37 @@ public class CustomerList implements ListInterface{
         return customerCount;
     }
 
+    //Thêm 1 Object vào dánh sách
     public void addObject(Customer customer) {
-        customerList.add(customer);
+        customerList.add(customer); //thêm vào danh sách khách hàng
+        customerCount++;    //tăng tổng số khách hàng lên 1
+
+        // viết vào file
         try {
-            FileWriter writer = new FileWriter("src/mainoop/data/Customer.txt");
-            writer.append(customer.getAll());
+            FileWriter writer = new FileWriter("src/mainoop/data/Customer.txt", true);
+            writer.write("\n" + customer.getAll());
+            writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
     } 
 
+    // Thêm danh sách khách hàng từ file
     @Override
     public void addFromFile(String path) {
         try {
+            // đọc file
             File read = new File(path);
-            Scanner reader = new Scanner(read);
-            while(reader.hasNextLine()) {
-                String s = reader.nextLine();
-                String[] sSplit = s.split("[ ]*[|][ ]*");
-                Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]);
-                customerList.add(temp);
+            try (Scanner reader = new Scanner(read)) {  
+                while(reader.hasNextLine()) {   //nếu có dòng để đọc file
+                    String s = reader.nextLine();   //đọc dòng đó
+                    String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
+                    Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]); //lưu vào 1 đối tượng
+                    customerList.add(temp); //lưu vào danh sách các đối tượng
+                }
             }
-            reader.close();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) { //nếu lỗi thì hiển thị lỗi
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
@@ -56,26 +64,22 @@ public class CustomerList implements ListInterface{
 
     @Override
     public void writeToFile(Object c) {
-        // try {
-        //     FileWriter writer = new FileWriter("src/mainoop/user/Customer.txt");
-        //     for(Customer temp : customerList) {
-        //         writer.
-        //     }
-        // } catch(IOException e) {
-        //     System.out.println("error write");
-        //     e.printStackTrace();
-        // }
+
     }
 
 
-
-    public boolean login(String name, String password) {
-        for(Customer customer : customerList) {
+    // kiểm tra tài khoản cần đăng nhập có tồn tại không
+    public Customer login(String name, String password) {
+        // duyệt qua danh sách khách hàng
+        for(Customer customer : customerList) { 
+            //nếu tồn tại thì trả vể tài khoản đó để khách hàng sử dụng
             if(customer.checkUserPassword(password) && customer.checkUserName(name)) {
-                return true;
+                return customer;    
             }
         }
-        return false;
+
+        //nếu tài khoản không tồn tại thì trả về null
+        return null;
     }
 
 

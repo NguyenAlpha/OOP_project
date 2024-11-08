@@ -2,15 +2,15 @@ package mainoop.product;
 
 import mainoop.AddAndRemove;
 
-public class product extends AddAndRemove{
+public class Product extends AddAndRemove{
     private int productID; //ID sản phẩm
     private String productName;    //tên sản phẩn
     private String productType;    //loại sản phẩm
     private long productPrice; //giá sản phẩm
 
-    public product() {}
+    public Product() {}
 
-    public product(int productID, String productName, String productType, long productPrice) {
+    public Product(int productID, String productName, String productType, long productPrice) {
         this.productID = productID;
         this.productName = productName;
         this.productType = productType;

@@ -32,11 +32,11 @@ public class Customer extends User {
         this.customerName = customerName;
     }
 
-    public  void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-
+    @Override
     public String getAll() {
         return (super.getUserId() + " | " + super.getUserPassword() + " | " + this.getcustomerName() + " | " + this.getAddress());
     }
@@ -52,7 +52,5 @@ public class Customer extends User {
         return this.getcustomerName().equals(userName);
     }
 
-    // @Override public void menu() {
 
-    // }
 }

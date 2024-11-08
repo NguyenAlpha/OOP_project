@@ -33,7 +33,7 @@ public class running {
             sc.nextLine();
             switch(temp) {
                 case 1: {
-                    Customer customerUer; 
+                    Customer customerUer = new Customer(); 
                     boolean check1 = true;
                     boolean loginCheck = false;
                     while(check1) {
@@ -42,47 +42,60 @@ public class running {
                             System.out.println("1. Đăng nhập");
                             System.out.println("2. Đăng ký");
                         } else {
-                            System.out.println("3. Xem Danh sách sản phẩm");
-                            System.out.println("4. Tìm sản phẩm");
-                            // tìm SP
-                            // 
-                            System.out.println("5. Thêm sản phẩm vào giỏ hàng");
-                            System.out.println("5. Xóa sản phẩm khỏi giỏ hàng");
-                            System.out.println("6. Đăng xuất");
+                            System.out.println("3. Xem chi tiết tài khoản");
+                            System.out.println("4. Xem Danh sách sản phẩm");
+                            System.out.println("5. Tìm sản phẩm");
+                            System.out.println("6. Thêm sản phẩm vào giỏ hàng");
+                            System.out.println("7. Xóa sản phẩm khỏi giỏ hàng");
+                            System.out.println("8. Đăng xuất");
                         }
                         System.out.println("==============================================");
                         
                         int temp1 = sc.nextInt();
                         sc.nextLine();
                         switch(temp1) {
+                            // 1. Đăng nhập
                             case 1: {
+                                // nhập tên đăng nhập
                                 System.out.print("Nhập tên tài khoản: ");
                                 String name = sc.nextLine();
+
+                                // Nhập mật khẩu
                                 System.out.print("Nhập mật khẩu: ");
                                 String password = sc.nextLine();
-                                if(customerList.login(name, password)) {
+
+                                // kiểm tra đúng tài khoản không
+                                customerUer = customerList.login(name, password);
+                                if(customerUer != null) {
                                     loginCheck = true;
+                                    
                                 } else {
                                     System.out.println("Sai thông tin đăng nhập");
                                 }
                                 break;
                             }
 
+                            // 2. Đăng ký
                             case 2: {
+                                // nhập tên đăng nhập
                                 System.out.print("Nhập tên tài khoản: ");
                                 String name = sc.nextLine();
+
+                                // nhập mật khẩu
                                 System.out.print("Nhập mật khẩu: ");
                                 String password = sc.nextLine();
+
+                                // nhập địa chỉ
                                 System.out.print("Nhập Địa chỉ: ");
                                 String address = sc.nextLine();
+                                
+                                // tạo đối tượng khách hàng mới
                                 Customer cs = new Customer(customerList.getCustomerCount()+1, password, name, address);
+                                
+                                // thêm khách hàng đó vào danh sách khách hàng
                                 customerList.addObject(cs);
-                                // thêm vào ArrayList
-                                // viết vào file Customer.txt
-                                // public void addAObject() {}
-                                
-                                
-                                // customerList.writeToFile(cs);
+                                loginCheck = true;
+
                                 break;
                             }
 
