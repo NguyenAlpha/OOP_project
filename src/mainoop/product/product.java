@@ -56,13 +56,9 @@ public class product extends AddAndRemove{
         return productID + " , " + productName + " , " + productType + " ,  " + productPrice;
     }
 
-    // public void add()
-    // public static void main(String[] args) {
-    // }
-
     @Override
     public void addProduct(int productID, String productName, String productType, long productPrice) {
-        
+
     }
 
     @Override

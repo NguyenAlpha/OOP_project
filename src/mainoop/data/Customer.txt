@@ -1,3 +1,0 @@
-1   |   111111  |   Nhat Nguyen |   trái đất
-2   |   222222  |   Huy Toàn    |   mặt trăng
-3   |   333333  |   Minh Tài    |   sao hỏa

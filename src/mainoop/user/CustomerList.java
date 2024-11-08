@@ -25,6 +25,17 @@ public class CustomerList implements ListInterface{
         return customerCount;
     }
 
+    public void addObject(Customer customer) {
+        customerList.add(customer);
+        try {
+            FileWriter writer = new FileWriter("src/mainoop/data/Customer.txt");
+            writer.append(customer.getAll());
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    } 
+
     @Override
     public void addFromFile(String path) {
         try {
@@ -43,25 +54,24 @@ public class CustomerList implements ListInterface{
         }
     }
 
-
-
     @Override
-    public void writeToFile() {
-        try {
-            FileWriter writer = new FileWriter("src/mainoop/user/Customer.txt");
-            System.out.println("OK write");
-        } catch(IOException e) {
-            System.out.println("error write");
-            e.printStackTrace();
-        }
+    public void writeToFile(Object c) {
+        // try {
+        //     FileWriter writer = new FileWriter("src/mainoop/user/Customer.txt");
+        //     for(Customer temp : customerList) {
+        //         writer.
+        //     }
+        // } catch(IOException e) {
+        //     System.out.println("error write");
+        //     e.printStackTrace();
+        // }
     }
 
-    
 
 
     public boolean login(String name, String password) {
         for(Customer customer : customerList) {
-            if((customer.getcustomerName().equals(name)) && customer.getUserPassword().equals(password)) {
+            if(customer.checkUserPassword(password) && customer.checkUserName(name)) {
                 return true;
             }
         }

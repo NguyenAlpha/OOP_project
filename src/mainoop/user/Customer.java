@@ -1,8 +1,5 @@
 package mainoop.user;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Customer extends User {
     private String customerName;
     private String address;
@@ -26,44 +23,36 @@ public class Customer extends User {
         return customerName;
     }
 
-    public String getaddress() {
+    public String getAddress() {
         return address;
     }
 
     //==================seter======================
-    public void setcustomerName(String customerName) {
+    public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
 
-    public  void setaddress(String address) {
+    public  void setAddress(String address) {
         this.address = address;
     }
 
-    
 
-    //
+    public String getAll() {
+        return (super.getUserId() + " | " + super.getUserPassword() + " | " + this.getcustomerName() + " | " + this.getAddress());
+    }
+
+    //viết lại hàm mặc định toString
     @Override public String toString() {
         return super.getUserId() + " , " + super.getUserPassword() + " , " + customerName + " , " + address + " , ";
     }
 
-    @Override public void menu() {
-
+    //viết lại class trừu tượng của class User 
+    @Override
+    public boolean checkUserName(String userName) {
+        return this.getcustomerName().equals(userName);
     }
 
-    public void register(Customer customer) {
-        try {
-            FileWriter writer = new FileWriter("src/mainoop/user/Customer.txt");
-            
-            System.out.println("OK write");
-        } catch(IOException e) {
-            System.out.println("error write");
-            e.printStackTrace();
-        }
-    }
+    // @Override public void menu() {
 
-    public void login(String name, String pass) {
-        
-    }
-
-    
+    // }
 }

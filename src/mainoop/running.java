@@ -15,7 +15,7 @@ import mainoop.user.CustomerList;
 
 
 
-public class runing {
+public class running {
     public static void main(String[] args) {
         ProductList productList = new ProductList("src/mainoop/data/product.txt");
         CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
@@ -33,6 +33,7 @@ public class runing {
             sc.nextLine();
             switch(temp) {
                 case 1: {
+                    Customer customerUer; 
                     boolean check1 = true;
                     boolean loginCheck = false;
                     while(check1) {
@@ -43,6 +44,8 @@ public class runing {
                         } else {
                             System.out.println("3. Xem Danh sách sản phẩm");
                             System.out.println("4. Tìm sản phẩm");
+                            // tìm SP
+                            // 
                             System.out.println("5. Thêm sản phẩm vào giỏ hàng");
                             System.out.println("5. Xóa sản phẩm khỏi giỏ hàng");
                             System.out.println("6. Đăng xuất");
@@ -73,7 +76,14 @@ public class runing {
                                 System.out.print("Nhập Địa chỉ: ");
                                 String address = sc.nextLine();
                                 Customer cs = new Customer(customerList.getCustomerCount()+1, password, name, address);
+                                customerList.addObject(cs);
+                                // thêm vào ArrayList
+                                // viết vào file Customer.txt
+                                // public void addAObject() {}
                                 
+                                
+                                // customerList.writeToFile(cs);
+                                break;
                             }
 
                             case 3: {

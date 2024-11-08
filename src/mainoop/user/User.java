@@ -1,10 +1,14 @@
 package mainoop.user;
 
-public abstract class User {
-    static int userId;
-    static String userPassword;
 
-    //hàm tạo
+
+// class User là class Abstract của class Customer và class Admin
+public abstract class User {
+    //Attributes của User
+    static int userId;  //ID của người dùng
+    static String userPassword; //mật khẩu của người dùng
+
+    //hàm tạo không tham số
     public User() {
         userId = 0;
         userPassword = "";
@@ -20,7 +24,6 @@ public abstract class User {
     public int getUserId() {
         return userId;
     }
-
     public String getUserPassword() {
         return userPassword;
     }
@@ -29,16 +32,16 @@ public abstract class User {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
     public void setuserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 
-    //
-    public boolean verifyLogin(String password) {
-        return userPassword.equals(password);
+    //kiểm tra pass
+    public boolean checkUserPassword(String password) {
+        return (this.userPassword.equals(password));
     }
 
-    //
-    public abstract void menu();
+    public abstract boolean checkUserName(String userName);
+    public abstract String getAll();
+    // public abstract void menu();
 }
