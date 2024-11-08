@@ -53,7 +53,6 @@ public class CustomerList implements ListInterface{
                 String s = reader.nextLine();   //đọc dòng đó
                 String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
                 Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]); //lưu vào 1 đối tượng
-                System.out.println(temp);
                 customerList.add(temp); //lưu vào danh sách các đối tượng
                 customerCount++;
             }
@@ -61,12 +60,6 @@ public class CustomerList implements ListInterface{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        System.out.println("================================================");
-
-        for(Customer customer : customerList) {
-            System.out.println(customer);
-        }
-
     }
 
     @Override
