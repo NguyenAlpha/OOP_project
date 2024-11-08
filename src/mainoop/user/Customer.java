@@ -12,7 +12,7 @@ public class Customer extends User {
     }
     
     //hàm tạo có tham số
-    public Customer(int id, String pass, String name, String address) {
+    public Customer(int id, String name, String pass, String address) {
         super(id, pass);
         this.customerName = name;
         this.address = address;
@@ -38,12 +38,12 @@ public class Customer extends User {
 
     @Override
     public String getAll() {
-        return (super.getUserId() + " | " + super.getUserPassword() + " | " + this.getcustomerName() + " | " + this.getAddress());
+        return (super.getUserId() + " | " + this.getcustomerName() + " | " + super.getUserPassword() + " | " + this.getAddress());
     }
 
     //viết lại hàm mặc định toString
     @Override public String toString() {
-        return super.getUserId() + " , " + super.getUserPassword() + " , " + customerName + " , " + address + " , ";
+        return super.getUserId() + " , " + this.getcustomerName() + " , " + super.getUserPassword() + " , " + this.address;
     }
 
     //viết lại class trừu tượng của class User 

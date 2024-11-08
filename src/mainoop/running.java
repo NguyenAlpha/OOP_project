@@ -29,18 +29,29 @@ public class running {
             System.out.println("2. Quản lý");
             System.out.println("==============================================");
 
+            System.out.print("Nhập thao tác: ");
             int temp = sc.nextInt();
             sc.nextLine();
+
+            while((temp < 1) || (temp > 2)) {
+                System.out.print("Thao tác không đúng.\nNhập thao tác: ");
+                temp = sc.nextInt();
+                sc.nextLine();
+            }
+
             switch(temp) {
                 case 1: {
-                    Customer customerUer = new Customer(); 
+                    Customer customerUer = null;
                     boolean check1 = true;
                     boolean loginCheck = false;
                     while(check1) {
                         System.out.println("==================MENU KHÁCH HÀNG=======================");
                         if(!loginCheck) {
+
+                            System.out.println("0. Quay lại");
                             System.out.println("1. Đăng nhập");
                             System.out.println("2. Đăng ký");
+
                         } else {
                             System.out.println("3. Xem chi tiết tài khoản");
                             System.out.println("4. Xem Danh sách sản phẩm");
@@ -51,9 +62,32 @@ public class running {
                         }
                         System.out.println("==============================================");
                         
-                        int temp1 = sc.nextInt();
+                        System.out.print("Nhập thao tác: ");
+                        int thaoTac1 = sc.nextInt();
                         sc.nextLine();
-                        switch(temp1) {
+
+                        if(loginCheck) {
+                            while((thaoTac1 < 3) || (thaoTac1 > 8)) {
+                                System.out.print("Thao tác không đúng.\nNhập thao tác: ");
+                                thaoTac1 = sc.nextInt();
+                                sc.nextLine();
+                            }
+                        } else {
+                            while((thaoTac1 < 0) || (thaoTac1 > 2)) {
+                                System.out.print("Thao tác không đúng.\nNhập thao tác: ");
+                                thaoTac1 = sc.nextInt();
+                                sc.nextLine();
+                            }
+                        }
+                        
+
+                        switch(thaoTac1) {
+                            // 0. Quay Lại
+                            case 0: {
+                                check1 = false;
+                                break;
+                            }
+
                             // 1. Đăng nhập
                             case 1: {
                                 // nhập tên đăng nhập
@@ -66,12 +100,14 @@ public class running {
 
                                 // kiểm tra đúng tài khoản không
                                 customerUer = customerList.login(name, password);
-                                if(customerUer != null) {
-                                    loginCheck = true;
+                                
+                                // if(customerUer == null) {
+                                //     System.out.println("Sai thông tin đăng nhập");
                                     
-                                } else {
-                                    System.out.println("Sai thông tin đăng nhập");
-                                }
+                                // } else {
+                                //     System.out.println("Đã đăng nhập");
+                                //     loginCheck = true;
+                                // }
                                 break;
                             }
 
@@ -90,22 +126,25 @@ public class running {
                                 String address = sc.nextLine();
                                 
                                 // tạo đối tượng khách hàng mới
-                                Customer cs = new Customer(customerList.getCustomerCount()+1, password, name, address);
-                                
+                                customerUer = new Customer(customerList.getCustomerCount()+1, password, name, address);
+
                                 // thêm khách hàng đó vào danh sách khách hàng
-                                customerList.addObject(cs);
+                                customerList.addObject(customerUer);
                                 loginCheck = true;
 
                                 break;
                             }
 
+                            // 3. Xem chi tiết tài khoản
                             case 3: {
-                                
+                                System.out.println(customerUer);
                             }
 
-                            case 6: {
+                            case 8: {
                                 System.out.println("Đã đăng Xuất");
-                                check1 = false;
+                                customerUer = null;
+                                loginCheck = false;
+                                break;
                             }
                         }
                     }

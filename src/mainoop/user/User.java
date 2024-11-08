@@ -5,8 +5,8 @@ package mainoop.user;
 // class User là class Abstract của class Customer và class Admin
 public abstract class User {
     //Attributes của User
-    static int userId;  //ID của người dùng
-    static String userPassword; //mật khẩu của người dùng
+    int userId;  //ID của người dùng
+    String userPassword; //mật khẩu của người dùng
 
     //hàm tạo không tham số
     public User() {

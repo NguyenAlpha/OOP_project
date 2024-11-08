@@ -7,7 +7,7 @@ import java.util.Scanner;
 import mainoop.AddAndRemove;
 
 public class ProductList extends AddAndRemove{
-    private static int productCount = 0;
+    private int productCount = 0;
     private ArrayList<Product> productList = new ArrayList<>();
     
     public ProductList() {}
@@ -42,7 +42,7 @@ public class ProductList extends AddAndRemove{
     //     return productList.isEmpty();
     // } 
  
-    public static int getProductCount() {
+    public int getProductCount() {
         return productCount;
     }
 
