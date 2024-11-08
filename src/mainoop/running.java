@@ -139,6 +139,7 @@ public class running {
                             // 3. Xem chi tiết tài khoản
                             case 3: {
                                 System.out.println(customerUer);
+                                break;
                             }
 
                             case 8: {

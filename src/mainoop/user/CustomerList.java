@@ -81,6 +81,12 @@ public class CustomerList implements ListInterface{
         return null;
     }
 
+    // Xem danh sách sản phẩm
+    public void viewProductList() {
+        for(Customer customer : customerList) {
+            System.out.println(customer);
+        }
+    } 
 
     public Customer getObject(int i) {
         return customerList.get(i);
