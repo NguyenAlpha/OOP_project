@@ -41,7 +41,7 @@ public class running {
 
             switch(temp) {
                 case 1: {
-                    Customer customerUer = null;
+                    Customer currentCustomer = null;
                     boolean check1 = true;
                     boolean loginCheck = false;
                     while(check1) {
@@ -100,9 +100,9 @@ public class running {
                                 String password = sc.nextLine();
 
                                 // kiểm tra đúng tài khoản không
-                                customerUer = customerList.login(name, password);
+                                currentCustomer = customerList.login(name, password);
                                 
-                                if(customerUer == null) {
+                                if(currentCustomer == null) {
                                     System.out.println("Sai thông tin đăng nhập");
                                     
                                 } else {
@@ -127,10 +127,10 @@ public class running {
                                 String address = sc.nextLine();
                                 
                                 // tạo đối tượng khách hàng mới
-                                customerUer = new Customer(customerList.getCustomerCount()+1, password, name, address);
+                                currentCustomer = new Customer(customerList.getCustomerCount()+1, password, name, address);
 
                                 // thêm khách hàng đó vào danh sách khách hàng
-                                customerList.addObject(customerUer);
+                                customerList.addObject(currentCustomer);
                                 loginCheck = true;
 
                                 break;
@@ -138,13 +138,30 @@ public class running {
 
                             // 3. Xem chi tiết tài khoản
                             case 3: {
-                                System.out.println(customerUer);
+                                System.out.println("Mã số: " + currentCustomer.getUserId());
+                                System.out.println("Tên: " + currentCustomer.getCustomerName());
+                                System.out.println("Mật khẩu: " + currentCustomer.getUserPassword());
+                                System.out.println("Địa chỉ: " + currentCustomer.getCustomerAddress());
+                                break;
+                            }
+
+                            // 4. Xem Danh sách sản phẩm
+                            case 4: {
+                                System.out.println("Mã  |   Tên   |    loại     |     giá   |   số lượng");
+                                productList.viewProductsList();
+                                break;
+
+                            }
+                            
+                            // 5. Tìm sản phẩm
+                            case 5: {
+                                productList.searchProduct();
                                 break;
                             }
 
                             case 8: {
                                 System.out.println("Đã đăng Xuất");
-                                customerUer = null;
+                                currentCustomer = null;
                                 loginCheck = false;
                                 break;
                             }
