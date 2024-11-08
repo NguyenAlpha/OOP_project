@@ -84,6 +84,7 @@ public class running {
                         switch(thaoTac1) {
                             // 0. Quay Lại
                             case 0: {
+                                System.out.println("Đã quay lại");
                                 check1 = false;
                                 break;
                             }
@@ -101,13 +102,13 @@ public class running {
                                 // kiểm tra đúng tài khoản không
                                 customerUer = customerList.login(name, password);
                                 
-                                // if(customerUer == null) {
-                                //     System.out.println("Sai thông tin đăng nhập");
+                                if(customerUer == null) {
+                                    System.out.println("Sai thông tin đăng nhập");
                                     
-                                // } else {
-                                //     System.out.println("Đã đăng nhập");
-                                //     loginCheck = true;
-                                // }
+                                } else {
+                                    System.out.println("Đã đăng nhập");
+                                    loginCheck = true;
+                                }
                                 break;
                             }
 

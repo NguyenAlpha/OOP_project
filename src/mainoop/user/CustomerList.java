@@ -74,10 +74,9 @@ public class CustomerList implements ListInterface{
         for(Customer customer : customerList) { 
             //nếu tồn tại thì trả vể tài khoản đó để khách hàng sử dụng
             if(customer.checkUserPassword(password) && customer.checkUserName(name)) {
-                return customer; 
+                return customer;
             }
         }
-
         //nếu tài khoản không tồn tại thì trả về null
         return null;
     }
