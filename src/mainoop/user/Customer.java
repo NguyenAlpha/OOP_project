@@ -1,10 +1,11 @@
 package mainoop.user;
 
+// Customer kế thừa attribute và method của class User 
 public class Customer extends User {
-    private String customerName;
-    private String address;
+    private String customerName;    //Tên khách hàng
+    private String address; //địa chỉ khách hàng
     
-    //hàm tạo 
+    //hàm tạo không tham số
     public Customer() {
         super();
         customerName = "";
@@ -13,7 +14,7 @@ public class Customer extends User {
     
     //hàm tạo có tham số
     public Customer(int id, String name, String pass, String address) {
-        super(id, pass);
+        super(id, pass);    // phương thức này sẽ gọi đến hàm tạo 2 tham số của class cha(class User)
         this.customerName = name;
         this.address = address;
     }
@@ -22,7 +23,6 @@ public class Customer extends User {
     public String getcustomerName() {
         return customerName;
     }
-
     public String getAddress() {
         return address;
     }
@@ -31,14 +31,8 @@ public class Customer extends User {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    @Override
-    public String getAll() {
-        return (super.getUserId() + " | " + this.getcustomerName() + " | " + super.getUserPassword() + " | " + this.getAddress());
     }
 
     //viết lại hàm mặc định toString
@@ -46,10 +40,14 @@ public class Customer extends User {
         return super.getUserId() + " , " + this.getcustomerName() + " , " + super.getUserPassword() + " , " + this.address;
     }
 
-    //viết lại class trừu tượng của class User 
+    // viết lại hàm trừu tượng của class User 
     @Override
     public boolean checkUserName(String userName) {
         return this.getcustomerName().equals(userName);
+    }
+    @Override
+    public String getAll() {
+        return (super.getUserId() + " | " + this.getcustomerName() + " | " + super.getUserPassword() + " | " + this.getAddress());
     }
 
 

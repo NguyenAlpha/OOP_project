@@ -1,8 +1,7 @@
 package mainoop.user;
 
-
-
 // class User là class Abstract của class Customer và class Admin
+// là class Customer và class Admin sẽ kế thừa Các attribute và method của class User
 public abstract class User {
     //Attributes của User
     int userId;  //ID của người dùng
@@ -36,12 +35,13 @@ public abstract class User {
         this.userPassword = userPassword;
     }
 
-    //kiểm tra pass
+    // kiểm tra password
     public boolean checkUserPassword(String password) {
+        //trả về xem password truyền vào để kiểm tra có đúng hay không
         return (this.userPassword.equals(password));
     }
 
-    public abstract boolean checkUserName(String userName);
+    // Các class abstract
     public abstract String getAll();
-    // public abstract void menu();
+    public abstract boolean checkUserName(String userName);
 }
