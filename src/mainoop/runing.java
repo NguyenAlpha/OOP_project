@@ -75,6 +75,11 @@ public class runing {
                                 Customer cs = new Customer(customerList.getCustomerCount()+1, password, name, address);
                                 
                             }
+
+                            case 3: {
+                                
+                            }
+
                             case 6: {
                                 System.out.println("Đã đăng Xuất");
                                 check1 = false;

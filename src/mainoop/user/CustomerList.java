@@ -11,7 +11,9 @@ import mainoop.ListInterface;
 public class CustomerList implements ListInterface{
     private int customerCount;
     private ArrayList<Customer> customerList = new ArrayList<>();
-
+    //int customerList[100];
+    //2 3 5 7 9
+    // return customerList[2];
     public CustomerList() {}
 
     public CustomerList(String path) {
@@ -64,5 +66,10 @@ public class CustomerList implements ListInterface{
             }
         }
         return false;
+    }
+
+
+    public Customer getObject(int i) {
+        return customerList.get(i);
     }
 }
