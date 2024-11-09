@@ -35,7 +35,7 @@ public class ShoppingCart {
       for( int i= 0; i < listProductShoppingCart.size(); i++){
         Product product = listProductShoppingCart.get(i); // Lấy sản phẩm tại vị trí i
         int quantity = (int) listQuantityProductShoppingCart.get(i); // Lấy số lượng của sản phẩm tại vị trí i
-        sumPriceProduct += product.getproductPrice() * quantity; // Cộng dồn giá trị của sản phẩm vào tổng
+        sumPriceProduct += product.getProductPrice() * quantity; // Cộng dồn giá trị của sản phẩm vào tổng
       }
 
     }
@@ -48,11 +48,11 @@ public class ShoppingCart {
               // Xóa hoàn toàn sản phẩm
               listProductShoppingCart.remove(index);
               listQuantityProductShoppingCart.remove(index);
-              sumPriceProduct -= product.getproductPrice() * currentQuantity;
+              sumPriceProduct -= product.getProductPrice() * currentQuantity;
           } else {
               // Giảm số lượng
               listQuantityProductShoppingCart.set(index, currentQuantity - quantityToRemove);
-              sumPriceProduct -= product.getproductPrice() * quantityToRemove;
+              sumPriceProduct -= product.getProductPrice() * quantityToRemove;
           }
       }
   }
@@ -65,14 +65,15 @@ public class ShoppingCart {
               for(int i =0; i < listProductShoppingCart.size();i ++){
                 Product product = listProductShoppingCart.get(i);
                 int quantity = (int) listQuantityProductShoppingCart.get(i);
-                writer.write("Product: " + product.getproductName() + "ProductID: " +  product.getproductID() + "Product Price" + product.getproductPrice() + "TotalPrice " + product.getproductPrice() * quantity +"\n")
+                writer.write("Product: " + product.getProductName() + "ProductID: " +  product.getProductId() + "Product Price" + product.getProductPrice() + "TotalPrice " + product.getProductPrice() * quantity +"\n");
                 writer.write("----------------------------------------\n");
                 writer.write("Total Price: " + sumPriceProduct + "\n");
               }
 
             } catch (Exception e) {
-              System.out.println("Error writing to file: " + e.getMessage());\
+              System.out.println("Error writing to file: " + e.getMessage());
               
 
           }
+}
 }
