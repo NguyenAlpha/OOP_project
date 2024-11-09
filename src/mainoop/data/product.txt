@@ -1,9 +1,10 @@
-1  | Áo sơ mi nam            | áo                | 200000
-2  | Áo khoác lông cừu       | áo                | 350000
-3  | Quần jean               | quần              | 250000
-4  | Giày trắng              | giày              | 320000
-5  | Máy hút bụi abc         | máy hút bụi       | 550000
-6  | Áo sơ mi tay dài        | áo                | 230000
-7  | Ốp điệm thoại Iphone    | ốp                | 60000
-8  | Điện thoại Iphone 12    | điện thoại        | 11000000
-9  | Quần short chun nam     | quần              | 110000
+1  | Ao so mi nam            | ao                | 200000       |   50
+2  | ao khoac long cuu       | ao                | 350000       |   80
+3  | Quan jean               | quan              | 250000       |   100
+4  | Giay trang              | giay              | 320000       |   50
+5  | May hut bui abc         | may hut bui       | 550000       |   200
+6  | Ao so mi tay dai        | ao                | 230000       |   100
+7  | Op điem thoai Iphone    | op                | 60000        |   50
+8  | Dien thoai Iphone 12    | dien thoai        | 11000000     |   90
+9  | Quan short chun nam     | quan              | 110000       |   50
+10 | Ao ba lo HHH            | ao                | 120000       |   150

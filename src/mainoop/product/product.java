@@ -1,70 +1,70 @@
 package mainoop.product;
 
-import mainoop.AddAndRemove;
-
-public class Product extends AddAndRemove{
-    private int productID; //ID sản phẩm
+public class Product{
+    private int productId; //ID sản phẩm
     private String productName;    //tên sản phẩn
     private String productType;    //loại sản phẩm
     private long productPrice; //giá sản phẩm
+    private int productQuantity;    //số lượng sản phẩm
 
-    public Product() {}
+    // Hàm tạo không tham số
+    public Product() {
+        productId = 0;
+        productName = "";
+        productType = "";
+        productPrice = 0;
+        productQuantity = 0;
+    }
 
-    public Product(int productID, String productName, String productType, long productPrice) {
-        this.productID = productID;
+    // hàm tạo có tham số
+    public Product(int productId, String productName, String productType, long productPrice, int productQuantity) {
+        this.productId = productId;
         this.productName = productName;
         this.productType = productType;
         this.productPrice = productPrice;
+        this.productQuantity = productQuantity;
     }
 
-    public int getproductID() {
-        return this.productID;
+    //==================geter======================
+    public int getProductId() {
+        return this.productId;
     }
-    
-    public String getproductName() {
+    public String getProductName() {
         return this.productName;
     }
-
-    public String getproductType() {
+    public String getProductType() {
         return this.productType;
     }
-
-    public long getproductPrice() {
+    public long getProductPrice() {
         return this.productPrice;
     }
-
-    public void getAll() {
-        System.out.println(this.productID + " | " + this.productName + " | " + this.productType + " | " + this.productPrice);
+    public int getProductQuantity() {
+        return this.productQuantity;
+    }
+    public String getAll() {
+        return productId + "   |   " + productName + "   |   " + productType + "   |   " + productPrice + "   |   " + productQuantity;
     }
 
-    public void setproductID(int productID) {
-        this.productID = productID;
+    //==================seter======================
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
-    public void setproductName(String productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
-
-    public void setproductType(String productType) {
+    public void setProductType(String productType) {
         this.productType = productType;
     }
-
-    public void setproductPrice(long productPrice) {
+    public void setProductPrice(long productPrice) {
         this.productPrice = productPrice;
     }
-
-    @Override public String toString() {
-        return productID + " , " + productName + " , " + productType + " ,  " + productPrice;
+    public void setProductQuantity(int productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
+    // viết lại hàm toString mặc định
     @Override
-    public void addProduct(int productID, String productName, String productType, long productPrice) {
-
+    public String toString() {
+        return productId + "   |   " + productName + "   |   " + productType + "   |   " + productPrice + "   |   " + productQuantity;
     }
-
-    @Override
-    public void removeProduct() {
-
-    }
-
-
 }

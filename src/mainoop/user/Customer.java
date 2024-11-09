@@ -1,56 +1,52 @@
 package mainoop.user;
 
+// Customer kế thừa attribute và method của class User 
 public class Customer extends User {
-    private String customerName;
-    private String address;
+    private String customerName;    //Tên khách hàng
+    private String customerAddress; //địa chỉ khách hàng
     
-    //hàm tạo 
+    //hàm tạo không tham số
     public Customer() {
         super();
         customerName = "";
-        address = "";
+        customerAddress = "";
     }
     
     //hàm tạo có tham số
-    public Customer(int id, String pass, String name, String address) {
-        super(id, pass);
+    public Customer(int id, String name, String pass, String address) {
+        super(id, pass);    // phương thức này sẽ gọi đến hàm tạo 2 tham số của class cha(class User)
         this.customerName = name;
-        this.address = address;
+        this.customerAddress = address;
     }
 
     //==================geter======================
-    public String getcustomerName() {
+    public String getCustomerName() {
         return customerName;
     }
-
-    public String getAddress() {
-        return address;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
     //==================seter======================
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
     public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String getAll() {
-        return (super.getUserId() + " | " + super.getUserPassword() + " | " + this.getcustomerName() + " | " + this.getAddress());
+        this.customerAddress = address;
     }
 
     //viết lại hàm mặc định toString
     @Override public String toString() {
-        return super.getUserId() + " , " + super.getUserPassword() + " , " + customerName + " , " + address + " , ";
+        return userId + " , " + customerName + " , " + userPassword + " , " + customerAddress;
     }
 
-    //viết lại class trừu tượng của class User 
+    // viết lại hàm trừu tượng của class User 
     @Override
     public boolean checkUserName(String userName) {
-        return this.getcustomerName().equals(userName);
+        return this.getCustomerName().equals(userName);
     }
-
-
+    @Override
+    public String getAll() {
+        return userId + " | " + customerName + " | " + userPassword + " | " + customerAddress;
+    }
 }

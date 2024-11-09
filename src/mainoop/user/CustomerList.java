@@ -10,7 +10,7 @@ import mainoop.ListInterface;
 
 public class CustomerList implements ListInterface{
     // các thuộc tính của dánh sách khách hàng
-    private int customerCount;  //số lượng khách hàng
+    private int customerCount = 0;  //số lượng khách hàng
     private ArrayList<Customer> customerList = new ArrayList<>();   //danh sách khách hàng
 
     // Hàm tạo không tham số
@@ -48,13 +48,13 @@ public class CustomerList implements ListInterface{
         try {
             // đọc file
             File read = new File(path);
-            try (Scanner reader = new Scanner(read)) {  
-                while(reader.hasNextLine()) {   //nếu có dòng để đọc file
-                    String s = reader.nextLine();   //đọc dòng đó
-                    String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
-                    Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]); //lưu vào 1 đối tượng
-                    customerList.add(temp); //lưu vào danh sách các đối tượng
-                }
+            Scanner reader = new Scanner(read);  
+            while(reader.hasNextLine()) {   //nếu có dòng để đọc file
+                String s = reader.nextLine();   //đọc dòng đó
+                String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
+                Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]); //lưu vào 1 đối tượng
+                customerList.add(temp); //lưu vào danh sách các đối tượng
+                customerCount++;
             }
         } catch (FileNotFoundException e) { //nếu lỗi thì hiển thị lỗi
             System.out.println("An error occurred.");
@@ -74,14 +74,19 @@ public class CustomerList implements ListInterface{
         for(Customer customer : customerList) { 
             //nếu tồn tại thì trả vể tài khoản đó để khách hàng sử dụng
             if(customer.checkUserPassword(password) && customer.checkUserName(name)) {
-                return customer;    
+                return customer;
             }
         }
-
         //nếu tài khoản không tồn tại thì trả về null
         return null;
     }
 
+    // Xem danh sách khách hàng
+    public void viewCustomerList() {
+        for(Customer customer : customerList) {
+            System.out.println(customer);
+        }
+    } 
 
     public Customer getObject(int i) {
         return customerList.get(i);
