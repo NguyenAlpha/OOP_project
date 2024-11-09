@@ -142,7 +142,7 @@ public class running {
                                 currentCustomer = new Customer(customerList.getCustomerCount()+1, password, name, address);
 
                                 // thêm khách hàng đó vào danh sách khách hàng
-                                customerList.addObject(currentCustomer);
+                                customerList.addCustomerToList(currentCustomer);
                                 loginCheck = true;
 
                                 break;

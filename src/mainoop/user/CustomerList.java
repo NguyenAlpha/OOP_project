@@ -2,8 +2,6 @@ package mainoop.user;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import mainoop.ListInterface;
@@ -25,22 +23,6 @@ public class CustomerList implements ListInterface{
     public int getCustomerCount() {
         return customerCount;
     }
-
-    //Thêm 1 Object vào dánh sách
-    public void addObject(Customer customer) {
-        customerList.add(customer); //thêm vào danh sách khách hàng
-        customerCount++;    //tăng tổng số khách hàng lên 1
-
-        // viết vào file
-        try {
-            FileWriter writer = new FileWriter("src/mainoop/data/Customer.txt", true);
-            writer.write("\n" + customer.getAll());
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    } 
 
     // Thêm danh sách khách hàng từ file
     @Override
@@ -67,7 +49,6 @@ public class CustomerList implements ListInterface{
 
     }
 
-
     // kiểm tra tài khoản cần đăng nhập có tồn tại không
     public Customer login(String name, String password) {
         // duyệt qua danh sách khách hàng
@@ -79,6 +60,13 @@ public class CustomerList implements ListInterface{
         }
         //nếu tài khoản không tồn tại thì trả về null
         return null;
+    }
+
+    //Thêm 1 Object vào dánh sách
+    public void addCustomerToList(Customer customer) {
+        customerList.add(customer); //thêm vào danh sách khách hàng
+        customerCount++;    //tăng tổng số khách hàng lên 1
+        customer.addCustomer(customer); //thêm 1 khách hàng mới vào file lưu trữ
     }
 
     // Xem danh sách khách hàng

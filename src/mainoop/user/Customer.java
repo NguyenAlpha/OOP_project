@@ -1,5 +1,8 @@
 package mainoop.user;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 // Customer kế thừa attribute và method của class User 
 public class Customer extends User {
     private String customerName;    //Tên khách hàng
@@ -48,5 +51,20 @@ public class Customer extends User {
     @Override
     public String getAll() {
         return userId + " | " + customerName + " | " + userPassword + " | " + customerAddress;
+    }
+
+
+
+    // thêm 1 khách hàng mới vào file lưu trữ
+    public void addCustomer(Customer customer) {
+        // viết vào file
+        try {
+            FileWriter writer = new FileWriter("src/mainoop/data/Customer.txt", true);
+            writer.write("\n" + customer.getAll());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
