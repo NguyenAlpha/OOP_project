@@ -1,4 +1,4 @@
-package mainoop.ShoppingCartlist;
+package mainoop.shoppingcart;
 import java.util.ArrayList;
 import mainoop.ListInterface;
 
