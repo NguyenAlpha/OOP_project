@@ -1,9 +1,9 @@
-package mainoop.Shoppingcart;
+package mainoop.shoppingcart;
 
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import mainoop.product.Product;
-import java.io.FileWriter;
 
 public class ShoppingCart {
     private int customerId;

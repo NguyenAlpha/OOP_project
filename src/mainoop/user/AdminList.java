@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import mainoop.ListInterface;
 
-public class AdminList{
+public class AdminList implements ListInterface{
     private int adminCount;
     private ArrayList<Admin> customerList = new ArrayList<>();
 
@@ -33,9 +33,10 @@ public class AdminList{
         }
     }
 
-    @Override
-    public void writeToFile() {
 
+    @Override
+    public void writeToFile(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
