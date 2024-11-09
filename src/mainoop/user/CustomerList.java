@@ -65,7 +65,7 @@ public class CustomerList implements ListInterface{
         return null;
     }
 
-    //Thêm 1 Object vào dánh sách
+    //Thêm khách hàng mới vào dánh sách
     public void addCustomerToList(Customer customer) {
         customerList.add(customer); //thêm vào danh sách khách hàng
         customerCount++;    //tăng tổng số khách hàng lên 1

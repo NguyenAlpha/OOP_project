@@ -119,8 +119,8 @@ public class running {
                                     System.out.println("Sai thông tin đăng nhập");
                                     
                                 } else {
-                                    System.out.println("Đã đăng nhập");
                                     loginCheck = true;
+                                    System.out.println("Đã đăng nhập");
                                 }
                                 break;
                             }
@@ -145,6 +145,7 @@ public class running {
                                 // thêm khách hàng đó vào danh sách khách hàng
                                 customerList.addCustomerToList(currentCustomer);
                                 loginCheck = true;
+                                System.out.println("Đăng ký thành công!");
 
                                 break;
                             }
@@ -215,11 +216,12 @@ public class running {
                         System.out.println("=======================MENU=======================");
                         System.out.println("1. Xem danh sách sản phẩm.");
                         System.out.println("2. Thên sản phẩm.");
-                        System.out.println("3. Thoát");
+                        System.out.println("3. Xóa sản phẩm.");
                         System.out.println("==============================================");
                         
                         System.out.print("Nhập thao tác: ");
                         int thaoTac2 = sc.nextInt();
+                        sc.nextLine();
 
                         switch(thaoTac2) {
                             case 1: {
@@ -230,14 +232,22 @@ public class running {
                             case 2: {
                                 System.out.print("nhập tên sản phẩm: ");
                                 String nameProduct = sc.nextLine();
+                                System.out.print("nhập loại sản phẩm: ");
+                                String typeProduct = sc.nextLine();
                                 System.out.println("Nhập giá sản phẩm: ");
                                 long priceProduct = sc.nextLong();
                                 sc.nextLine();
                                 System.out.println("Nhập số lượng sản phẩm: ");
                                 int quantityProduct = sc.nextInt();
                                 sc.nextLine();
+                                productList.addProduct(nameProduct, typeProduct, priceProduct, quantityProduct);
+                                break;
+                            }
 
-                                
+                            // xóa sản phẩm
+                            case 3: {
+
+
                                 break;
                             }
                         }

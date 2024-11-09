@@ -2,8 +2,6 @@ package mainoop.product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -139,44 +137,10 @@ public class ProductList{
             }
         }
     }
-    public void addProduct(int productId, String productName, String productType, long productPrice, int productQuantity) {
-        Product newProduct = new Product(productId, productName, productType, productPrice, productQuantity);
-        productList.add(newProduct);
+    public void addProduct(String productName, String productType, long productPrice, int productQuantity) {
         productCount++;
-        System.out.println("Product added successfully: " + newProduct);
-    }
-    public void addProductFromUser(String filePath) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Enter Product ID: ");
-            int productId = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.print("Enter Product Name: ");
-            String productName = scanner.nextLine();
-
-            System.out.print("Enter Product Type: ");
-            String productType = scanner.nextLine();
-
-            System.out.print("Enter Product Price: ");
-            long productPrice = scanner.nextLong();
-
-            System.out.print("Enter Product Quantity: ");
-            int productQuantity = scanner.nextInt();
-
-            addProduct(productId, productName, productType, productPrice, productQuantity);
-        }
-
-        saveToproduct(filePath);
-    }
-    private void saveToproduct(String filePath) {
-        try (FileWriter writer = new FileWriter(filePath, true)) 
-        { 
-            Product lastProduct = productList.get(productList.size() - 1); 
-            writer.write(lastProduct.getProductId() + " | " + lastProduct.getProductName() + " | " + lastProduct.getProductType() + " | " + lastProduct.getProductPrice() + " | " + lastProduct.getProductQuantity() + "\n");
-            System.out.println("Sản phẩm đã được thêm thành công");
-        } catch (IOException e) {
-            System.out.println("Co loi doc file product.txt");
-            e.printStackTrace();
-        }
-    }
+        Product newProduct = new Product(productCount, productName, productType, productPrice, productQuantity);
+        productList.add(newProduct);
+        newProduct.addProduct(newProduct);
+    }   
 }

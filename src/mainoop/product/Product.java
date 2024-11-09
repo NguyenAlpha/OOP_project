@@ -1,5 +1,8 @@
 package mainoop.product;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Product{
     private int productId; //ID sản phẩm
     private String productName;    //tên sản phẩn
@@ -66,5 +69,19 @@ public class Product{
     @Override
     public String toString() {
         return productId + "   |   " + productName + "   |   " + productType + "   |   " + productPrice + "   |   " + productQuantity;
+    }
+
+
+    // lưu sản phẩm mới vào file
+    public void addProduct(Product newProduct) {
+        try {
+            FileWriter writer = new FileWriter("src/mainoop/data/product.txt", true);
+            writer.append("\n" + newProduct.getAll());
+            System.out.println("Sản phẩm đã được thêm thành công");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Co loi doc file product.txt");
+            e.printStackTrace();
+        }
     }
 }
