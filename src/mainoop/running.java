@@ -79,7 +79,7 @@ public class running {
                         sc.nextLine();
 
                         if(loginCheck) {
-                            while((thaoTac1 < 3) || (thaoTac1 > 8)) {
+                            while((thaoTac1 < 3) || (thaoTac1 > 9)) {
                                 System.out.print("Thao tác không đúng.\nNhập thao tác: ");
                                 thaoTac1 = sc.nextInt();
                                 sc.nextLine();

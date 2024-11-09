@@ -26,7 +26,7 @@ public class CustomerList implements ListInterface{
 
     // Thêm danh sách khách hàng từ file
     @Override
-    public void addFromFile(String path) {
+    public final void addFromFile(String path) {
         try {
             // đọc file
             File read = new File(path);
