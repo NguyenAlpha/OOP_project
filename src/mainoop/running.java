@@ -1,5 +1,6 @@
 package mainoop;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.product.ProductList;
 import mainoop.user.AdminList;
@@ -27,16 +28,26 @@ public class running {
             System.out.println("=======================MENU=======================");
             System.out.println("1. Khách hàng");
             System.out.println("2. Quản lý");
+            System.out.println("3. Thoát");
             System.out.println("==============================================");
-
             System.out.print("Nhập thao tác: ");
-            int temp = sc.nextInt();
-            sc.nextLine();
 
-            while((temp < 1) || (temp > 2)) {
-                System.out.print("Thao tác không đúng.\nNhập thao tác: ");
-                temp = sc.nextInt();
-                sc.nextLine();
+            int temp = 0;
+            boolean checkInPut = false;
+            while(!checkInPut) {
+                try {
+                    temp = sc.nextInt();
+                    sc.nextLine();
+
+                    if (temp >= 1 && temp <= 3) {
+                        checkInPut = true;
+                    } else {
+                        System.out.print("Thao tác không đúng. Nhập lại: ");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.print("Thao tác không đúng. Nhập lại: ");
+                    sc.nextLine();
+                }
             }
 
             switch(temp) {
@@ -147,10 +158,9 @@ public class running {
 
                             // 4. Xem Danh sách sản phẩm
                             case 4: {
-                                System.out.println("Mã  |   Tên   |    loại     |     giá   |   số lượng");
+                                System.out.println(" Mã |             Tên              |         loại       |        giá         |   số lượng");
                                 productList.viewProductsList();
                                 break;
-
                             }
                             
                             // 5. Tìm sản phẩm
@@ -174,6 +184,12 @@ public class running {
                 case 2: {
 
                     break;
+                }
+
+                // 3. Thoát
+                case 3: {
+                    check = false;
+                    System.out.println("Đã thoát!");
                 }
             }
         }

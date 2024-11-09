@@ -45,9 +45,44 @@ public class ProductList{
     // in ra danh sách các sản phẩm
     public void viewProductsList() {
         for (Product product : productList) {
-            System.out.println(product);
+            viewAlignedProductList(product);
         }
-        System.out.println("Total products: " + getProductCount());
+    }
+
+    public void viewAlignedProductList(Product product) {
+        System.out.print(product.getProductId());   //xuất id sản phẩm
+            int temp = 4 - String.valueOf(product.getProductId()).length(); //chuyển id sang String và lấy đội dài của String id
+            while(temp > 0) {
+                System.out.print(" ");
+                temp--;
+            }
+            System.out.print("|");
+
+            System.out.print(product.getProductName());
+            temp = 30 - product.getProductName().length();
+            while(temp > 0) {
+                System.out.print(" ");
+                temp--;
+            }
+            System.out.print("|");
+
+            System.out.print(product.getProductType());
+            temp = 20 - product.getProductType().length();
+            while(temp > 0) {
+                System.out.print(" ");
+                temp--;
+            }
+            System.out.print("|");
+
+            System.out.print(product.getProductPrice());
+            temp = 20 - String.valueOf(product.getProductPrice()).length();
+            while(temp > 0) {
+                System.out.print(" ");
+                temp--;
+            }
+            System.out.print("|");
+
+            System.out.println(product.getProductQuantity());
     }
 
     // Tìm sản phẩm 
@@ -73,10 +108,9 @@ public class ProductList{
             String searchProductName = scanner.nextLine();
             for (Product product : productList) {
                 if(product.getProductName().toLowerCase().contains(searchProductName.toLowerCase())) {
-                    System.out.println(product);
+                    viewAlignedProductList(product);
                 }
             }
-
         }
 
         if(search == 2) {
@@ -91,7 +125,7 @@ public class ProductList{
 
             for (Product product : productList) {
                 if(product.getProductName().toLowerCase().contains(searchProductName.toLowerCase()) && (product.getProductPrice() >= lowestPrice) && (product.getProductPrice() <= highestPrice)) {
-                    System.out.println(product);
+                    viewAlignedProductList(product);
                 }
             }
         }

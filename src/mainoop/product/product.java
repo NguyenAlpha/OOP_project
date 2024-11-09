@@ -26,7 +26,7 @@ public class Product{
     }
 
     //==================geter======================
-    public int getProductID() {
+    public int getProductId() {
         return this.productId;
     }
     public String getProductName() {
