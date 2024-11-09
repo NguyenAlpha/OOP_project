@@ -206,5 +206,7 @@ public class running {
                 }
             }
         }
+
+        sc.close();
     }
 }
