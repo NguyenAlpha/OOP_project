@@ -1,4 +1,4 @@
-package mainoop.shoppingcart;
+package mainoop.Shoppingcart;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ public class ShoppingCart {
 
     public ShoppingCart() {}
     
-    public ShoppingCart(int customerId, ArrayList<Product> listProductShoppingCart, ArrayList listQuantityProductShoppingCart, int sumPriceProduct, double ProductPrice) {
+    public ShoppingCart(int customerId, ArrayList<Product> listProductShoppingCart, ArrayList<Integer> listQuantityProductShoppingCart, int sumPriceProduct, double ProductPrice) {
         this.customerId = customerId;
         this.listProductShoppingCart = listProductShoppingCart;
         this.listQuantityProductShoppingCart = listQuantityProductShoppingCart;
@@ -65,7 +65,7 @@ public class ShoppingCart {
               for(int i =0; i < listProductShoppingCart.size();i ++){
                 Product product = listProductShoppingCart.get(i);
                 int quantity = (int) listQuantityProductShoppingCart.get(i);
-                writer.write("Product: " + product.getProductName() + "ProductID: " +  product.getProductId() + "Product Price" + product.getProductPrice() + "TotalPrice " + product.getProductPrice() * quantity +"\n");
+                writer.write("Product: " + product.getProductName() + "ProductID: " +  product.getProductId() + "Product Price" + product.getProductPrice() + "Product quantities" + quantity + "TotalPrice " + product.getProductPrice() * quantity +"\n");
                 writer.write("----------------------------------------\n");
                 writer.write("Total Price: " + sumPriceProduct + "\n");
               }

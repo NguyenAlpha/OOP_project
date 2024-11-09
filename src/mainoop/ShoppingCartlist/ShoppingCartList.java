@@ -1,15 +1,16 @@
-package mainoop.shoppingcart;
-
+package mainoop.ShoppingCartlist;
 import java.util.ArrayList;
 import mainoop.ListInterface;
 
 public class ShoppingCartList implements ListInterface{
     private int count;
-    private ArrayList<ShoppingCart> shoppingCartList = new ArrayList<>();
+    private ArrayList<ShoppingCartList> shoppingCartList = new ArrayList<>();
 
     public ShoppingCartList() {}
 
     public ShoppingCartList(String path) {
+        shoppingCartList = new ArrayList<>();
+        
 
     }
 
