@@ -1,1 +1,0 @@
-khu vực file trong folder test này dùng để test và kiểm tra lỗi trên folder main
