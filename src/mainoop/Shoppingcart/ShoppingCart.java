@@ -10,7 +10,7 @@ public class ShoppingCart {
     private ArrayList<Product> listProductShoppingCart = new ArrayList<>(); //danh sách sản phẩm trong giỏ hàng của khách hàng
     private ArrayList<Integer> listQuantityProductShoppingCart = new ArrayList<>();  //danh sách số lựng sản phẩm của mỗi món sản phẩm 
     private int sumPriceProduct = 0;  //tổng giá tiền của danh sách sản phẩm đó
-    private double ProductPrice;
+    // private double ProductPrice;
 
     // hàm tạo không tham số
     public ShoppingCart() {}
@@ -20,7 +20,7 @@ public class ShoppingCart {
         this.customerId = customerId;
         this.listProductShoppingCart = listProductShoppingCart;
         this.listQuantityProductShoppingCart = listQuantityProductShoppingCart;
-        this.ProductPrice = ProductPrice;
+        // this.ProductPrice = ProductPrice;
         this.sumPriceProduct = sumPriceProduct;
     }
     
@@ -38,9 +38,9 @@ public class ShoppingCart {
       return sumPriceProduct;
     }
     
-    public double getProductPrice() {
-        return ProductPrice;
-    }
+    // public double getProductPrice() {
+    //     return ProductPrice;
+    // }
 
     public void addProduct(Product product, int quantity){
         listProductShoppingCart.add(product);

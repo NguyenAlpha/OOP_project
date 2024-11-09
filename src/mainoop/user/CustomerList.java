@@ -24,13 +24,6 @@ public class CustomerList implements ListInterface{
         return customerCount;
     }
 
-    //Thêm 1 Object vào dánh sách
-    public void addCustomerToList(Customer customer) {
-        customerList.add(customer); //thêm vào danh sách khách hàng
-        customerCount++;    //tăng tổng số khách hàng lên 1
-        customer.addCustomer(customer); //thêm 1 khách hàng mới vào file lưu trữ
-    }
-
     // Thêm danh sách khách hàng từ file
     @Override
     public void addFromFile(String path) {
@@ -56,7 +49,6 @@ public class CustomerList implements ListInterface{
 
     }
 
-
     // kiểm tra tài khoản cần đăng nhập có tồn tại không
     public Customer login(String name, String password) {
         // duyệt qua danh sách khách hàng
@@ -68,6 +60,13 @@ public class CustomerList implements ListInterface{
         }
         //nếu tài khoản không tồn tại thì trả về null
         return null;
+    }
+
+    //Thêm 1 Object vào dánh sách
+    public void addCustomerToList(Customer customer) {
+        customerList.add(customer); //thêm vào danh sách khách hàng
+        customerCount++;    //tăng tổng số khách hàng lên 1
+        customer.addCustomer(customer); //thêm 1 khách hàng mới vào file lưu trữ
     }
 
     // Xem danh sách khách hàng
