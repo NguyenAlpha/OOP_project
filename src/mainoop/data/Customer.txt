@@ -1,0 +1,5 @@
+1   | Nhat Nguyen   |   111111  |   quan 10
+1 | Huy Toan | 2222 | Thu Duc
+2 | The Kien | 333 | nha ny
+4 | new1 | 12345 | Thu duc
+5 | new2 | 555555 | quan 12
