@@ -6,38 +6,54 @@ import java.util.ArrayList;
 import mainoop.product.Product;
 
 public class ShoppingCart {
-    private int customerId;
-    private ArrayList<Product> listProductShoppingCart = new ArrayList<>();
-    private ArrayList listQuantityProductShoppingCart = new ArrayList<>();
-    private int sumPriceProduct;
+    private int customerId = 0; //mã khách hàng
+    private ArrayList<Product> listProductShoppingCart = new ArrayList<>(); //danh sách sản phẩm trong giỏ hàng của khách hàng
+    private ArrayList<Integer> listQuantityProductShoppingCart = new ArrayList<>();  //danh sách số lựng sản phẩm của mỗi món sản phẩm 
+    private int sumPriceProduct = 0;  //tổng giá tiền của danh sách sản phẩm đó
     private double ProductPrice;
 
+    // hàm tạo không tham số
     public ShoppingCart() {}
     
-    public ShoppingCart(int customerId, ArrayList<Product> listProductShoppingCart, ArrayList listQuantityProductShoppingCart, int sumPriceProduct, double ProductPrice) {
+    // hàm tạo có tham số
+    public ShoppingCart(int customerId, ArrayList<Product> listProductShoppingCart, ArrayList<Integer> listQuantityProductShoppingCart, int sumPriceProduct, double ProductPrice) {
         this.customerId = customerId;
         this.listProductShoppingCart = listProductShoppingCart;
         this.listQuantityProductShoppingCart = listQuantityProductShoppingCart;
         this.ProductPrice = ProductPrice;
         this.sumPriceProduct = sumPriceProduct;
     }
-      public double getProductPrice() {
-      return ProductPrice;
-   }
-    public void addProduct(Product product, int quantity){
-      listProductShoppingCart.add(product);
-      listQuantityProductShoppingCart.add(quantity);
     
+    //==================geter======================
+    public int getCustomerId() {
+      return customerId;
+    }
+    public ArrayList<Product> getListProductShoppingCart() {
+      return listProductShoppingCart;
+    }
+    public ArrayList<Integer> getListQuantityProductShoppingCart() {
+      return listQuantityProductShoppingCart;
+    }
+    public int getSumPriceProduct() {
+      return sumPriceProduct;
+    }
+    
+    public double getProductPrice() {
+        return ProductPrice;
+    }
+
+    public void addProduct(Product product, int quantity){
+        listProductShoppingCart.add(product);
+        listQuantityProductShoppingCart.add(quantity);
     }
    
     public void calcualateAll(){
-      sumPriceProduct = 0;
-      for( int i= 0; i < listProductShoppingCart.size(); i++){
-        Product product = listProductShoppingCart.get(i); // Lấy sản phẩm tại vị trí i
-        int quantity = (int) listQuantityProductShoppingCart.get(i); // Lấy số lượng của sản phẩm tại vị trí i
-        sumPriceProduct += product.getProductPrice() * quantity; // Cộng dồn giá trị của sản phẩm vào tổng
-      }
-
+        sumPriceProduct = 0;
+        for( int i= 0; i < listProductShoppingCart.size(); i++){
+          Product product = listProductShoppingCart.get(i); // Lấy sản phẩm tại vị trí i
+          int quantity = listQuantityProductShoppingCart.get(i); // Lấy số lượng của sản phẩm tại vị trí i
+          sumPriceProduct += product.getProductPrice() * quantity; // Cộng dồn giá trị của sản phẩm vào tổng
+        }
     }
     public void removeProduct(Product product, int quantityToRemove) {
       int index = listProductShoppingCart.indexOf(product);
@@ -55,7 +71,7 @@ public class ShoppingCart {
               sumPriceProduct -= product.getProductPrice() * quantityToRemove;
           }
       }
-  }
+    }
           public void writeToFile(String path){
             try{
               BufferedWriter writer = new BufferedWriter(new FileWriter("ShoppingCartlist.txt"));
