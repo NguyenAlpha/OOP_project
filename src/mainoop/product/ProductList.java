@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import mainoop.ListInterface;
 
-public class ProductList{
+public class ProductList implements ListInterface{
     private int productCount = 0;
     private ArrayList<Product> productList = new ArrayList<>();
     
@@ -21,6 +22,8 @@ public class ProductList{
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }
+
+    @Override
     public void addFromFile(String path) {
         try {
             File read = new File(path); //kết nối file muốn đọc vào class file
@@ -41,6 +44,11 @@ public class ProductList{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void writeToFile(Object object) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // số lượng các loại sản phẩm
@@ -143,4 +151,6 @@ public class ProductList{
         productList.add(newProduct);
         newProduct.addProduct(newProduct);
     }   
+
+    
 }
