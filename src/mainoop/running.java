@@ -139,7 +139,7 @@ public class running {
                                 String address = sc.nextLine();
                                 
                                 // tạo đối tượng khách hàng mới
-                                currentCustomer = new Customer(customerList.getCustomerCount()+1, password, name, address);
+                                currentCustomer = new Customer(customerList.getCustomerCount()+1,name , password, address);
 
                                 // thêm khách hàng đó vào danh sách khách hàng
                                 customerList.addCustomerToList(currentCustomer);
