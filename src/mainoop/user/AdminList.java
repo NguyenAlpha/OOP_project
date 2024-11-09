@@ -8,7 +8,7 @@ import mainoop.ListInterface;
 
 public class AdminList implements ListInterface{
     private int adminCount;
-    private ArrayList<Admin> customerList = new ArrayList<>();
+    private ArrayList<Admin> adminList = new ArrayList<>();
 
     public AdminList() {}
 
@@ -25,7 +25,7 @@ public class AdminList implements ListInterface{
                 String s = reader.nextLine();
                 String[] sSplit = s.split("[ ]*[|][ ]*");
                 Admin temp = new Admin(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]);
-                customerList.add(temp);
+                adminList.add(temp);
             }
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
@@ -39,6 +39,14 @@ public class AdminList implements ListInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-
+    // kiểm tra đăng nhập admin
+    public Admin login(String name, String password) {
+        for(Admin admin : adminList) {
+            if(admin.checkUserName(name) && admin.checkUserPassword(password)) {
+                return admin;
+            }
+        }
+        return null;
+    }
 
 }

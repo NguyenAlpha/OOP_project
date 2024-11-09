@@ -1,3 +1,12 @@
 1
-Ao so mi nam    |   Quan jean   |      Ao ba lo HHH     |       Giay trang
-1 | 2 | 2 | 1
+Ao so mi nam , 1  |   Quan jean , 2 |      Ao ba lo HHH  , 1   |       Giay trang , 2
+500000
+5
+Ao so mi nam , 1  |   Quan jean , 2 |      Ao ba lo HHH  , 1   |       Giay trang , 2
+500000
+6
+Ao so mi nam , 1  |   Quan jean , 2 |      Ao ba lo HHH  , 1   |       Giay trang , 2
+500000
+7
+Ao so mi nam , 1  |   Quan jean , 2 |      Ao ba lo HHH  , 1   |       Giay trang , 2
+500000

@@ -77,7 +77,7 @@ public class CustomerList implements ListInterface{
         for(Customer customer : customerList) {
             System.out.println(customer);
         }
-    } 
+    }
 
     public Customer getObject(int i) {
         return customerList.get(i);

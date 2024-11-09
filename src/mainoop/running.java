@@ -3,6 +3,7 @@ package mainoop;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.product.ProductList;
+import mainoop.user.Admin;
 import mainoop.user.AdminList;
 import mainoop.user.Customer;
 import mainoop.user.CustomerList;
@@ -192,10 +193,55 @@ public class running {
                     break;
                 }
 
+
                 // 2. Quản lý
                 case 2: {
-                    System.out.println("Nhập tên tài khoản quản lý: ");
+                    Admin admin = null;
+                    boolean check2 = false;
+                    System.out.print("Nhập tên tài khoản quản lý: ");
+                    String name = sc.nextLine();
+                    System.out.print("Nhập mật khẩu tài khoản quản lý: ");
+                    String password = sc.nextLine();
                     
+                    admin = adminList.login(name, password);
+                    if(admin == null) {
+                        System.out.println("sai thông tin đăng nhập");
+                    } else {
+                        System.out.println("đăng nhập thành công!");
+                        check2 = true;
+                    }
+
+                    while(check) {
+                        System.out.println("=======================MENU=======================");
+                        System.out.println("1. Xem danh sách sản phẩm.");
+                        System.out.println("2. Thên sản phẩm.");
+                        System.out.println("3. Thoát");
+                        System.out.println("==============================================");
+                        
+                        System.out.print("Nhập thao tác: ");
+                        int thaoTac2 = sc.nextInt();
+
+                        switch(thaoTac2) {
+                            case 1: {
+                                productList.viewProductsList();
+                                break;
+                            }
+
+                            case 2: {
+                                System.out.print("nhập tên sản phẩm: ");
+                                String nameProduct = sc.nextLine();
+                                System.out.println("Nhập giá sản phẩm: ");
+                                long priceProduct = sc.nextLong();
+                                sc.nextLine();
+                                System.out.println("Nhập số lượng sản phẩm: ");
+                                int quantityProduct = sc.nextInt();
+                                sc.nextLine();
+
+                                
+                                break;
+                            }
+                        }
+                    }
                     break;
                 }
 
