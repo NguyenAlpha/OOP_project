@@ -194,7 +194,8 @@ public class running {
 
                 // 2. Quản lý
                 case 2: {
-
+                    System.out.println("Nhập tên tài khoản quản lý: ");
+                    
                     break;
                 }
 

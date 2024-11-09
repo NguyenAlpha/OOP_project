@@ -4,7 +4,7 @@
 4  | Giay trang              | giay              | 320000       |   50
 5  | May hut bui abc         | may hut bui       | 550000       |   200
 6  | Ao so mi tay dai        | ao                | 230000       |   100
-7  | Op điem thoai Iphone    | op                | 60000        |   50
+7  | Op diem thoai Iphone    | op                | 60000        |   50
 8  | Dien thoai Iphone 12    | dien thoai        | 11000000     |   90
 9  | Quan short chun nam     | quan              | 110000       |   50
 10 | Ao ba lo HHH            | ao                | 120000       |   150
