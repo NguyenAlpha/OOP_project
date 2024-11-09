@@ -43,7 +43,7 @@ public class Customer extends User {
     // viết lại hàm trừu tượng của class User 
     @Override
     public boolean checkUserName(String userName) {
-        return this.getCustomerName().equals(userName);
+        return customerName.equals(userName);
     }
     @Override
     public String getAll() {

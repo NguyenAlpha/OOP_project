@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import mainoop.ListInterface;
 
-public class AdminList implements ListInterface{
+public class AdminList{
     private int adminCount;
     private ArrayList<Admin> customerList = new ArrayList<>();
 
