@@ -51,6 +51,7 @@ public class running {
             }
 
             switch(temp) {
+                // 1. Khách hàng
                 case 1: {
                     Customer currentCustomer = null;
                     boolean check1 = true;
@@ -58,7 +59,6 @@ public class running {
                     while(check1) {
                         System.out.println("==================MENU KHÁCH HÀNG=======================");
                         if(!loginCheck) {
-
                             System.out.println("0. Quay lại");
                             System.out.println("1. Đăng nhập");
                             System.out.println("2. Đăng ký");
@@ -67,9 +67,10 @@ public class running {
                             System.out.println("3. Xem chi tiết tài khoản");
                             System.out.println("4. Xem Danh sách sản phẩm");
                             System.out.println("5. Tìm sản phẩm");
-                            System.out.println("6. Thêm sản phẩm vào giỏ hàng");
-                            System.out.println("7. Xóa sản phẩm khỏi giỏ hàng");
-                            System.out.println("8. Đăng xuất");
+                            System.out.println("6. Xem giỏ Hàng");
+                            System.out.println("7. Thêm sản phẩm vào giỏ hàng");
+                            System.out.println("8. Xóa sản phẩm khỏi giỏ hàng");
+                            System.out.println("9. Đăng xuất");
                         }
                         System.out.println("==============================================");
                         
@@ -169,10 +170,20 @@ public class running {
                                 break;
                             }
 
-                            case 8: {
-                                System.out.println("Đã đăng Xuất");
+                            // 6. Xem giỏ hàng
+                            case 6: {
+
+
+
+
+                                break;
+                            }
+
+                            // 9. Đăng xuất
+                            case 9: {
                                 currentCustomer = null;
                                 loginCheck = false;
+                                System.out.println("Đã đăng Xuất");
                                 break;
                             }
                         }
@@ -181,6 +192,7 @@ public class running {
                     break;
                 }
 
+                // 2. Quản lý
                 case 2: {
 
                     break;
@@ -190,6 +202,7 @@ public class running {
                 case 3: {
                     check = false;
                     System.out.println("Đã thoát!");
+                    break;
                 }
             }
         }
