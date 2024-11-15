@@ -151,6 +151,24 @@ public class ProductList implements ListInterface{
         productList.add(newProduct);
         newProduct.addProduct(newProduct);
     }   
+    public void removeProductById(String filePath) {
+        Scanner productremove = new Scanner(System.in);
+        System.out.print("Nhập Id của sản phẩm cần xóa: ");
+        int productIdToRemove = productremove.nextInt();
+        Product productToRemove = null;
+        for (Product product : productList) {
+            if (product.getProductId() == productIdToRemove) {
+                productToRemove = product;
+                break;
+            }
+        }
+        if (productToRemove != null) {
+            productList.remove(productToRemove);
+            productCount--;
+            System.out.println("Đã xóa thành công sản phẩm " + productToRemove + "với Id " + productIdToRemove + "!" );
+        } else {
+            System.out.println("Sản phẩm với ID " + productIdToRemove + " không thể được tìm thấy.");
+        }
+    }
 
-    
 }
