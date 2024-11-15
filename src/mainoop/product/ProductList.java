@@ -174,6 +174,15 @@ public class ProductList implements ListInterface{
         return null;
     }
 
+    // Tìm sản phẩm từ tên sản phẩm
+    public Product getProductByName(String name) {
+        for(Product product : productList) {
+            if(product.getProductName() == name)
+                return product;
+        }
+        return null;
+    }
+
     // trả về vị trí sản phẩm đó trong danh sách
     public int location(Product product) {
         int i = 0;

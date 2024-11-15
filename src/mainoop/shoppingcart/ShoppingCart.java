@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
-
 import mainoop.product.Product;
 
 
@@ -69,5 +68,13 @@ public class ShoppingCart {
         } catch (Exception e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
+    }
+
+    public void setCustomerId(int id) {
+        this.customerId = id;
+    }
+
+    public void setCartItems(Map<Product, Integer> cartItems) {
+        this.cartItems = cartItems;
     }
 }
