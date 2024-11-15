@@ -48,7 +48,7 @@ public class CustomerList implements ListInterface{
     }
 
     @Override
-    public void writeToFile(Object c) {
+    public void writeToFile() {
 
     }
 

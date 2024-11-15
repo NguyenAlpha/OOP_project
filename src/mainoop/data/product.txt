@@ -1,12 +1,13 @@
-1  | Ao so mi nam            | ao                | 200000       |   50
-2  | ao khoac long cuu       | ao                | 350000       |   80
-3  | Quan jean               | quan              | 250000       |   100
-4  | Giay trang              | giay              | 320000       |   50
-5  | May hut bui abc         | may hut bui       | 550000       |   200
-6  | Ao so mi tay dai        | ao                | 230000       |   100
-7  | Op diem thoai Iphone    | op                | 60000        |   50
-8  | Dien thoai Iphone 12    | dien thoai        | 11000000     |   90
-9  | Quan short chun nam     | quan              | 110000       |   50
-10 | Ao ba lo HHH            | ao                | 120000       |   150
-11   |   asafaf   |   ads   |   1352   |   45
-12   |   dsgggsd   |   hg   |   6575757   |   123
+13
+1   |   Ao so mi nam   |   200000   |   50
+2   |   ao khoac long cuu   |   350000   |   80
+3   |   Quan jean   |   250000   |   100
+4   |   Giay trang   |   320000   |   50
+5   |   May hut bui abc   |   550000   |   200
+6   |   Ao so mi tay dai   |   230000   |   100
+7   |   Op diem thoai Iphone   |   60000   |   50
+8   |   Dien thoai Iphone 12   |   11000000   |   90
+9   |   Quan short chun nam   |   110000   |   50
+10   |   Ao ba lo HHH   |   120000   |   150
+11   |   aidasudai   |   347573   |   121
+13   |   ifhauihfua   |   76534785   |   34

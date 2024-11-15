@@ -2,7 +2,9 @@ package mainoop;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import mainoop.product.Product;
 import mainoop.product.ProductList;
+import mainoop.shoppingcart.ShoppingCartList;
 import mainoop.user.Admin;
 import mainoop.user.AdminList;
 import mainoop.user.Customer;
@@ -13,7 +15,6 @@ import mainoop.user.CustomerList;
 //làm class user. 2 class kế thừa user là: Customer, Admin 
 //method user + verifyLogin() : bool
 //Customer + register()
-//
 
 
 
@@ -22,6 +23,7 @@ public class running {
         ProductList productList = new ProductList("src/mainoop/data/product.txt");
         CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
         AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
+        ShoppingCartList sh = new ShoppingCartList("");
         Scanner sc = new Scanner(System.in);
         boolean check = true;
 
@@ -212,11 +214,12 @@ public class running {
                         check2 = true;
                     }
 
-                    while(check) {
+                    while(check2) {
                         System.out.println("=======================MENU=======================");
                         System.out.println("1. Xem danh sách sản phẩm.");
                         System.out.println("2. Thên sản phẩm.");
                         System.out.println("3. Xóa sản phẩm.");
+                        System.out.println("6. Thoát.");
                         System.out.println("==============================================");
                         
                         System.out.print("Nhập thao tác: ");
@@ -224,30 +227,42 @@ public class running {
                         sc.nextLine();
 
                         switch(thaoTac2) {
+
+                            // Xem danh sách sản phẩm
                             case 1: {
                                 productList.viewProductsList();
                                 break;
                             }
 
+                            // Thêm sản phẩm
                             case 2: {
                                 System.out.print("nhập tên sản phẩm: ");
                                 String nameProduct = sc.nextLine();
-                                System.out.print("nhập loại sản phẩm: ");
-                                String typeProduct = sc.nextLine();
                                 System.out.println("Nhập giá sản phẩm: ");
                                 long priceProduct = sc.nextLong();
                                 sc.nextLine();
                                 System.out.println("Nhập số lượng sản phẩm: ");
                                 int quantityProduct = sc.nextInt();
                                 sc.nextLine();
-                                productList.addProduct(nameProduct, typeProduct, priceProduct, quantityProduct);
+                                productList.addProduct(nameProduct, priceProduct, quantityProduct);
                                 break;
                             }
 
                             // xóa sản phẩm
                             case 3: {
+                                productList.viewProductsList();
+                                System.out.print("Nhập mã sản phẩm cần xóa: ");
+                                int id = sc.nextInt();
+                                sc.nextLine();
+                                Product product = productList.searchProductById(id);
+                                productList.RemoveProduct(product);
+                                break;
+                            }
 
-
+                            // Thoát
+                            case 6 : {
+                                check2 = false;
+                                System.out.println("Đã thoát!");
                                 break;
                             }
                         }

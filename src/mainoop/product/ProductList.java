@@ -2,13 +2,20 @@ package mainoop.product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import mainoop.ListInterface;
 
 public class ProductList implements ListInterface{
-    private int productCount = 0;
-    private ArrayList<Product> productList = new ArrayList<>();
+    private ArrayList<Product> productList = new ArrayList<>(); //danh sách sản phẩm
+    private int productCount = 0;   //số lượng sản phẩm
+    private int lastProdectId = 0;   //ID sản được thêm vào cuối cùng
+    // mỗi sản phẩm có Id là duy nhất.
+    // khi xóa sản phẩm Id sản phẩm đó sẽ không bị thay để bởi các sản phẩm khác,
+    // mà chỉ bỏ trống Id đó không dùng đến, lastProdectId để lưu Id của sản phẩm cuối thêm vào.
+    // khi tất cả danh sách sản phẩn bị xóa thì Id sản phẩm mới vẫn là mới nhất
+    // đảm bảo cho giỏ hàng của khách hàng không bị lỗi sản phẩm khi id sản phẩm bị ghi đè
     
     public ProductList() {}
 
@@ -29,15 +36,17 @@ public class ProductList implements ListInterface{
             File read = new File(path); //kết nối file muốn đọc vào class file
             try (Scanner reader = new Scanner(read) //sử dụng scanner để đọc luồng file ở trên
             ) {
+                lastProdectId = Integer.parseInt(reader.nextLine());
                 while (reader.hasNextLine()) {  //khi file cần đọc vẫn còn dòng
-                    productCount++; //Tăng số lượng sản phẩm
+                    productCount++;
                     String s = reader.nextLine();   //đọc dòng đó
                     String[] sSplit = s.split("[ ]*[|][ ]*");    //tách các thành phần cần lấy
                     
                     //lưu vào dữ liệu danh sách sản phẩm
                     //phân tích string thành long https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html
-                    Product product = new Product(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], Long.parseLong(sSplit[3]), Integer.parseInt(sSplit[4]));
+                    Product product = new Product(Integer.parseInt(sSplit[0]), sSplit[1], Long.parseLong(sSplit[2]), Integer.parseInt(sSplit[3]));
                     productList.add(product);
+                    
                 }
             }
         } catch (FileNotFoundException e) {
@@ -47,8 +56,17 @@ public class ProductList implements ListInterface{
     }
 
     @Override
-    public void writeToFile(Object object) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void writeToFile() {
+        try {
+            FileWriter writer = new FileWriter("src/mainoop/data/product.txt");
+            writer.write(String.valueOf(lastProdectId));
+            for(Product product : productList) {
+                writer.write("\n" + product.getAll());
+            }
+            writer.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
     // số lượng các loại sản phẩm
@@ -74,14 +92,6 @@ public class ProductList implements ListInterface{
 
             System.out.print(product.getProductName());
             temp = 30 - product.getProductName().length();
-            while(temp > 0) {
-                System.out.print(" ");
-                temp--;
-            }
-            System.out.print("|");
-
-            System.out.print(product.getProductType());
-            temp = 20 - product.getProductType().length();
             while(temp > 0) {
                 System.out.print(" ");
                 temp--;
@@ -145,12 +155,49 @@ public class ProductList implements ListInterface{
             }
         }
     }
-    public void addProduct(String productName, String productType, long productPrice, int productQuantity) {
+
+    public void addProduct(String productName, long productPrice, int productQuantity) {
         productCount++;
-        Product newProduct = new Product(productCount, productName, productType, productPrice, productQuantity);
+        lastProdectId++;
+        Product newProduct = new Product(lastProdectId, productName, productPrice, productQuantity);
         productList.add(newProduct);
         newProduct.addProduct(newProduct);
+        writeToFile();
     }   
+
+    // Tìm sản phẩm từ Id
+    public Product searchProductById(int id) {
+        for(Product product : productList) {
+            if(product.getProductId() == id)
+                return product;
+        }
+        return null;
+    }
+
+    // trả về vị trí sản phẩm đó trong danh sách
+    public int location(Product product) {
+        int i = 0;
+        for(Product p : productList) {
+            if(p == product) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    // Xóa sản phẩm
+    public void RemoveProduct(Product product) {
+        if(product == null)
+        {
+            System.out.println("Sản phẩm này không tồn tại.");
+            return;
+        }
+        productList.remove(location(product));
+        writeToFile();
+        System.out.println("Xóa thành công.");
+
+    }
 
     
 }

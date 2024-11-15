@@ -20,7 +20,7 @@ public class ShoppingCartList implements ListInterface{
     }
 
     @Override
-    public void writeToFile(Object object) {
+    public void writeToFile() {
         
     }
 
