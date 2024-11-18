@@ -30,17 +30,15 @@ public class CustomerList implements ListInterface{
         try {
             // đọc file
             File read = new File(path);
-            try (Scanner reader = new Scanner(read)) {
-                while(reader.hasNextLine()) {   //nếu có dòng để đọc file
-                    String s = reader.nextLine();   //đọc dòng đó
-                    String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
-                    Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]); //lưu vào 1 đối tượng
-                    customerList.add(temp); //lưu vào danh sách các đối tượng
-                    customerCount++;
-                }
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+            Scanner reader = new Scanner(read);
+            while(reader.hasNextLine()) {   //nếu có dòng để đọc file
+                String s = reader.nextLine();   //đọc dòng đó
+                String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
+                Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]); //lưu vào 1 đối tượng
+                customerList.add(temp); //lưu vào danh sách các đối tượng
+                customerCount++;
             }
+            reader.close();
         } catch (FileNotFoundException e) { //nếu lỗi thì hiển thị lỗi
             System.out.println("An error occurred.");
             e.printStackTrace();

@@ -65,14 +65,11 @@ public class Product{
 
     // lưu sản phẩm mới vào file
     public void addProduct(Product newProduct) {
-        try {
-            FileWriter writer = new FileWriter("src/mainoop/data/product.txt", true);
+        try (FileWriter writer = new FileWriter("src/mainoop/data/product.txt", true)) {
             writer.append("\n" + newProduct.getAll());
             System.out.println("Sản phẩm đã được thêm thành công");
-            writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace();
         }
     }
 }

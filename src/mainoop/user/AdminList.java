@@ -27,6 +27,7 @@ public class AdminList implements ListInterface{
                 Admin temp = new Admin(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]);
                 adminList.add(temp);
             }
+            reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
