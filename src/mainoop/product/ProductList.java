@@ -196,7 +196,7 @@ public class ProductList implements ListInterface{
     // Tìm sản phẩm từ tên sản phẩm
     public Product getProductByName(String name) {
         for(Product product : productList) {
-            if(product.getProductName() == name)
+            if(product.getProductName().equals(name))
                 return product;
         }
         return null;

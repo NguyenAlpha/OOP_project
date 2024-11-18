@@ -77,4 +77,8 @@ public class ShoppingCart {
     public void setCartItems(Map<Product, Integer> cartItems) {
         this.cartItems = cartItems;
     }
+
+    public Map<Product, Integer> getCartItems() {
+        return cartItems;
+    }
 }
