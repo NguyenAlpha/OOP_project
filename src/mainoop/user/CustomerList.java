@@ -2,9 +2,12 @@ package mainoop.user;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import mainoop.ListInterface;
+import mainoop.product.Product;
 import mainoop.product.ProductList;
 
 public class CustomerList implements ListInterface{
@@ -56,17 +59,37 @@ public class CustomerList implements ListInterface{
                     String[] split2 = temp.split("[ ]*[,][ ]*");
                     customer.addCartItems(productListClass.getProductByName(split2[0]), Integer.parseInt(split2[1]));
                 }
-                long line3 = Long.parseLong(reader.nextLine());
-                customer.setSumPriceProduct(id);
+                set(id-1,customer);
+                reader.nextLine();
             }
+            reader.close();
         } catch (Exception e) {
-            // TODO: handle exception
+            
         }
     }
 
     @Override
     public void writeToFile() {
+        try {
+            FileWriter writer = new FileWriter("src/mainoop/data/ShoppingCart.txt");
+            for( Customer customer : customerList) {
+                if(customer != null) {
+                    writer.write(String.valueOf(customer.getUserId()) + "\n");
+                    for(Map.Entry<Product, Integer> en : customer.getCartItem().entrySet()) {
+                        Product product = en.getKey();
+                        int quantity = en.getValue();
+                        writer.write(product.getProductName() + " , " + quantity + "    |   ");
+                    }
+                    writer.write("\n" + customer.getSumPriceProduct() + "\n");
+                }
+            }
+            writer.close();
+        } catch (Exception e) {
+        }
+    }
 
+    public void set(int index, Customer customer) {
+        customerList.set(index, customer);
     }
 
     // kiểm tra tài khoản cần đăng nhập có tồn tại không

@@ -114,7 +114,6 @@ public class running {
                                 
                                 if(currentCustomer == null) {
                                     System.out.println("Sai thông tin đăng nhập");
-                                    
                                 } else {
                                     loginCheck = true;
                                     System.out.println("Đã đăng nhập");
@@ -173,6 +172,8 @@ public class running {
                                 sc.nextLine();
                                 currentCustomer.addCartItems(productList.getProductById(id), quantity);
                                 System.out.println("Thêm sản phẩm thành công!");
+
+                                customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
                             }
 
                             case 8 ->  {   // 8. Xóa sản phẩm khỏi giỏ hàng
@@ -184,6 +185,7 @@ public class running {
                                 int quantity = sc.nextInt();
                                 sc.nextLine();
                                 currentCustomer.removeCartItems(productList.getProductById(id), quantity);
+                                customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
                             }
 
                             case 9 ->  {   // 9. Đăng xuất

@@ -1,6 +1,6 @@
-1   | Nhat Nguyen   |   111111  |   quan 10
+1   | 2   |   2  |   quan 10
 2 | The Kien | 333 | nha ny
-4 | new1 | 12345 | Thu duc
-5 | new2 | 555555 | quan 12
-6 | Tien An | 888888 | Trai dat
-7 | 1 | 1 | 1
+3 | new1 | 12345 | Thu duc
+4 | new2 | 555555 | quan 12
+5 | Tien An | 888888 | Trai dat
+6 | 1 | 1 | 1

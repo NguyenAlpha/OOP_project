@@ -34,6 +34,12 @@ public class Customer extends User {
     public String getCustomerAddress() {
         return customerAddress;
     }
+    public Map<Product, Integer> getCartItem() {
+        return this.cartItems;
+    }
+    public long getSumPriceProduct() {
+        return sumPriceProduct;
+    }
 
     //==================seter======================
     public void setCustomerName(String customerName) {
@@ -42,6 +48,7 @@ public class Customer extends User {
     public void setAddress(String address) {
         this.customerAddress = address;
     }
+    
 
     //viết lại hàm mặc định toString
     @Override public String toString() {
@@ -113,8 +120,10 @@ public class Customer extends User {
             }
             calcuaSumPriceProduct();
             System.out.println("Đã xóa sản phẩm!");
+        } else {
+            System.out.println("Không xóa được!");
         }
-        System.out.println("Không xóa được!");
+        
     }
 
     // xem giỏ hàng
