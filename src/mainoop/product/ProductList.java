@@ -221,6 +221,20 @@ public class ProductList implements ListInterface{
         System.out.println("Xóa thành công.");
 
     }
-
-    
+    // Sửa sản phẩm
+    public void updateProductById(int id, String newName, long newPrice, int newQuantity) {
+        Product idproductToUpdate = getProductById(id); // Tìm sản phẩm theo ID
+        if (idproductToUpdate != null) {
+            // Cập nhật thông tin sản phẩm
+            idproductToUpdate.setProductName(newName);
+            idproductToUpdate.setProductPrice(newPrice);
+            idproductToUpdate.setProductQuantity(newQuantity);
+            
+            // Ghi lại vào file
+            writeToFile();
+            System.out.println("Cập nhật sản phẩm thành công: " + idproductToUpdate);
+        } else {
+            System.out.println("Sản phẩm với ID " + id + " không thể được tìm thấy.");
+        }
+    }
 }

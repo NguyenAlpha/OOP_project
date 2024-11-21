@@ -10,8 +10,8 @@ import mainoop.product.Product;
 public class Customer extends User {
     private String customerName;    //Tên khách hàng
     private String customerAddress; //địa chỉ khách hàng
-    private Map<Product, Integer> cartItems = new HashMap<>();
-    private int sumPriceProduct = 0;
+    private Map<Product, Integer> cartItems = new HashMap<>();  //danh sách giỏ hàng
+    private int sumPriceProduct = 0;    //tổng tiền sản phẩm trong giỏ hàng
     
     //hàm tạo không tham số
     public Customer() {
@@ -71,20 +71,64 @@ public class Customer extends User {
         }
     }
 
+    // tính tổng tiền giỏ hàng
+    private void calcuaSumPriceProduct() {
+        sumPriceProduct = 0;
+        for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
+            Product product = en.getKey();
+            int quantity = en.getValue();
+            sumPriceProduct += product.getProductPrice() * quantity;
+        }
+    }
+
     // thêm sản phẩm mới vào giỏ hàng
-    public void putCartItems(Product product, int quantity) {
+    public void addCartItems(Product product, int quantity) {
+        for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
+            if(en.getKey() == product) {
+                cartItems.put(product, en.getValue() + quantity);
+                calcuaSumPriceProduct();
+                return;
+            }
+        }
         cartItems.put(product, quantity);
-        sumPriceProduct += product.getProductPrice()*quantity;
+        calcuaSumPriceProduct();
+    }
+
+    // xóa sản phẩm khỏi giỏ hàng
+    public void removeCartItems(Product product, int quantityToRemove) {
+        if (cartItems.containsKey(product)) {
+            int currentQuantity = cartItems.get(product);
+            
+            if (quantityToRemove >= currentQuantity) {
+                // Xóa hoàn toàn sản phẩm
+                cartItems.remove(product);
+
+            } else {
+                // Giảm số lượng
+                cartItems.put(product, currentQuantity - quantityToRemove);
+            }
+            calcuaSumPriceProduct();
+            System.out.println("Đã xóa sản phẩm!");
+        }
+        System.out.println("Không xóa được!");
     }
 
     // xem giỏ hàng
     public void viewCartItems() {
-        System.out.println("       tên sản phẩm      |     giá sản phẩm     |   sô lượng");
+        System.out.println("  mã  |       tên sản phẩm      |    giá sản phẩm    |   sô lượng");
         for (Map.Entry<Product, Integer> en : cartItems.entrySet()) {
             Product key = en.getKey();
             int val = en.getValue();
+            System.out.print(key.getProductId());
+            int temp = 6 - String.valueOf(key.getProductId()).length();
+            while(temp > 0) {
+                System.out.print(" ");
+                temp--;
+            }
+            System.out.print("|");
+
             System.out.print(key.getProductName());
-            int temp = 25 - key.getProductName().length();
+            temp = 25 - key.getProductName().length();
             while(temp > 0) {
                 System.out.print(" ");
                 temp--;

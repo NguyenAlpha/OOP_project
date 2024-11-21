@@ -54,9 +54,8 @@ public class running {
             }
 
             switch(temp) {
-                // 1. Khách hàng
-                case 1: {
-                    Customer currentCustomer = null;
+                case 1 ->  {    // 1. Khách hàng
+                    Customer currentCustomer = new Customer();
                     boolean check1 = true;
                     boolean loginCheck = false;
                     while(check1) {
@@ -95,15 +94,13 @@ public class running {
                             }
                         }
                         
-
                         switch(thaoTac1) {
-                            case 0: {   // 0. Quay Lại
+                            case 0 ->  {   // 0. Quay Lại
                                 System.out.println("Đã quay lại");
                                 check1 = false;
-                                break;
                             }
                             
-                            case 1: {   // 1. Đăng nhập
+                            case 1 ->  {   // 1. Đăng nhập
                                 // nhập tên đăng nhập
                                 System.out.print("Nhập tên tài khoản: ");
                                 String name = sc.nextLine();
@@ -122,11 +119,9 @@ public class running {
                                     loginCheck = true;
                                     System.out.println("Đã đăng nhập");
                                 }
-                                break;
                             }
-
-                            
-                            case 2: {   // 2. Đăng ký
+                      
+                            case 2 ->  {   // 2. Đăng ký
                                 // nhập tên đăng nhập
                                 System.out.print("Nhập tên tài khoản: ");
                                 String name = sc.nextLine();
@@ -147,36 +142,28 @@ public class running {
                                 loginCheck = true;
                                 System.out.println("Đăng ký thành công!");
 
-                                break;
                             }
-
                             
-                            case 3: {   // 3. Xem chi tiết tài khoản
+                            case 3 ->  {   // 3. Xem chi tiết tài khoản
                                 System.out.println("Mã số: " + currentCustomer.getUserId());
                                 System.out.println("Tên: " + currentCustomer.getCustomerName());
                                 System.out.println("Mật khẩu: " + currentCustomer.getUserPassword());
                                 System.out.println("Địa chỉ: " + currentCustomer.getCustomerAddress());
-                                break;
                             }
 
-                            
-                            case 4: {   // 4. Xem Danh sách sản phẩm
+                            case 4 ->  {   // 4. Xem Danh sách sản phẩm
                                 productList.viewProductsList();
-                                break;
                             }
                             
-                            
-                            case 5: {   // 5. Tìm sản phẩm
+                            case 5 ->  {   // 5. Tìm sản phẩm
                                 productList.searchProduct();
-                                break;
                             }
                             
-                            case 6: {   // 6. Xem giỏ hàng
+                            case 6 ->  {   // 6. Xem giỏ hàng
                                 currentCustomer.viewCartItems();
-                                break;
                             }
 
-                            case 7: {   // 7. Thêm sản phẩm vào giỏ hàng
+                            case 7 ->  {   // 7. Thêm sản phẩm vào giỏ hàng
                                 productList.viewProductsList();
                                 System.out.print("Nhập mã sản phẩm muốn mua: ");
                                 int id = sc.nextInt();
@@ -184,28 +171,32 @@ public class running {
                                 System.out.print("Nhập số lượng sản phẩm muốn mua: ");
                                 int quantity = sc.nextInt();
                                 sc.nextLine();
-                                currentCustomer.putCartItems(productList.getProductById(id), quantity);
+                                currentCustomer.addCartItems(productList.getProductById(id), quantity);
                                 System.out.println("Thêm sản phẩm thành công!");
-                                break;
                             }
 
-                            // 9. Đăng xuất
-                            case 9: {
+                            case 8 ->  {   // 8. Xóa sản phẩm khỏi giỏ hàng
+                                currentCustomer.viewCartItems();
+                                System.out.print("Nhập mã sản phẩm muốn xóa: ");
+                                int id = sc.nextInt();
+                                sc.nextLine();
+                                System.out.print("Nhập số lượng sản phẩm muốn xóa: ");
+                                int quantity = sc.nextInt();
+                                sc.nextLine();
+                                currentCustomer.removeCartItems(productList.getProductById(id), quantity);
+                            }
+
+                            case 9 ->  {   // 9. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
                                 System.out.println("Đã đăng Xuất");
-                                break;
                             }
                         }
                     }
-
-                    break;
                 }
 
-
-                // 2. Quản lý
-                case 2: {
-                    Admin admin = null;
+                case 2 ->  {    // 2. Quản lý
+                    Admin admin;
                     boolean check2 = false;
                     System.out.print("Nhập tên tài khoản quản lý: ");
                     String name = sc.nextLine();
@@ -233,15 +224,10 @@ public class running {
                         sc.nextLine();
 
                         switch(thaoTac2) {
-
-                            // Xem danh sách sản phẩm
-                            case 1: {
+                            case 1 ->  {
                                 productList.viewProductsList();
-                                break;
                             }
-
-                            // Thêm sản phẩm
-                            case 2: {
+                            case 2 ->  {
                                 System.out.print("nhập tên sản phẩm: ");
                                 String nameProduct = sc.nextLine();
                                 System.out.println("Nhập giá sản phẩm: ");
@@ -251,39 +237,35 @@ public class running {
                                 int quantityProduct = sc.nextInt();
                                 sc.nextLine();
                                 productList.addProduct(nameProduct, priceProduct, quantityProduct);
-                                break;
                             }
-
-                            // xóa sản phẩm
-                            case 3: {
+                            case 3 ->  {
                                 productList.viewProductsList();
                                 System.out.print("Nhập mã sản phẩm cần xóa: ");
                                 int id = sc.nextInt();
                                 sc.nextLine();
                                 Product product = productList.getProductById(id);
                                 productList.RemoveProduct(product);
-                                break;
                             }
-
-                            // Thoát
-                            case 6 : {
+                            case 6 ->  {
                                 check2 = false;
                                 System.out.println("Đã thoát!");
-                                break;
                             }
                         }
-                    }
-                    break;
+                        // Xem danh sách sản phẩm
+                        // Thêm sản phẩm
+                        // xóa sản phẩm
+                        // Thoát
+                                            }
                 }
-
-                // 3. Thoát
-                case 3: {
+                case 3 ->  {
                     check = false;
                     System.out.println("Đã thoát!");
-                    break;
                 }
             }
-        }
+            // 1. Khách hàng
+            // 2. Quản lý
+            // 3. Thoát
+                    }
 
         sc.close();
     }
