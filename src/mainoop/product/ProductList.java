@@ -159,6 +159,7 @@ public class ProductList implements ListInterface{
         newProduct.addProduct(newProduct);
         writeToFile();
     }   
+    
     public void removeProductById(String filePath) {
         Scanner productremove = new Scanner(System.in);
         System.out.print("Nhập Id của sản phẩm cần xóa: ");

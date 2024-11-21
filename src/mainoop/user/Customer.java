@@ -11,7 +11,7 @@ public class Customer extends User {
     private String customerName;    //Tên khách hàng
     private String customerAddress; //địa chỉ khách hàng
     private Map<Product, Integer> cartItems = new HashMap<>();  //danh sách giỏ hàng
-    private int sumPriceProduct = 0;    //tổng tiền sản phẩm trong giỏ hàng
+    private long sumPriceProduct = 0;    //tổng tiền sản phẩm trong giỏ hàng
     
     //hàm tạo không tham số
     public Customer() {
@@ -69,6 +69,10 @@ public class Customer extends User {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    public void setSumPriceProduct(long sum) {
+        this.sumPriceProduct = sum;
     }
 
     // tính tổng tiền giỏ hàng

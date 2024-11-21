@@ -5,12 +5,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import mainoop.ListInterface;
+import mainoop.product.ProductList;
 
 public class CustomerList implements ListInterface{
     // các thuộc tính của dánh sách khách hàng
     private int customerCount = 0;  //số lượng khách hàng
     private ArrayList<Customer> customerList = new ArrayList<>();   //danh sách khách hàng
-
     // Hàm tạo không tham số
     public CustomerList() {}
 
@@ -44,15 +44,20 @@ public class CustomerList implements ListInterface{
             e.printStackTrace();
         }
 
+        ProductList productListClass = new ProductList("src/mainoop/data/product.txt");
         try {
             Scanner reader = new Scanner(new File("src/mainoop/data/ShoppingCart.txt"));
             while(reader.hasNextLine()) {
                 int id = Integer.parseInt(reader.nextLine());
                 Customer customer = getCustomerById(id);
                 String line2 = reader.nextLine();
-                String[] split = line2.split("[ ]*[|][ ]*");
-                
-                String line3 = reader.nextLine();
+                String[] split1 = line2.split("[ ]*[|][ ]*");
+                for(String temp : split1) {
+                    String[] split2 = temp.split("[ ]*[,][ ]*");
+                    customer.addCartItems(productListClass.getProductByName(split2[0]), Integer.parseInt(split2[1]));
+                }
+                long line3 = Long.parseLong(reader.nextLine());
+                customer.setSumPriceProduct(id);
             }
         } catch (Exception e) {
             // TODO: handle exception
