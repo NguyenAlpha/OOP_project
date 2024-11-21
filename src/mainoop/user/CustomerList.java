@@ -43,6 +43,20 @@ public class CustomerList implements ListInterface{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
+        try {
+            Scanner reader = new Scanner(new File("src/mainoop/data/ShoppingCart.txt"));
+            while(reader.hasNextLine()) {
+                int id = Integer.parseInt(reader.nextLine());
+                Customer customer = getCustomerById(id);
+                String line2 = reader.nextLine();
+                String[] split = line2.split("[ ]*[|][ ]*");
+                
+                String line3 = reader.nextLine();
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
     @Override
@@ -77,7 +91,8 @@ public class CustomerList implements ListInterface{
         }
     }
 
-    public Customer getObject(int i) {
-        return customerList.get(i);
+    // trả về khác hàng từ id
+    public Customer getCustomerById(int i) {
+        return customerList.get(i - 1);
     }
 }
