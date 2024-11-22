@@ -8,6 +8,7 @@ import mainoop.user.Admin;
 import mainoop.user.AdminList;
 import mainoop.user.Customer;
 import mainoop.user.CustomerList;
+import mainoop.user.Ordermanager;
 
 public class running {
     private static ProductList productList = new ProductList("src/mainoop/data/product.txt");
@@ -214,7 +215,8 @@ public class running {
                         System.out.println("3. Thên sản phẩm.");
                         System.out.println("4. Xóa sản phẩm.");
                         System.out.println("5. Sửa sản phẩm.");
-                        System.out.println("6. Thoát.");
+                        System.out.println("6. Xem tình trạng đơn hàng.");
+                        System.out.println("7. Thoát.");
                         System.out.println("==============================================");
                         
                         System.out.print("Nhập thao tác: ");
@@ -264,7 +266,13 @@ public class running {
                                 Product product = productList.getProductById(id);
                                 productList.updateProductById(id, newName, newPrice, newQuantity);
                             }
-                            case 6 ->  {
+                            case 6 ->{
+                                Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp đúng
+                                String filePath = "src/mainoop/data/product.txt"; // Đường dẫn đến file
+                                orderManager.manageOrdersFromFile(filePath);
+                            }
+
+                            case 7 ->  {
                                 check2 = false;
                                 System.out.println("Đã thoát!");
                             }

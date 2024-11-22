@@ -82,7 +82,7 @@ public class Customer extends User {
     }
 
     // tính tổng tiền giỏ hàng
-    private void calcuaSumPriceProduct() {
+    public  void calcuaSumPriceProduct() {
         sumPriceProduct = 0;
         for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
             Product product = en.getKey();
