@@ -216,9 +216,10 @@ public class running {
                     while(check2) {
                         System.out.println("=======================MENU=======================");
                         System.out.println("1. Xem danh sách sản phẩm.");
-                        System.out.println("2. Thên sản phẩm.");
-                        System.out.println("3. Xóa sản phẩm.");
-                        System.out.println("4. Sửa sản phẩm.");
+                        System.out.println("2. Tìm sản phẩm.");
+                        System.out.println("3. Thên sản phẩm.");
+                        System.out.println("4. Xóa sản phẩm.");
+                        System.out.println("5. Sửa sản phẩm.");
                         System.out.println("6. Thoát.");
                         System.out.println("==============================================");
                         
@@ -230,8 +231,11 @@ public class running {
                             case 1 ->  {
                                 productList.viewProductsList();
                             }
-                            case 2 ->  {
-                                System.out.print("nhập tên sản phẩm: ");
+                            case 2 ->  {   
+                                productList.searchProduct();
+                            }
+                            case 3 ->  {
+                                System.out.print("Nhập tên sản phẩm: ");
                                 String nameProduct = sc.nextLine();
                                 System.out.println("Nhập giá sản phẩm: ");
                                 long priceProduct = sc.nextLong();
@@ -241,7 +245,7 @@ public class running {
                                 sc.nextLine();
                                 productList.addProduct(nameProduct, priceProduct, quantityProduct);
                             }
-                            case 3 ->  {
+                            case 4 ->  {
                                 productList.viewProductsList();
                                 System.out.print("Nhập mã sản phẩm cần xóa: ");
                                 int id = sc.nextInt();
@@ -249,7 +253,7 @@ public class running {
                                 Product product = productList.getProductById(id);
                                 productList.RemoveProduct(product);
                             }
-                            case 4 ->  {
+                            case 5 ->  {
                                 productList.viewProductsList();
                                 System.out.print("Nhập mã sản phẩm cần sửa: ");
                                 int id = sc.nextInt();
@@ -271,11 +275,7 @@ public class running {
                                 System.out.println("Đã thoát!");
                             }
                         }
-                        // Xem danh sách sản phẩm
-                        // Thêm sản phẩm
-                        // xóa sản phẩm
-                        // Thoát
-                                            }
+                    }
                 }
                 case 3 ->  {
                     check = false;
