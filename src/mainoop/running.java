@@ -76,7 +76,7 @@ public class running {
                         sc.nextLine();
 
                         if(loginCheck) {
-                            while((thaoTac1 < 3) || (thaoTac1 > 9)) {
+                            while((thaoTac1 < 3) || (thaoTac1 > 10)) {
                                 System.out.print("Thao tác không đúng.\nNhập thao tác: ");
                                 thaoTac1 = sc.nextInt();
                                 sc.nextLine();
@@ -182,7 +182,11 @@ public class running {
                                 customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
                             }
 
-                            case 9 ->  {   // 9. Đăng xuất
+                            case 9 -> {     // 9. Thanh toán
+                                
+                            }
+
+                            case 10 ->  {   // 9. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
                                 System.out.println("Đã đăng Xuất");
