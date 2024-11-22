@@ -19,10 +19,15 @@ import mainoop.user.CustomerList;
 
 
 public class running {
+    private static ProductList productList = new ProductList("src/mainoop/data/product.txt");
+    private static CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
+    private static AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
+    
+    public ProductList getProductList() {
+        return productList;
+    }
+
     public static void main(String[] args) {
-        ProductList productList = new ProductList("src/mainoop/data/product.txt");
-        CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
-        AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
         ShoppingCartList sh = new ShoppingCartList("");
         Scanner sc = new Scanner(System.in);
         boolean check = true;
@@ -172,7 +177,6 @@ public class running {
                                 sc.nextLine();
                                 currentCustomer.addCartItems(productList.getProductById(id), quantity);
                                 System.out.println("Thêm sản phẩm thành công!");
-
                                 customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
                             }
 

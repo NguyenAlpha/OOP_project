@@ -9,6 +9,7 @@ import java.util.Scanner;
 import mainoop.ListInterface;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
+import mainoop.running;
 
 public class CustomerList implements ListInterface{
     // các thuộc tính của dánh sách khách hàng
@@ -47,7 +48,9 @@ public class CustomerList implements ListInterface{
             e.printStackTrace();
         }
 
-        ProductList productListClass = new ProductList("src/mainoop/data/product.txt");
+        running getProList = new running();
+        ProductList productList = getProList.getProductList();
+        ProductList p = new ProductList("src/mainoop/data/product.txt");
         try {
             Scanner reader = new Scanner(new File("src/mainoop/data/ShoppingCart.txt"));
             while(reader.hasNextLine()) {
@@ -57,15 +60,13 @@ public class CustomerList implements ListInterface{
                 String[] split1 = line2.split("[ ]*[|][ ]*");
                 for(String temp : split1) {
                     String[] split2 = temp.split("[ ]*[,][ ]*");
-                    customer.addCartItems(productListClass.getProductByName(split2[0]), Integer.parseInt(split2[1]));
+                    customer.addCartItems(productList.getProductByName(split2[0]), Integer.parseInt(split2[1]));
                 }
-                set(id-1,customer);
+                customerList.set(id-1,customer);
                 reader.nextLine();
             }
             reader.close();
-        } catch (Exception e) {
-            
-        }
+        } catch (Exception e) {}
     }
 
     @Override
@@ -73,12 +74,17 @@ public class CustomerList implements ListInterface{
         try {
             FileWriter writer = new FileWriter("src/mainoop/data/ShoppingCart.txt");
             for( Customer customer : customerList) {
-                if(customer != null) {
+                if(!customer.checkCartItem()) {
+                    boolean check = false;
                     writer.write(String.valueOf(customer.getUserId()) + "\n");
                     for(Map.Entry<Product, Integer> en : customer.getCartItem().entrySet()) {
                         Product product = en.getKey();
                         int quantity = en.getValue();
-                        writer.write(product.getProductName() + " , " + quantity + "    |   ");
+                        if(check) {
+                            writer.write("    |    ");
+                        }
+                        writer.write(product.getProductName() + " , " + quantity);
+                        check = true;
                     }
                     writer.write("\n" + customer.getSumPriceProduct() + "\n");
                 }
@@ -90,6 +96,7 @@ public class CustomerList implements ListInterface{
 
     public void set(int index, Customer customer) {
         customerList.set(index, customer);
+        writeToFile();
     }
 
     // kiểm tra tài khoản cần đăng nhập có tồn tại không

@@ -1,9 +1,6 @@
 1
-Ao so mi nam , 1    | Op diem thoai Iphone , 2  |   Dien thoai Iphone 12, 1
-11320000
+Quan jean , 1    |    Ao so mi nam , 1    |    ao khoac long cuu , 3    |    Giay trang , 5
+3100000
 2
-Ao ba lo HHH , 3
-360000
-
-
-
+Ao ba lo HHH , 3    |    Dien thoai Iphone 12 , 1    |    May hut bui abc , 1
+11910000
