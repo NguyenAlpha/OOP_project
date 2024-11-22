@@ -1,11 +1,11 @@
 package mainoop.user;
 
-import java.io.IOException; // Thư viện để xử lý các lỗi Input/Output
-import java.nio.file.Files; // Thư viện để làm việc với file
-import java.nio.file.Paths; // Thư viện để xử lý đường dẫn file
-import java.util.ArrayList; // Thư viện để sử dụng danh sách động
-import java.util.List; // Thư viện để sử dụng danh sách
-import java.util.Scanner; // Thư viện để nhận đầu vào từ người dùng
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List; 
+import java.util.Scanner; 
 
 public class Ordermanager {
    
@@ -80,13 +80,13 @@ public class Ordermanager {
 
                 // Ghi lại tất cả các dòng (đã cập nhật và không thay đổi) vào file
                 Files.write(Paths.get(filePath), updatedOrders);
-                System.out.println("Đã cập nhật trạng thái đơn hàng vào file."); // Thông báo cập nhật thành công
+                System.out.println("Đã cập nhật trạng thái đơn hàng vào file."); 
 
             } catch (IOException e) {
                 e.printStackTrace(); // In ra lỗi nếu có
             }
         }
 
-        scanner.close(); // Đóng Scanner
+        scanner.close(); 
     }
 }
