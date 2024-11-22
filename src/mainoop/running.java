@@ -2,26 +2,23 @@ package mainoop;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import mainoop.product.Product;
 import mainoop.product.ProductList;
 import mainoop.user.Admin;
 import mainoop.user.AdminList;
 import mainoop.user.Customer;
 import mainoop.user.CustomerList;
 
-//mỗi lần thêm sản phẩm, xóa sản phẩm, sửa sản phẩm sẽ có cùng method viết lại product.txt
-//vào sẽ tự động có sẵn danh sách sản phẩm, bỏ thao tác 1
-//làm class user. 2 class kế thừa user là: Customer, Admin 
-//method user + verifyLogin() : bool
-//Customer + register()
-//
-
-
-
 public class running {
+    private static ProductList productList = new ProductList("src/mainoop/data/product.txt");
+    private static AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
+    private static CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
+    
+    public ProductList getProductList() {
+        return productList;
+    }
+
     public static void main(String[] args) {
-        ProductList productList = new ProductList("src/mainoop/data/product.txt");
-        CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
-        AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
         Scanner sc = new Scanner(System.in);
         boolean check = true;
 
@@ -52,9 +49,8 @@ public class running {
             }
 
             switch(temp) {
-                // 1. Khách hàng
-                case 1: {
-                    Customer currentCustomer = null;
+                case 1 ->  {    // 1. Khách hàng
+                    Customer currentCustomer = new Customer();
                     boolean check1 = true;
                     boolean loginCheck = false;
                     while(check1) {
@@ -93,17 +89,13 @@ public class running {
                             }
                         }
                         
-
                         switch(thaoTac1) {
-                            // 0. Quay Lại
-                            case 0: {
+                            case 0 ->  {   // 0. Quay Lại
                                 System.out.println("Đã quay lại");
                                 check1 = false;
-                                break;
                             }
-
-                            // 1. Đăng nhập
-                            case 1: {
+                            
+                            case 1 ->  {   // 1. Đăng nhập
                                 // nhập tên đăng nhập
                                 System.out.print("Nhập tên tài khoản: ");
                                 String name = sc.nextLine();
@@ -117,16 +109,13 @@ public class running {
                                 
                                 if(currentCustomer == null) {
                                     System.out.println("Sai thông tin đăng nhập");
-                                    
                                 } else {
                                     loginCheck = true;
                                     System.out.println("Đã đăng nhập");
                                 }
-                                break;
                             }
-
-                            // 2. Đăng ký
-                            case 2: {
+                      
+                            case 2 ->  {   // 2. Đăng ký
                                 // nhập tên đăng nhập
                                 System.out.print("Nhập tên tài khoản: ");
                                 String name = sc.nextLine();
@@ -147,57 +136,63 @@ public class running {
                                 loginCheck = true;
                                 System.out.println("Đăng ký thành công!");
 
-                                break;
                             }
-
-                            // 3. Xem chi tiết tài khoản
-                            case 3: {
+                            
+                            case 3 ->  {   // 3. Xem chi tiết tài khoản
                                 System.out.println("Mã số: " + currentCustomer.getUserId());
                                 System.out.println("Tên: " + currentCustomer.getCustomerName());
                                 System.out.println("Mật khẩu: " + currentCustomer.getUserPassword());
                                 System.out.println("Địa chỉ: " + currentCustomer.getCustomerAddress());
-                                break;
                             }
 
-                            // 4. Xem Danh sách sản phẩm
-                            case 4: {
-                                System.out.println(" Mã |             Tên              |         loại       |        giá         |   số lượng");
+                            case 4 ->  {   // 4. Xem Danh sách sản phẩm
                                 productList.viewProductsList();
-                                break;
                             }
                             
-                            // 5. Tìm sản phẩm
-                            case 5: {
+                            case 5 ->  {   // 5. Tìm sản phẩm
                                 productList.searchProduct();
-                                break;
+                            }
+                            
+                            case 6 ->  {   // 6. Xem giỏ hàng
+                                currentCustomer.viewCartItems();
                             }
 
-                            // 6. Xem giỏ hàng
-                            case 6: {
-
-
-
-
-                                break;
+                            case 7 ->  {   // 7. Thêm sản phẩm vào giỏ hàng
+                                productList.viewProductsList();
+                                System.out.print("Nhập mã sản phẩm muốn mua: ");
+                                int id = sc.nextInt();
+                                sc.nextLine();
+                                System.out.print("Nhập số lượng sản phẩm muốn mua: ");
+                                int quantity = sc.nextInt();
+                                sc.nextLine();
+                                currentCustomer.addCartItems(productList.getProductById(id), quantity);
+                                System.out.println("Thêm sản phẩm thành công!");
+                                customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
                             }
 
-                            // 9. Đăng xuất
-                            case 9: {
+                            case 8 ->  {   // 8. Xóa sản phẩm khỏi giỏ hàng
+                                currentCustomer.viewCartItems();
+                                System.out.print("Nhập mã sản phẩm muốn xóa: ");
+                                int id = sc.nextInt();
+                                sc.nextLine();
+                                System.out.print("Nhập số lượng sản phẩm muốn xóa: ");
+                                int quantity = sc.nextInt();
+                                sc.nextLine();
+                                currentCustomer.removeCartItems(productList.getProductById(id), quantity);
+                                customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
+                            }
+
+                            case 9 ->  {   // 9. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
                                 System.out.println("Đã đăng Xuất");
-                                break;
                             }
                         }
                     }
-
-                    break;
                 }
 
-
-                // 2. Quản lý
-                case 2: {
-                    Admin admin = null;
+                case 2 ->  {    // 2. Quản lý
+                    Admin admin;
                     boolean check2 = false;
                     System.out.print("Nhập tên tài khoản quản lý: ");
                     String name = sc.nextLine();
@@ -212,11 +207,14 @@ public class running {
                         check2 = true;
                     }
 
-                    while(check) {
+                    while(check2) {
                         System.out.println("=======================MENU=======================");
                         System.out.println("1. Xem danh sách sản phẩm.");
-                        System.out.println("2. Thên sản phẩm.");
-                        System.out.println("3. Xóa sản phẩm.");
+                        System.out.println("2. Tìm sản phẩm.");
+                        System.out.println("3. Thên sản phẩm.");
+                        System.out.println("4. Xóa sản phẩm.");
+                        System.out.println("5. Sửa sản phẩm.");
+                        System.out.println("6. Thoát.");
                         System.out.println("==============================================");
                         
                         System.out.print("Nhập thao tác: ");
@@ -224,45 +222,64 @@ public class running {
                         sc.nextLine();
 
                         switch(thaoTac2) {
-                            case 1: {
+                            case 1 ->  {
                                 productList.viewProductsList();
-                                break;
                             }
-
-                            case 2: {
-                                System.out.print("nhập tên sản phẩm: ");
+                            case 2 ->  {   
+                                productList.searchProduct();
+                            }
+                            case 3 ->  {
+                                System.out.print("Nhập tên sản phẩm: ");
                                 String nameProduct = sc.nextLine();
-                                System.out.print("nhập loại sản phẩm: ");
-                                String typeProduct = sc.nextLine();
                                 System.out.println("Nhập giá sản phẩm: ");
                                 long priceProduct = sc.nextLong();
                                 sc.nextLine();
                                 System.out.println("Nhập số lượng sản phẩm: ");
                                 int quantityProduct = sc.nextInt();
                                 sc.nextLine();
-                                productList.addProduct(nameProduct, typeProduct, priceProduct, quantityProduct);
-                                break;
+                                productList.addProduct(nameProduct, priceProduct, quantityProduct);
                             }
-
-                            // xóa sản phẩm
-                            case 3: {
-
-
-                                break;
+                            case 4 ->  {
+                                productList.viewProductsList();
+                                System.out.print("Nhập mã sản phẩm cần xóa: ");
+                                int id = sc.nextInt();
+                                sc.nextLine();
+                                Product product = productList.getProductById(id);
+                                productList.RemoveProduct(product);
+                            }
+                            case 5 ->  {
+                                productList.viewProductsList();
+                                System.out.print("Nhập mã sản phẩm cần sửa: ");
+                                int id = sc.nextInt();
+                                sc.nextLine();
+                                System.out.println("Vui lòng nhập lại thông tin sản phẩm ");
+                                System.out.println("Nhập tên sản phẩm: ");
+                                String newName = sc.nextLine();
+                                System.out.println("Nhập giá sản phẩm: ");
+                                long newPrice = sc.nextLong();
+                                sc.nextLine();
+                                System.out.println("Nhập số lượng sản phẩm: ");
+                                int newQuantity = sc.nextInt();
+                                sc.nextLine();
+                                Product product = productList.getProductById(id);
+                                productList.updateProductById(id, newName, newPrice, newQuantity);
+                            }
+                            case 6 ->  {
+                                check2 = false;
+                                System.out.println("Đã thoát!");
                             }
                         }
                     }
-                    break;
                 }
-
-                // 3. Thoát
-                case 3: {
+                case 3 ->  {
                     check = false;
                     System.out.println("Đã thoát!");
-                    break;
                 }
             }
-        }
+            // 1. Khách hàng
+            // 2. Quản lý
+            // 3. Thoát
+                    }
 
         sc.close();
     }

@@ -27,6 +27,7 @@ public class AdminList implements ListInterface{
                 Admin temp = new Admin(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]);
                 adminList.add(temp);
             }
+            reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -35,8 +36,8 @@ public class AdminList implements ListInterface{
 
 
     @Override
-    public void writeToFile(Object object) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void writeToFile() {
+        
     }
 
     // kiểm tra đăng nhập admin
