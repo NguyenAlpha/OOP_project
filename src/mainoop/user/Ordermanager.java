@@ -9,11 +9,7 @@ import java.util.Scanner; // Thư viện để nhận đầu vào từ người 
 
 public class Ordermanager {
    
-    /**
-     * Phương thức này cho phép admin xác nhận hoặc hủy xác nhận các đơn hàng từ file.
-     *
-     * @param filePath Đường dẫn đến file chứa đơn hàng
-     */
+   
     public void manageOrdersFromFile(String filePath) {
         Scanner scanner = new Scanner(System.in); // Tạo đối tượng Scanner để nhận đầu vào từ người dùng
 

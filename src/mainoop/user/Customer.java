@@ -12,6 +12,8 @@ public class Customer extends User {
     private String customerAddress; //địa chỉ khách hàng
     private Map<Product, Integer> cartItems = new HashMap<>();  //danh sách giỏ hàng
     private long sumPriceProduct = 0;    //tổng tiền sản phẩm trong giỏ hàng
+    private String bankId;  //mã số tài khoản ngân hàng
+    private String bankName;    //tên ngân hàng
     
     //hàm tạo không tham số
     public Customer() {
@@ -40,6 +42,12 @@ public class Customer extends User {
     public long getSumPriceProduct() {
         return sumPriceProduct;
     }
+    public String getBankId() {
+        return this.bankId;
+    }
+    public String getBankName() {
+        return this.bankName;
+    }
 
     //==================seter======================
     public void setCustomerName(String customerName) {
@@ -47,6 +55,12 @@ public class Customer extends User {
     }
     public void setAddress(String address) {
         this.customerAddress = address;
+    }
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
+    }
+    public void setBankName(String bankname) {
+        this.bankName = bankname;
     }
 
     //viết lại hàm mặc định toString
