@@ -48,7 +48,6 @@ public class Customer extends User {
     public void setAddress(String address) {
         this.customerAddress = address;
     }
-    
 
     //viết lại hàm mặc định toString
     @Override public String toString() {
@@ -88,14 +87,14 @@ public class Customer extends User {
         for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
             Product product = en.getKey();
             int quantity = en.getValue();
-            sumPriceProduct += product.getProductPrice() * quantity;
+            sumPriceProduct += product.getProductPrice() * (quantity);
         }
     }
 
     // thêm sản phẩm mới vào giỏ hàng
     public void addCartItems(Product product, int quantity) {
         for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
-            if(en.getKey() == product) {
+            if(en.getKey().getProductName() == product.getProductName()) {
                 cartItems.put(product, en.getValue() + quantity);
                 calcuaSumPriceProduct();
                 return;
@@ -159,5 +158,9 @@ public class Customer extends User {
             System.out.println(val);
         }
         System.out.println("Tổng tiền: " + sumPriceProduct);
+    }
+
+    public boolean checkCartItem() {
+        return cartItems.isEmpty();
     }
 }

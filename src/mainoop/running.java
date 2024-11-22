@@ -4,26 +4,21 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
-import mainoop.shoppingcart.ShoppingCartList;
 import mainoop.user.Admin;
 import mainoop.user.AdminList;
 import mainoop.user.Customer;
 import mainoop.user.CustomerList;
 
-//mỗi lần thêm sản phẩm, xóa sản phẩm, sửa sản phẩm sẽ có cùng method viết lại product.txt
-//vào sẽ tự động có sẵn danh sách sản phẩm, bỏ thao tác 1
-//làm class user. 2 class kế thừa user là: Customer, Admin 
-//method user + verifyLogin() : bool
-//Customer + register()
-
-
-
 public class running {
+    private static ProductList productList = new ProductList("src/mainoop/data/product.txt");
+    private static AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
+    private static CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
+    
+    public ProductList getProductList() {
+        return productList;
+    }
+
     public static void main(String[] args) {
-        ProductList productList = new ProductList("src/mainoop/data/product.txt");
-        CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
-        AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
-        ShoppingCartList sh = new ShoppingCartList("");
         Scanner sc = new Scanner(System.in);
         boolean check = true;
 
@@ -172,7 +167,6 @@ public class running {
                                 sc.nextLine();
                                 currentCustomer.addCartItems(productList.getProductById(id), quantity);
                                 System.out.println("Thêm sản phẩm thành công!");
-
                                 customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
                             }
 

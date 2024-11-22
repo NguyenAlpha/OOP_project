@@ -15,17 +15,23 @@ public class ProductList implements ListInterface{
     // khi xóa sản phẩm Id sản phẩm đó sẽ không bị thay để bởi các sản phẩm khác,
     // mà chỉ bỏ trống Id đó không dùng đến, lastProdectId để lưu Id của sản phẩm cuối thêm vào.
     // khi tất cả danh sách sản phẩn bị xóa thì Id sản phẩm mới vẫn là mới nhất
-    // đảm bảo cho giỏ hàng của khách hàng không bị lỗi sản phẩm khi id sản phẩm bị ghi đè
-    
+    // đảm bảo cho giỏ hàng của khách hàng không bị lỗi sản phẩm khi id sản phẩm không bị ghi đè
+
     public ProductList() {}
 
     public ProductList(String path) {  //đường dẫn đến file để nhập danh sách
         addFromFile(path);
     }
+
+    //===============================getter============================
     public ArrayList<Product> getProductList() {
         return productList;
     }
+    public int getProductCount() {
+        return productCount;
+    }
 
+    //===============================setter============================
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }
@@ -33,7 +39,7 @@ public class ProductList implements ListInterface{
     @Override
     public void addFromFile(String path) {
         try (Scanner reader = new Scanner(new File(path))) { //sử dụng scanner để đọc luồng file ở trên
-            lastProdectId = Integer.parseInt(reader.nextLine());
+            lastProdectId = Integer.parseInt(reader.nextLine());//lưu id của sản phẩm cuối cùng
             while (reader.hasNextLine()) {  //khi file cần đọc vẫn còn dòng
                 productCount++;
                 String s = reader.nextLine();   //đọc dòng đó
@@ -59,13 +65,8 @@ public class ProductList implements ListInterface{
             }
             writer.close();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("An error occurred.");
         }
-    }
-
-    // số lượng các loại sản phẩm
-    public int getProductCount() {
-        return productCount;
     }
 
     // in ra danh sách các sản phẩm
