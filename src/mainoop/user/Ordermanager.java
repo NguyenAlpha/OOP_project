@@ -13,14 +13,14 @@ public class Ordermanager {
     public void manageOrdersFromFile(String filePath) {
         Scanner scanner = new Scanner(System.in); // Tạo đối tượng Scanner để nhận đầu vào từ người dùng
 
-        while (true) { // Vòng lặp vô hạn
+        while (true) { 
             List<String> updatedOrders = new ArrayList<>(); // Danh sách lưu trữ các đơn hàng đã cập nhật
 
             try {
                 // Kiểm tra xem file có tồn tại không
                 if (!Files.exists(Paths.get(filePath))) {
                     System.out.println("File không tồn tại: " + filePath);
-                    return; // Thoát nếu file không tồn tại
+                    return; 
                 }
 
                 // Đọc tất cả các dòng từ file
@@ -58,7 +58,7 @@ public class Ordermanager {
                 String updatedLine;
                 if (confirmChoice.equalsIgnoreCase("y")) {
                     // Nếu admin chọn xác nhận, thay thế "chờ xác nhận" bằng "đã xác nhận"
-                    updatedLine = selectedOrder.replace("chờ xác nhận", "đã xác nhận");
+                    updatedLine = selectedOrder.replace("đang chuẩn bị", "đang vận chuyển");
                     System.out.println("Đã xác nhận đơn hàng: " + updatedLine); // In ra thông báo xác nhận
                 } else if (confirmChoice.equalsIgnoreCase("n")) {
                     // Nếu admin chọn hủy xác nhận, thay thế "đã xác nhận" bằng "chờ xác nhận"
