@@ -218,6 +218,7 @@ public class running {
                         System.out.println("1. Xem danh sách sản phẩm.");
                         System.out.println("2. Thên sản phẩm.");
                         System.out.println("3. Xóa sản phẩm.");
+                        System.out.println("4. Sửa sản phẩm.");
                         System.out.println("6. Thoát.");
                         System.out.println("==============================================");
                         
@@ -247,6 +248,23 @@ public class running {
                                 sc.nextLine();
                                 Product product = productList.getProductById(id);
                                 productList.RemoveProduct(product);
+                            }
+                            case 4 ->  {
+                                productList.viewProductsList();
+                                System.out.print("Nhập mã sản phẩm cần sửa: ");
+                                int id = sc.nextInt();
+                                sc.nextLine();
+                                System.out.println("Vui lòng nhập lại thông tin sản phẩm ");
+                                System.out.println("Nhập tên sản phẩm: ");
+                                String newName = sc.nextLine();
+                                System.out.println("Nhập giá sản phẩm: ");
+                                long newPrice = sc.nextLong();
+                                sc.nextLine();
+                                System.out.println("Nhập số lượng sản phẩm: ");
+                                int newQuantity = sc.nextInt();
+                                sc.nextLine();
+                                Product product = productList.getProductById(id);
+                                productList.updateProductById(id, newName, newPrice, newQuantity);
                             }
                             case 6 ->  {
                                 check2 = false;
