@@ -271,9 +271,14 @@ public class running {
                                 productList.updateProductById(id, newName, newPrice, newQuantity);
                             }
                             case 6 ->{
-                                Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp đúng
-                                String filePath = "src/mainoop/data/product.txt"; // Đường dẫn đến file
-                                orderManager.manageOrdersFromFile(filePath);
+                                Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp chính xác
+
+                                 // Đường dẫn file đầu vào và đầu ra
+                                String inputFilePath = "src/mainoop/data/ShoppingCart.txt"; // Đường dẫn đến file ShoppingCart.txt
+                                String outputFilePath = "src/mainoop/data/Bill.txt";        // Đường dẫn đến file Bill.txt
+
+                                 // Gọi phương thức quản lý đơn hàng từ file ShoppingCart.txt
+                                 orderManager.manageOrdersFromFile(inputFilePath);
                             }
 
                             case 7 ->  {

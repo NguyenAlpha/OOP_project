@@ -1,92 +1,123 @@
 package mainoop.user;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.List; 
-import java.util.Scanner; 
+import java.util.List;
+import java.util.Scanner;
 
 public class Ordermanager {
-   
-   
-    public void manageOrdersFromFile(String filePath) {
-        Scanner scanner = new Scanner(System.in); // Tạo đối tượng Scanner để nhận đầu vào từ người dùng
 
-        while (true) { 
-            List<String> updatedOrders = new ArrayList<>(); // Danh sách lưu trữ các đơn hàng đã cập nhật
+    // Đọc file và trả về danh sách đơn hàng từ ShoppingCart.txt
+    private List<String[]> readFile(String filePath) {
+        List<String[]> orders = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            List<String> tempOrder = new ArrayList<>();
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue; // Bỏ qua dòng trống
+                tempOrder.add(line.trim());
 
-            try {
-                // Kiểm tra xem file có tồn tại không
-                if (!Files.exists(Paths.get(filePath))) {
-                    System.out.println("File không tồn tại: " + filePath);
-                    return; 
+                // Khi đủ 4 dòng cho 1 đơn hàng (mã khách, sản phẩm, tổng tiền, trạng thái)
+                if (tempOrder.size() == 4) {
+                    orders.add(tempOrder.toArray(new String[0]));
+                    tempOrder.clear();
                 }
-
-                // Đọc tất cả các dòng từ file
-                List<String> lines = Files.readAllLines(Paths.get(filePath));
-
-                // Hiển thị danh sách đơn hàng
-                System.out.println("Danh sách đơn hàng:");
-                for (int i = 0; i < lines.size(); i++) {
-                    System.out.println((i + 1) + " | " + lines.get(i)); // Hiển thị số thứ tự và đơn hàng
-                }
-
-                // Yêu cầu admin nhập số thứ tự của đơn hàng để xác nhận hoặc hủy xác nhận
-                System.out.print("Nhập số thứ tự của đơn hàng để xác nhận hoặc hủy xác nhận (0 để thoát): ");
-                int choice = scanner.nextInt(); // Nhận lựa chọn từ admin
-
-                if (choice == 0) {
-                    System.out.println("Đã thoát.");
-                    break; // Thoát vòng lặp nếu admin chọn 0
-                }
-
-                // Kiểm tra xem số thứ tự có hợp lệ không
-                if (choice < 1 || choice > lines.size()) {
-                    System.out.println("Số thứ tự không hợp lệ.");
-                    continue; // Quay lại đầu vòng lặp nếu số thứ tự không hợp lệ
-                }
-
-                // Lấy đơn hàng tương ứng
-                String selectedOrder = lines.get(choice - 1);
-                System.out.println("Đơn hàng đã chọn: " + selectedOrder);
-                System.out.print("Xác nhận (y) hoặc hủy xác nhận (n)? (nhập 'h' để giữ nguyên): "); // Yêu cầu admin nhập lựa chọn
-
-                scanner.nextLine(); // Đọc dòng còn lại
-                String confirmChoice = scanner.nextLine(); // Nhận lựa chọn từ admin
-
-                String updatedLine;
-                if (confirmChoice.equalsIgnoreCase("y")) {
-                    // Nếu admin chọn xác nhận, thay thế "chờ xác nhận" bằng "đã xác nhận"
-                    updatedLine = selectedOrder.replace("đang chuẩn bị", "đang vận chuyển");
-                    System.out.println("Đã xác nhận đơn hàng: " + updatedLine); // In ra thông báo xác nhận
-                } else if (confirmChoice.equalsIgnoreCase("n")) {
-                    // Nếu admin chọn hủy xác nhận, thay thế "đã xác nhận" bằng "chờ xác nhận"
-                    updatedLine = selectedOrder.replace("đã xác nhận", "chờ xác nhận");
-                    System.out.println("Đã hủy xác nhận đơn hàng: " + updatedLine); // In ra thông báo hủy xác nhận
-                } else {
-                    // Nếu không xác nhận và không hủy, giữ nguyên dòng đó
-                    updatedLine = selectedOrder;
-                }
-
-                // Cập nhật danh sách đơn hàng
-                for (String line : lines) {
-                    if (line.equals(selectedOrder)) {
-                        updatedOrders.add(updatedLine); // Thêm dòng đã cập nhật vào danh sách
-                    } else {
-                        updatedOrders.add(line); // Thêm các dòng không thay đổi
-                    }
-                }
-
-                // Ghi lại tất cả các dòng (đã cập nhật và không thay đổi) vào file
-                Files.write(Paths.get(filePath), updatedOrders);
-                System.out.println("Đã cập nhật trạng thái đơn hàng vào file."); 
-
-            } catch (IOException e) {
-                e.printStackTrace(); // In ra lỗi nếu có
             }
+        } catch (IOException e) {
+            System.err.println("Lỗi khi đọc file: " + e.getMessage());
+        }
+        return orders;
+    }
+
+    // Ghi danh sách đơn hàng vào file ShoppingCart.txt (cập nhật trạng thái)
+    private void writeFile(String filePath, List<String[]> orders) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            for (String[] order : orders) {
+                for (String line : order) {
+                    bw.write(line);
+                    bw.newLine();
+                }
+                bw.newLine(); // Thêm dòng trống giữa các đơn hàng
+            }
+        } catch (IOException e) {
+            System.err.println("Lỗi khi ghi file: " + e.getMessage());
+        }
+    }
+
+    // Quản lý trạng thái đơn hàng từ file
+    public void manageOrdersFromFile(String filePath) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Đọc danh sách đơn hàng từ file
+        List<String[]> orders = readFile(filePath);
+        if (orders.isEmpty()) {
+            System.out.println("File không có dữ liệu hoặc không tồn tại.");
+            return;
         }
 
-        scanner.close(); 
+        // Hiển thị danh sách đơn hàng
+        while (true) {
+            System.out.println("Danh sách đơn hàng:");
+            for (int i = 0; i < orders.size(); i++) {
+                String[] order = orders.get(i);
+                System.out.printf("%d | Mã khách hàng: %s\n", i + 1, order[0]);
+                System.out.printf("  Sản phẩm: %s\n", order[1]);
+                System.out.printf("  Tổng tiền: %s\n", order[2]);
+                System.out.printf("  Trạng thái: %s\n", order[3]);
+            }
+
+            // Yêu cầu admin nhập lựa chọn
+            System.out.print("Nhập số thứ tự của đơn hàng để cập nhật (0 để thoát): ");
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập số.");
+                continue;
+            }
+
+            if (choice == 0) {
+                System.out.println("Đã thoát chương trình.");
+                break;
+            }
+
+            if (choice < 1 || choice > orders.size()) {
+                System.out.println("Số thứ tự không hợp lệ.");
+                continue;
+            }
+
+            // Lấy đơn hàng được chọn
+            String[] selectedOrder = orders.get(choice - 1);
+            System.out.printf("Đơn hàng đã chọn:\n  Mã khách hàng: %s\n  Sản phẩm: %s\n  Tổng tiền: %s\n  Trạng thái: %s\n",
+                    selectedOrder[0], selectedOrder[1], selectedOrder[2], selectedOrder[3]);
+
+            System.out.print("Xác nhận (y), hủy xác nhận (n), giữ nguyên (h): ");
+            String action = scanner.nextLine().trim().toLowerCase();
+
+            // Xử lý cập nhật trạng thái đơn hàng
+            if (action.equals("y")) {
+                selectedOrder[3] = "đang vận chuyển";
+                System.out.println("Đã xác nhận đơn hàng.");
+            } else if (action.equals("n")) {
+                selectedOrder[3] = "đã hủy";
+                System.out.println("Đã hủy đơn hàng.");
+            } else if (action.equals("h")) {
+                System.out.println("Giữ nguyên trạng thái đơn hàng.");
+            } else {
+                System.out.println("Lựa chọn không hợp lệ, trạng thái đơn hàng không thay đổi.");
+            }
+
+            // Ghi lại danh sách đơn hàng vào file
+            writeFile(filePath, orders);
+            System.out.println("Đã cập nhật file.");
+        }
+
+        scanner.close();
+    }
+
+    public static void main(String[] args) {
+        Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp đúng
+        String filePath = "src/mainoop/data/ShoppingCart.txt"; // Đường dẫn đến file
+        orderManager.manageOrdersFromFile(filePath);
     }
 }
