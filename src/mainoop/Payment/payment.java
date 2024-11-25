@@ -11,7 +11,7 @@ public class payment {
     private Admin admin;
 
     // ================== Getter ======================
-    public Customer getCustomer() {
+    public Customer getcustomer() {
         return this.customer;
     }
 
@@ -24,7 +24,7 @@ public class payment {
     }
 
     // ------------------ Setter ---------------------
-    public void setCustomer(Customer customer) {
+    public void setcustomer(Customer customer) {
         this.customer = customer;
     }
 
