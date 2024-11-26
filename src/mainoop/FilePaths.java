@@ -7,4 +7,5 @@ public interface FilePaths {
     public static final String SHOPPING_CART_PATH = "src/mainoop/data/ShoppingCart.txt";
     public static final String BILL_PATH = "src/mainoop/data/Bill.txt";
     public static final String PAYEDBILL_PATH = "src/mainoop/data/PayedBill.txt";
+    
 }

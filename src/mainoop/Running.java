@@ -236,10 +236,13 @@ public class Running {
                                 switch (check2) {
                                     case 1 -> {
                                         
+                                        currentCustomer.setCartItemsEmpty();
+                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
                                     }
-                                        
+                                    
                                     case 2 -> {
+                                        
                                         System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
                                     }
                                         

@@ -55,6 +55,9 @@ public class Customer extends User {
     public String getOrderStatus() {
         return orderStatus;
     }
+    public Map<Product, Integer> getCartItems() {
+        return this.cartItems;
+    }
     @Override
     public String getAll() {
         return userId + " | " + customerName + " | " + userPassword + " | " + customerAddress;
@@ -81,6 +84,12 @@ public class Customer extends User {
     }
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+    public void setCartItems(Map<Product, Integer> cartItem) {
+        this.cartItems = cartItem;
+    }
+    public void setCartItemsEmpty() {
+        this.cartItems = new HashMap<>();
     }
 
     //viết lại hàm mặc định toString
