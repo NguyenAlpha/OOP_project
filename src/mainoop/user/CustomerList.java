@@ -94,7 +94,6 @@ public class CustomerList implements ListInterface{
                         check = true;
                     }
                     writer.write("\n" + customer.getSumPriceProduct() + "\n");
-                    writer.write(customer.getOrderStatus() + "\n");
                 }
             }
             writer.close();
