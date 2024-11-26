@@ -224,6 +224,39 @@ public class Running {
                             }
 
                             case 9 -> {     // 9. Thanh toán
+<<<<<<< HEAD:src/mainoop/running.java
+                            
+                                    if (currentCustomer.getCartItem().isEmpty()) {
+                                        System.out.println("Giỏ hàng trống !!");
+                                    } else {
+                                        payment payment = new payment();
+                                        payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại
+                                        payment.bill(); // Gọi phương thức in hóa đơn
+                                
+                                        // Chọn phương thức thanh toán
+                                        System.out.println("==================Thanh Toán=============== ");
+                                        System.out.println("1. Tiền mặt");
+                                        System.out.println("2. Chuyển khoản");
+                                        System.out.println("3. Thoát chương trình");
+                                        System.out.print("Chọn phương thức thanh toán: ");
+                                        int check2 = sc.nextInt(); // Sự lựa chọn của khách hàng
+                                        sc.nextLine();
+                                
+                                        switch (check2) {
+                                            case 1 -> System.out.println("Bạn đã thanh toán bằng tiền mặt!");
+                                            case 2 -> System.out.println("Bạn đã thanh toán bằng chuyển khoản!");
+                                            case 3 -> 
+                                            {
+                                                // check2 = false;
+                                                System.out.println("Bạn đã thoát thanh toán");
+                                            }
+                                            default -> System.out.println("Lựa chọn không hợp lệ!");
+                                        }
+                                    }
+                                }
+                                
+                            
+=======
                                 payment payment = new payment();
                                 payment.bill();
                                 Scanner scanner = new Scanner(System.in);
@@ -252,6 +285,7 @@ public class Running {
                             }
                             // xem trạng thái đơn hàng
                             // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
+>>>>>>> 5641704d212e027f9646da706a4de57cb2ec92dc:src/mainoop/Running.java
                             case 10 ->  {   // 10. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
@@ -281,7 +315,7 @@ public class Running {
                         System.out.println("=======================MENU=======================");
                         System.out.println("1. Xem danh sách sản phẩm.");
                         System.out.println("2. Tìm sản phẩm.");
-                        System.out.println("3. Thên sản phẩm.");
+                        System.out.println("3. Thêm sản phẩm.");
                         System.out.println("4. Xóa sản phẩm.");
                         System.out.println("5. Sửa sản phẩm.");
                         System.out.println("6. Xem tình trạng đơn hàng.");
@@ -311,13 +345,21 @@ public class Running {
                                 sc.nextLine();
                                 productList.addProduct(nameProduct, priceProduct, quantityProduct);
                             }
-                            case 4 ->  {
-                                productList.viewProductsList();
+                            case 4 ->  {   // 4. Xóa sản phẩm khỏi hệ thống
+                                productList.viewProductsList();  // Hiển thị danh sách sản phẩm
                                 System.out.print("Nhập mã sản phẩm cần xóa: ");
                                 int id = sc.nextInt();
                                 sc.nextLine();
-                                Product product = productList.getProductById(id);
-                                productList.RemoveProduct(product);
+                                Product product = productList.getProductById(id);  // Lấy sản phẩm theo mã
+                                if (product != null) {
+                                    // Xóa sản phẩm khỏi danh sách sản phẩm của hệ thống
+                                    productList.RemoveProduct(product);
+                                    customerList.removeProductFromAllCustomers(product);  // Gọi phương thức xóa sản phẩm khỏi giỏ hàng của tất cả khách hàng
+                            
+                                    System.out.println("Sản phẩm đã được xóa khỏi hệ thống và giỏ hàng của tất cả khách hàng.");
+                                } else {
+                                    System.out.println("Sản phẩm không tồn tại.");
+                                }
                             }
                             case 5 ->  {
                                 productList.viewProductsList();
