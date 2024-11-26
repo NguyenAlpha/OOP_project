@@ -231,18 +231,21 @@ public class Running {
                                 System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
                                 System.out.println("3.Thoát chương trình");
-                               System.out.println("Chọn phương thanh toán: ");
-                               int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
-                              switch (check2) {
-                                  case 1    : System.out.println("Bạn đã thanh toán bằng tiền mặt !");
-                                      
-                                      break;
-                                  case 2  : System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
-                                  break;
-                                  default: System.out.println("Thoát chương trình!");
-                                      return;
-                              }
-                              sc.close();
+                                System.out.print("Chọn phương thức thanh toán: ");
+                                int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
+                                switch (check2) {
+                                    case 1 -> {
+                                        
+                                        System.out.println("Bạn đã thanh toán bằng tiền mặt !");
+                                    }
+                                        
+                                    case 2 -> {
+                                        System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
+                                    }
+                                        
+                                    default -> System.out.println("Thoát chương trình!");
+                                }
+                                sc.close();
                             }
                             // xem trạng thái đơn hàng
                             // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
