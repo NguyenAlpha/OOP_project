@@ -2,6 +2,7 @@ package mainoop.product;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import mainoop.FilePaths;
 
 public class Product{
     private int productId; //ID sản phẩm
@@ -65,7 +66,7 @@ public class Product{
 
     // lưu sản phẩm mới vào file
     public void addProduct(Product newProduct) {
-        try (FileWriter writer = new FileWriter("src/mainoop/data/product.txt", true)) {
+        try (FileWriter writer = new FileWriter(FilePaths.PRODUCT_PATH, true)) {
             writer.append("\n" + newProduct.getAll());
             System.out.println("Sản phẩm đã được thêm thành công");
         } catch (IOException e) {

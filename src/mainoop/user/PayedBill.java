@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import mainoop.FilePaths;
+
 public class PayedBill {
 
     public static void viewOrderHistory(String filePath) throws IOException {
@@ -34,7 +36,7 @@ public class PayedBill {
     public static void main(String[] args) {
         System.out.println("=== XEM LỊCH SỬ ĐƠN HÀNG ===");
         try {
-            viewOrderHistory("src/mainoop/data/Payedbill.txt"); // Thay đổi đường dẫn tới file của bạn
+            viewOrderHistory(FilePaths.PAYEDBILL_PATH); // Thay đổi đường dẫn tới file của bạn
         } catch (IOException e) {
             System.out.println("LỖI: Không thể đọc file. " + e.getMessage());
         }

@@ -1,1 +1,2 @@
-1 | c | c | trai dat
+1 | c | c | trai dat | vietcombank | 3123411200
+2 | cc | cc | sao hoa |   N/A   |  N/A
