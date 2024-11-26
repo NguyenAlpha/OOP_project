@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import mainoop.product.Product;
+import mainoop.product.ProductList;
 
 // Customer kế thừa attribute và method của class User 
 public class Customer extends User {
@@ -14,7 +15,7 @@ public class Customer extends User {
     private long sumPriceProduct = 0;    //tổng tiền sản phẩm trong giỏ hàng
     private String bankId;  //mã số tài khoản ngân hàng
     private String bankName;    //tên ngân hàng
-    
+    private String orderStatus; //trạng thái đơn hàng
     //hàm tạo không tham số
     public Customer() {
         super();
@@ -27,6 +28,7 @@ public class Customer extends User {
         super(id, pass);    // phương thức này sẽ gọi đến hàm tạo 2 tham số của class cha(class User)
         this.customerName = name;
         this.customerAddress = address;
+        this.orderStatus = "Chưa xử lý";
     }
 
     //==================geter======================
@@ -48,6 +50,9 @@ public class Customer extends User {
     public String getBankName() {
         return this.bankName;
     }
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 
     //==================seter======================
     public void setCustomerName(String customerName) {
@@ -62,10 +67,13 @@ public class Customer extends User {
     public void setBankName(String bankname) {
         this.bankName = bankname;
     }
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     //viết lại hàm mặc định toString
     @Override public String toString() {
-        return userId + " , " + customerName + " , " + userPassword + " , " + customerAddress;
+        return userId + " , " + customerName + " , " + userPassword + " , " + customerAddress + " , " + orderStatus;
     }
 
     // viết lại hàm trừu tượng của class User 
@@ -172,6 +180,7 @@ public class Customer extends User {
             System.out.println(val);
         }
         System.out.println("Tổng tiền: " + sumPriceProduct);
+        System.out.println("Trạng thái đơn hàng: " + orderStatus);
     }
 
     public boolean checkCartItem() {

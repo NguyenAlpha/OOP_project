@@ -52,20 +52,25 @@ public class CustomerList implements ListInterface{
         ProductList productList = getProList.getProductList();
         ProductList p = new ProductList("src/mainoop/data/product.txt");
         try {
-            Scanner reader = new Scanner(new File("src/mainoop/data/ShoppingCart.txt"));
-            while(reader.hasNextLine()) {
-                int id = Integer.parseInt(reader.nextLine());
+            Scanner orderReader = new Scanner(new File("src/mainoop/data/ShoppingCart.txt"));
+            while (orderReader.hasNextLine()) {
+                int id = Integer.parseInt(orderReader.nextLine());
                 Customer customer = getCustomerById(id);
-                String line2 = reader.nextLine();
-                String[] split1 = line2.split("[ ]*[|][ ]*");
-                for(String temp : split1) {
-                    String[] split2 = temp.split("[ ]*[,][ ]*");
-                    customer.addCartItems(productList.getProductByName(split2[0]), Integer.parseInt(split2[1]));
+                String productLine = orderReader.nextLine();
+                String[] splitProducts = productLine.split("[ ]*[|][ ]*");
+                for (String productEntry : splitProducts) {
+                    String[] splitDetails = productEntry.split("[ ]*[,][ ]*");
+                    customer.addCartItems(
+                        productList.getProductByName(splitDetails[0]),
+                        Integer.parseInt(splitDetails[1])
+                    );
                 }
-                customerList.set(id-1,customer);
-                reader.nextLine();
+                customer.setSumPriceProduct(Long.parseLong(orderReader.nextLine()));
+                customer.setOrderStatus(orderReader.nextLine()); // Lưu trạng thái
+                customerList.set(id - 1, customer);
+                orderReader.nextLine(); // Bỏ qua dòng trống
             }
-            reader.close();
+            orderReader.close();
         } catch (Exception e) {}
     }
 
@@ -87,6 +92,7 @@ public class CustomerList implements ListInterface{
                         check = true;
                     }
                     writer.write("\n" + customer.getSumPriceProduct() + "\n");
+                    writer.write(customer.getOrderStatus() + "\n");
                 }
             }
             writer.close();

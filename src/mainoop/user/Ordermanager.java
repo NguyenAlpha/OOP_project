@@ -119,10 +119,11 @@ public class Ordermanager {
 
         scanner.close();
     }
-
     public static void main(String[] args) {
+        CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
         Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp đúng
         String filePath = "src/mainoop/data/Bill.txt"; // Đường dẫn đến file
         orderManager.manageOrdersFromFile(filePath);
     }
+
 }
