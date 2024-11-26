@@ -2,6 +2,7 @@ package mainoop;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import mainoop.Payment.payment;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
 import mainoop.user.Admin;
@@ -68,7 +69,8 @@ public class running {
                             System.out.println("6. Xem giỏ Hàng");
                             System.out.println("7. Thêm sản phẩm vào giỏ hàng");
                             System.out.println("8. Xóa sản phẩm khỏi giỏ hàng");
-                            System.out.println("9. Đăng xuất");
+                            System.out.println("9. Thanh toán");
+                            System.out.println("10. Đăng xuất");
                         }
                         System.out.println("==============================================");
                         
@@ -184,10 +186,28 @@ public class running {
                             }
 
                             case 9 -> {     // 9. Thanh toán
-                                
+                                payment payment = new payment();
+                                payment.bill();
+                                Scanner scanner = new Scanner(System.in);
+                                System.out.println("Thanh Toán=============== ");
+                                System.out.println("1.Tiền mặt");
+                                System.out.println("2.Chuyển khoản");
+                                System.out.println("3.Thoát chương trình");
+                               System.out.println("Chọn phương thanh toán: ");
+                               int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
+                              switch (check2) {
+                                  case 1    : System.out.println("Bạn đã thanh toán bằng tiền mặt !");
+                                      
+                                      break;
+                                  case 2  : System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
+                                  break;
+                                  default: System.out.println("Thoát chương trình!");
+                                      return;
+                              }
+                              sc.close();
                             }
 
-                            case 10 ->  {   // 9. Đăng xuất
+                            case 10 ->  {   // 10. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
                                 System.out.println("Đã đăng Xuất");
