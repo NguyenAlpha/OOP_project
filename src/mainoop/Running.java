@@ -224,39 +224,6 @@ public class Running {
                             }
 
                             case 9 -> {     // 9. Thanh toán
-<<<<<<< HEAD:src/mainoop/running.java
-                            
-                                    if (currentCustomer.getCartItem().isEmpty()) {
-                                        System.out.println("Giỏ hàng trống !!");
-                                    } else {
-                                        payment payment = new payment();
-                                        payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại
-                                        payment.bill(); // Gọi phương thức in hóa đơn
-                                
-                                        // Chọn phương thức thanh toán
-                                        System.out.println("==================Thanh Toán=============== ");
-                                        System.out.println("1. Tiền mặt");
-                                        System.out.println("2. Chuyển khoản");
-                                        System.out.println("3. Thoát chương trình");
-                                        System.out.print("Chọn phương thức thanh toán: ");
-                                        int check2 = sc.nextInt(); // Sự lựa chọn của khách hàng
-                                        sc.nextLine();
-                                
-                                        switch (check2) {
-                                            case 1 -> System.out.println("Bạn đã thanh toán bằng tiền mặt!");
-                                            case 2 -> System.out.println("Bạn đã thanh toán bằng chuyển khoản!");
-                                            case 3 -> 
-                                            {
-                                                // check2 = false;
-                                                System.out.println("Bạn đã thoát thanh toán");
-                                            }
-                                            default -> System.out.println("Lựa chọn không hợp lệ!");
-                                        }
-                                    }
-                                }
-                                
-                            
-=======
                                 payment payment = new payment();
                                 payment.bill();
                                 Scanner scanner = new Scanner(System.in);
@@ -285,7 +252,6 @@ public class Running {
                             }
                             // xem trạng thái đơn hàng
                             // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
->>>>>>> 5641704d212e027f9646da706a4de57cb2ec92dc:src/mainoop/Running.java
                             case 10 ->  {   // 10. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
