@@ -1,5 +1,6 @@
 package mainoop;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.Payment.payment;
@@ -10,14 +11,21 @@ import mainoop.user.AdminList;
 import mainoop.user.Customer;
 import mainoop.user.CustomerList;
 import mainoop.user.Ordermanager;
+import mainoop.user.PayedBill;
 
-public class running {
-    private static ProductList productList = new ProductList("src/mainoop/data/product.txt");
-    private static AdminList adminList = new AdminList("src/mainoop/data/Admin.txt");
-    private static CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
-    
-    public ProductList getProductList() {
+public class Running { 
+    private static ProductList productList = new ProductList(FilePaths.PRODUCT_PATH);
+    private static AdminList adminList = new AdminList(FilePaths.ADMIN_PATH);
+    private static CustomerList customerList = new CustomerList(FilePaths.CUSTOMER_PATH);
+
+    public static ProductList getProductList() {
         return productList;
+    }
+    public static AdminList getAdminList() {
+        return adminList;
+    }
+    public static CustomerList getCustomerList() {
+        return customerList;
     }
 
     public static void main(String[] args) {
@@ -132,7 +140,7 @@ public class running {
                                 String address = sc.nextLine();
                                 
                                 // tạo đối tượng khách hàng mới
-                                currentCustomer = new Customer(customerList.getCustomerCount()+1,name , password, address);
+                                currentCustomer = new Customer(customerList.getCustomerCount()+1,name , password, address, "N/A", "N/A");
 
                                 // thêm khách hàng đó vào danh sách khách hàng
                                 customerList.addCustomerToList(currentCustomer);
@@ -146,6 +154,36 @@ public class running {
                                 System.out.println("Tên: " + currentCustomer.getCustomerName());
                                 System.out.println("Mật khẩu: " + currentCustomer.getUserPassword());
                                 System.out.println("Địa chỉ: " + currentCustomer.getCustomerAddress());
+                                System.out.println("Tài khoản ngân hàng: " + currentCustomer.getBankName() + " " + currentCustomer.getBankId());
+                                if(currentCustomer.getBankId().equals("N/A")) {
+                                    System.out.println("0. quay lại");
+                                    System.out.println("1. Liên kết tài khoản ngân hàng");
+                                    System.out.print("Nhập thao tác: ");
+                                    int thaoTacCase3 = sc.nextInt();
+                                    sc.nextLine();
+
+                                    switch (thaoTacCase3) {
+                                        case 1 -> {
+                                            System.out.print("Nhập tên ngân hàng: ");
+                                            String bankName = sc.nextLine();
+                                            String bankId;
+                                            while (true) {
+                                                System.out.print("Nhập số tài khoản ngân hàng: ");
+                                                bankId = sc.nextLine();
+                                                if (bankId.length() < 8) {
+                                                    System.out.println("Số tài khoản ngân hàng phải hơn 8 ký tự.");
+                                                } else if (!bankId.matches("\\d+")) {
+                                                    System.out.println("Số tài khoản ngân hàng chỉ được chứa các ký tự số.");
+                                                } else {
+                                                    break; // Thoát vòng lặp nếu chuỗi hợp lệ
+                                                }
+                                            }
+                                            currentCustomer.setBank(bankId, bankName);
+                                            customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
+                                        }
+                                        default -> {}
+                                    }
+                                }
                             }
 
                             case 4 ->  {   // 4. Xem Danh sách sản phẩm
@@ -186,6 +224,7 @@ public class running {
                             }
 
                             case 9 -> {     // 9. Thanh toán
+<<<<<<< HEAD:src/mainoop/running.java
                             
                                     if (currentCustomer.getCartItem().isEmpty()) {
                                         System.out.println("Giỏ hàng trống !!");
@@ -217,6 +256,33 @@ public class running {
                                 }
                                 
                             
+=======
+                                payment payment = new payment();
+                                payment.bill();
+                                Scanner scanner = new Scanner(System.in);
+                                System.out.println("Thanh Toán=============== ");
+                                System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
+                                System.out.println("2.Chuyển khoản");
+                                System.out.println("3.Thoát chương trình");
+                                System.out.print("Chọn phương thức thanh toán: ");
+                                int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
+                                switch (check2) {
+                                    case 1 -> {
+                                        
+                                        System.out.println("Bạn đã thanh toán bằng tiền mặt !");
+                                    }
+                                        
+                                    case 2 -> {
+                                        System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
+                                    }
+                                        
+                                    default -> System.out.println("Thoát chương trình!");
+                                }
+                                sc.close();
+                            }
+                            // xem trạng thái đơn hàng
+                            // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
+>>>>>>> 5641704d212e027f9646da706a4de57cb2ec92dc:src/mainoop/Running.java
                             case 10 ->  {   // 10. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
@@ -250,7 +316,8 @@ public class running {
                         System.out.println("4. Xóa sản phẩm.");
                         System.out.println("5. Sửa sản phẩm.");
                         System.out.println("6. Xem tình trạng đơn hàng.");
-                        System.out.println("7. Thoát.");
+                        System.out.println("7. Xem lịch sử đơn hàng.");
+                        System.out.println("8. Thoát.");
                         System.out.println("==============================================");
                         
                         System.out.print("Nhập thao tác: ");
@@ -304,14 +371,26 @@ public class running {
                                 Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp chính xác
 
                                  // Đường dẫn file đầu vào và đầu ra
-                                String inputFilePath = "src/mainoop/data/ShoppingCart.txt"; // Đường dẫn đến file ShoppingCart.txt
-                                String outputFilePath = "src/mainoop/data/Bill.txt";        // Đường dẫn đến file Bill.txt
+                                String inputFilePath = FilePaths.BILL_PATH; // Đường dẫn đến file ShoppingCart.txt
+                                String outputFilePath = FilePaths.BILL_PATH;        // Đường dẫn đến file Bill.txt
 
                                  // Gọi phương thức quản lý đơn hàng từ file ShoppingCart.txt
                                  orderManager.manageOrdersFromFile(inputFilePath);
                             }
+                            
+                            case 7 ->{
+                                System.out.println("=== XEM LỊCH SỬ ĐƠN HÀNG ===");
+    
+                                String payedBillFilePath = FilePaths.PAYEDBILL_PATH; // Đường dẫn đến file payedbill.txt
 
-                            case 7 ->  {
+                                // Gọi hàm xử lý hóa đơn
+                                try {
+                                    PayedBill.viewOrderHistory(payedBillFilePath);; // Gọi phương thức từ lớp PayedBill
+                                } catch (IOException e) {
+                                    System.out.println("Lỗi: Không thể đọc file. Chi tiết: " + e.getMessage());
+                            }
+                        }
+                            case 8 ->  {
                                 check2 = false;
                                 System.out.println("Đã thoát!");
                             }

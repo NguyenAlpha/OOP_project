@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import mainoop.FilePaths;
+
 public class Ordermanager {
 
     // Đọc file và trả về danh sách đơn hàng từ ShoppingCart.txt
@@ -19,7 +21,7 @@ public class Ordermanager {
 
                 // Khi đủ 4 dòng cho 1 đơn hàng (mã khách, sản phẩm, tổng tiền, trạng thái)
                 if (tempOrder.size() == 4) {
-                    orders.add(tempOrder.toArray(new String[0]));
+                    orders.add(tempOrder.toArray(String[]::new));
                     tempOrder.clear();
                 }
             }
@@ -95,16 +97,21 @@ public class Ordermanager {
             String action = scanner.nextLine().trim().toLowerCase();
 
             // Xử lý cập nhật trạng thái đơn hàng
-            if (action.equals("y")) {
-                selectedOrder[3] = "đang vận chuyển";
-                System.out.println("Đã xác nhận đơn hàng.");
-            } else if (action.equals("n")) {
-                selectedOrder[3] = "đã hủy";
-                System.out.println("Đã hủy đơn hàng.");
-            } else if (action.equals("h")) {
-                System.out.println("Giữ nguyên trạng thái đơn hàng.");
-            } else {
-                System.out.println("Lựa chọn không hợp lệ, trạng thái đơn hàng không thay đổi.");
+            switch (action) {
+                case "1":
+                    selectedOrder[3] = "đang vận chuyển";
+                    System.out.println("Đã xác nhận đơn hàng.");
+                    break;
+                case "2":
+                    selectedOrder[3] = "đã hủy";
+                    System.out.println("Đã hủy đơn hàng.");
+                    break;
+                case "3":
+                    System.out.println("Giữ nguyên trạng thái đơn hàng.");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ, trạng thái đơn hàng không thay đổi.");
+                    break;
             }
 
             // Ghi lại danh sách đơn hàng vào file
@@ -114,10 +121,11 @@ public class Ordermanager {
 
         scanner.close();
     }
-
     public static void main(String[] args) {
+        CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
         Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp đúng
-        String filePath = "src/mainoop/data/ShoppingCart.txt"; // Đường dẫn đến file
+        String filePath = FilePaths.BILL_PATH; // Đường dẫn đến file
         orderManager.manageOrdersFromFile(filePath);
     }
+
 }

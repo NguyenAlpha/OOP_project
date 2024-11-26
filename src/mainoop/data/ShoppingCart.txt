@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-8
-Day chuyen , 5    |    Quan , 10
-11500000
-=======
 1
-quan xi , 5
-100000
-đang vận chuyển
-
-2
-ao dai , 4
-200000
-đang vận chuyển
-
->>>>>>> 490e4c846ee921517c1dd9c4d8d766bc9c78e0eb
+ao , 30
+3000000

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import mainoop.FilePaths;
 import mainoop.ListInterface;
 
 public class ProductList implements ListInterface{
@@ -58,7 +59,7 @@ public class ProductList implements ListInterface{
     @Override
     public void writeToFile() {
         try {
-            FileWriter writer = new FileWriter("src/mainoop/data/product.txt");
+            FileWriter writer = new FileWriter(FilePaths.PRODUCT_PATH);
             writer.write(String.valueOf(lastProdectId));
             for(Product product : productList) {
                 writer.write("\n" + product.getAll());
