@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import mainoop.FilePaths;
+
 public class Ordermanager {
 
     // Đọc file và trả về danh sách đơn hàng từ ShoppingCart.txt
@@ -122,7 +124,7 @@ public class Ordermanager {
     public static void main(String[] args) {
         CustomerList customerList = new CustomerList("src/mainoop/data/Customer.txt");
         Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp đúng
-        String filePath = "src/mainoop/data/Bill.txt"; // Đường dẫn đến file
+        String filePath = FilePaths.BILL_PATH; // Đường dẫn đến file
         orderManager.manageOrdersFromFile(filePath);
     }
 

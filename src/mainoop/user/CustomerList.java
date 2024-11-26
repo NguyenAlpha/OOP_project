@@ -6,15 +6,17 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import mainoop.FilePaths;
 import mainoop.ListInterface;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
-import mainoop.running;
+import mainoop.Running;
 
 public class CustomerList implements ListInterface{
     // các thuộc tính của dánh sách khách hàng
     private int customerCount = 0;  //số lượng khách hàng
     private ArrayList<Customer> customerList = new ArrayList<>();   //danh sách khách hàng
+    
     // Hàm tạo không tham số
     public CustomerList() {}
 
@@ -38,7 +40,7 @@ public class CustomerList implements ListInterface{
             while(reader.hasNextLine()) {   //nếu có dòng để đọc file
                 String s = reader.nextLine();   //đọc dòng đó
                 String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
-                Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3]); //lưu vào 1 đối tượng
+                Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3], sSplit[4], sSplit[5]); //lưu vào 1 đối tượng
                 customerList.add(temp); //lưu vào danh sách các đối tượng
                 customerCount++;
             }
@@ -48,15 +50,14 @@ public class CustomerList implements ListInterface{
             e.printStackTrace();
         }
 
-        running getProList = new running();
-        ProductList productList = getProList.getProductList();
-        ProductList p = new ProductList("src/mainoop/data/product.txt");
+        
+        ProductList productList = Running.getProductList();
         try {
-            Scanner orderReader = new Scanner(new File("src/mainoop/data/ShoppingCart.txt"));
-            while (orderReader.hasNextLine()) {
-                int id = Integer.parseInt(orderReader.nextLine());
+            Scanner reader = new Scanner(new File(FilePaths.CUSTOMER_PATH));
+            while(reader.hasNextLine()) {
+                int id = Integer.parseInt(reader.nextLine());
                 Customer customer = getCustomerById(id);
-                String productLine = orderReader.nextLine();
+                String productLine = reader.nextLine();
                 String[] splitProducts = productLine.split("[ ]*[|][ ]*");
                 for (String productEntry : splitProducts) {
                     String[] splitDetails = productEntry.split("[ ]*[,][ ]*");
@@ -65,19 +66,20 @@ public class CustomerList implements ListInterface{
                         Integer.parseInt(splitDetails[1])
                     );
                 }
-                customer.setSumPriceProduct(Long.parseLong(orderReader.nextLine()));
-                customer.setOrderStatus(orderReader.nextLine()); // Lưu trạng thái
+                customer.setSumPriceProduct(Long.parseLong(reader.nextLine()));
+                customer.setOrderStatus(reader.nextLine()); // Lưu trạng thái
                 customerList.set(id - 1, customer);
-                orderReader.nextLine(); // Bỏ qua dòng trống
+                reader.nextLine(); // Bỏ qua dòng trống
             }
-            orderReader.close();
+            reader.close();
         } catch (Exception e) {}
     }
+
 
     @Override
     public void writeToFile() {
         try {
-            FileWriter writer = new FileWriter("src/mainoop/data/ShoppingCart.txt");
+            FileWriter writer = new FileWriter(FilePaths.SHOPPING_CART_PATH);
             for( Customer customer : customerList) {
                 if(!customer.checkCartItem()) {
                     boolean check = false;
@@ -97,6 +99,7 @@ public class CustomerList implements ListInterface{
             }
             writer.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

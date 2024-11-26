@@ -4,8 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import mainoop.FilePaths;
 import mainoop.product.Product;
-import mainoop.product.ProductList;
 
 // Customer kế thừa attribute và method của class User 
 public class Customer extends User {
@@ -13,8 +13,8 @@ public class Customer extends User {
     private String customerAddress; //địa chỉ khách hàng
     private Map<Product, Integer> cartItems = new HashMap<>();  //danh sách giỏ hàng
     private long sumPriceProduct = 0;    //tổng tiền sản phẩm trong giỏ hàng
-    private String bankId;  //mã số tài khoản ngân hàng
     private String bankName;    //tên ngân hàng
+    private String bankId;  //mã số tài khoản ngân hàng
     private String orderStatus; //trạng thái đơn hàng
     //hàm tạo không tham số
     public Customer() {
@@ -24,7 +24,7 @@ public class Customer extends User {
     }
     
     //hàm tạo có tham số
-    public Customer(int id, String name, String pass, String address) {
+    public Customer(int id, String name, String pass, String address, String bankName, String bankId) {
         super(id, pass);    // phương thức này sẽ gọi đến hàm tạo 2 tham số của class cha(class User)
         this.customerName = name;
         this.customerAddress = address;
@@ -53,7 +53,10 @@ public class Customer extends User {
     public String getOrderStatus() {
         return orderStatus;
     }
-
+    @Override
+    public String getAll() {
+        return userId + " | " + customerName + " | " + userPassword + " | " + customerAddress;
+    }
     //==================seter======================
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
@@ -61,11 +64,18 @@ public class Customer extends User {
     public void setAddress(String address) {
         this.customerAddress = address;
     }
+    public void setSumPriceProduct(long sum) {
+        this.sumPriceProduct = sum;
+    }
     public void setBankId(String bankId) {
         this.bankId = bankId;
     }
-    public void setBankName(String bankname) {
-        this.bankName = bankname;
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+    public void setBank(String bankId, String bankName) {
+        this.bankId = bankId;
+        this.bankName = bankName;
     }
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
@@ -81,16 +91,11 @@ public class Customer extends User {
     public boolean checkUserName(String userName) {
         return customerName.equals(userName);
     }
-    @Override
-    public String getAll() {
-        return userId + " | " + customerName + " | " + userPassword + " | " + customerAddress;
-    }
 
     // thêm 1 khách hàng mới vào file lưu trữ
     public void addCustomer(Customer customer) {
-        // viết vào file
         try {
-            FileWriter writer = new FileWriter("src/mainoop/data/Customer.txt", true);
+            FileWriter writer = new FileWriter(FilePaths.CUSTOMER_PATH, true);
             writer.write("\n" + customer.getAll());
             writer.close();
         } catch (IOException e) {
@@ -99,52 +104,9 @@ public class Customer extends User {
         }
     }
 
-    public void setSumPriceProduct(long sum) {
-        this.sumPriceProduct = sum;
-    }
-
-    // tính tổng tiền giỏ hàng
-    public  void calcuaSumPriceProduct() {
-        sumPriceProduct = 0;
-        for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
-            Product product = en.getKey();
-            int quantity = en.getValue();
-            sumPriceProduct += product.getProductPrice() * (quantity);
-        }
-    }
-
-    // thêm sản phẩm mới vào giỏ hàng
-    public void addCartItems(Product product, int quantity) {
-        for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
-            if(en.getKey().getProductName() == product.getProductName()) {
-                cartItems.put(product, en.getValue() + quantity);
-                calcuaSumPriceProduct();
-                return;
-            }
-        }
-        cartItems.put(product, quantity);
-        calcuaSumPriceProduct();
-    }
-
-    // xóa sản phẩm khỏi giỏ hàng
-    public void removeCartItems(Product product, int quantityToRemove) {
-        if (cartItems.containsKey(product)) {
-            int currentQuantity = cartItems.get(product);
-            
-            if (quantityToRemove >= currentQuantity) {
-                // Xóa hoàn toàn sản phẩm
-                cartItems.remove(product);
-
-            } else {
-                // Giảm số lượng
-                cartItems.put(product, currentQuantity - quantityToRemove);
-            }
-            calcuaSumPriceProduct();
-            System.out.println("Đã xóa sản phẩm!");
-        } else {
-            System.out.println("Không xóa được!");
-        }
-        
+    // kiểm tra giỏ hàng có trống không
+    public boolean checkCartItem() {
+        return cartItems.isEmpty();
     }
 
     // xem giỏ hàng
@@ -183,7 +145,48 @@ public class Customer extends User {
         System.out.println("Trạng thái đơn hàng: " + orderStatus);
     }
 
-    public boolean checkCartItem() {
-        return cartItems.isEmpty();
+    
+    // thêm sản phẩm mới vào giỏ hàng
+    public void addCartItems(Product product, int quantity) {
+        for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
+            if(en.getKey().getProductName() == product.getProductName()) {
+                cartItems.put(product, en.getValue() + quantity);
+                calcuaSumPriceProduct();
+                return;
+            }
+        }
+        cartItems.put(product, quantity);
+        calcuaSumPriceProduct();
+    }
+
+    // xóa sản phẩm khỏi giỏ hàng
+    public void removeCartItems(Product product, int quantityToRemove) {
+        if (cartItems.containsKey(product)) {
+            int currentQuantity = cartItems.get(product);
+            
+            if (quantityToRemove >= currentQuantity) {
+                // Xóa hoàn toàn sản phẩm
+                cartItems.remove(product);
+
+            } else {
+                // Giảm số lượng
+                cartItems.put(product, currentQuantity - quantityToRemove);
+            }
+            calcuaSumPriceProduct();
+            System.out.println("Đã xóa sản phẩm!");
+        } else {
+            System.out.println("Không xóa được!");
+        }
+        
+    }
+
+    // tính tổng tiền giỏ hàng
+    public  void calcuaSumPriceProduct() {
+        sumPriceProduct = 0;
+        for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
+            Product product = en.getKey();
+            int quantity = en.getValue();
+            sumPriceProduct += product.getProductPrice() * (quantity);
+        }
     }
 }
