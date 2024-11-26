@@ -228,7 +228,7 @@ public class Running {
                                 payment.bill();
                                 Scanner scanner = new Scanner(System.in);
                                 System.out.println("Thanh Toán=============== ");
-                                System.out.println("1.Tiền mặt");
+                                System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
                                 System.out.println("3.Thoát chương trình");
                                System.out.println("Chọn phương thanh toán: ");
@@ -244,7 +244,8 @@ public class Running {
                               }
                               sc.close();
                             }
-
+                            // xem trạng thái đơn hàng
+                            // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
                             case 10 ->  {   // 10. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
