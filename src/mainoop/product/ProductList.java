@@ -69,7 +69,6 @@ public class ProductList implements ListInterface{
             System.out.println("An error occurred.");
         }
     }
-
     // in ra danh sách các sản phẩm
     public void viewProductsList() {
         System.out.println(" Mã |             Tên              |        giá         |   số lượng");

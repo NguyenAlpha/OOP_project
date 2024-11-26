@@ -175,9 +175,6 @@ public class Customer extends User {
                 cartItems.put(product, currentQuantity - quantityToRemove);
             }
             calcuaSumPriceProduct();
-            System.out.println("Đã xóa sản phẩm!");
-        } else {
-            System.out.println("Không xóa được!");
         }
         
     }

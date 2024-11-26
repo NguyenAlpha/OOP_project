@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import mainoop.FilePaths;
 
 public class Ordermanager {
@@ -65,7 +64,6 @@ public class Ordermanager {
                 System.out.printf("%d | Mã khách hàng: %s\n", i + 1, order[0]);
                 System.out.printf("  Sản phẩm: %s\n", order[1]);
                 System.out.printf("  Tổng tiền: %s\n", order[2]);
-                System.out.printf("  Trạng thái: %s\n", order[3]);
             }
 
             // Yêu cầu admin nhập lựa chọn
