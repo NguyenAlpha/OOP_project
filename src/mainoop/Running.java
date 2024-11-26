@@ -166,8 +166,7 @@ public class Running {
                                         case 1 -> {
                                             System.out.print("Nhập tên ngân hàng: ");
                                             String bankName = sc.nextLine();
-                                            System.out.print("Nhập số tài khoản ngân hàng: ");
-                                            String bankId = sc.nextLine();
+                                            String bankId;
                                             while (true) {
                                                 System.out.print("Nhập số tài khoản ngân hàng: ");
                                                 bankId = sc.nextLine();
