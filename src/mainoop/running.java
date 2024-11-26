@@ -1,5 +1,6 @@
 package mainoop;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.Payment.payment;
@@ -10,6 +11,7 @@ import mainoop.user.AdminList;
 import mainoop.user.Customer;
 import mainoop.user.CustomerList;
 import mainoop.user.Ordermanager;
+import mainoop.user.PayedBill;
 
 public class running {
     private static ProductList productList = new ProductList("src/mainoop/data/product.txt");
@@ -240,7 +242,8 @@ public class running {
                         System.out.println("4. Xóa sản phẩm.");
                         System.out.println("5. Sửa sản phẩm.");
                         System.out.println("6. Xem tình trạng đơn hàng.");
-                        System.out.println("7. Thoát.");
+                        System.out.println("7. Xem lịch sử đơn hàng.");
+                        System.out.println("8. Thoát.");
                         System.out.println("==============================================");
                         
                         System.out.print("Nhập thao tác: ");
@@ -300,8 +303,20 @@ public class running {
                                  // Gọi phương thức quản lý đơn hàng từ file ShoppingCart.txt
                                  orderManager.manageOrdersFromFile(inputFilePath);
                             }
+                            
+                            case 7 ->{
+                                System.out.println("=== XEM LỊCH SỬ ĐƠN HÀNG ===");
+    
+                                String payedBillFilePath = "src/mainoop/data/payedbill.txt"; // Đường dẫn đến file payedbill.txt
 
-                            case 7 ->  {
+                                // Gọi hàm xử lý hóa đơn
+                                try {
+                                    PayedBill.viewOrderHistory(payedBillFilePath);; // Gọi phương thức từ lớp PayedBill
+                                } catch (IOException e) {
+                                    System.out.println("Lỗi: Không thể đọc file. Chi tiết: " + e.getMessage());
+                            }
+                        }
+                            case 8 ->  {
                                 check2 = false;
                                 System.out.println("Đã thoát!");
                             }

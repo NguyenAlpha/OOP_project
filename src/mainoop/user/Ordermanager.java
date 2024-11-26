@@ -122,7 +122,7 @@ public class Ordermanager {
 
     public static void main(String[] args) {
         Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp đúng
-        String filePath = "src/mainoop/data/ShoppingCart.txt"; // Đường dẫn đến file
+        String filePath = "src/mainoop/data/Bill.txt"; // Đường dẫn đến file
         orderManager.manageOrdersFromFile(filePath);
     }
 }
