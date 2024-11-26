@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Scanner;
 import mainoop.FilePaths;
 import mainoop.ListInterface;
+import mainoop.Running;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
-import mainoop.Running;
 
 public class CustomerList implements ListInterface{
     // các thuộc tính của dánh sách khách hàng
@@ -67,9 +67,9 @@ public class CustomerList implements ListInterface{
                     );
                 }
                 customer.setSumPriceProduct(Long.parseLong(reader.nextLine()));
-                customer.setOrderStatus(reader.nextLine()); // Lưu trạng thái
+                // customer.setOrderStatus(reader.nextLine()); // Lưu trạng thái
+                reader.nextLine();
                 customerList.set(id - 1, customer);
-                reader.nextLine(); // Bỏ qua dòng trống
             }
             reader.close();
         } catch (Exception e) {}

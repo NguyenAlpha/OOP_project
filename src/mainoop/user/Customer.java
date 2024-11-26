@@ -28,7 +28,9 @@ public class Customer extends User {
         super(id, pass);    // phương thức này sẽ gọi đến hàm tạo 2 tham số của class cha(class User)
         this.customerName = name;
         this.customerAddress = address;
-        this.orderStatus = "Chưa xử lý";
+        this.bankName = bankName;
+        this.bankId = bankId;
+        // this.orderStatus = "Chưa xử lý";
     }
 
     //==================geter======================

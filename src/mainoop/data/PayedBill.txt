@@ -1,9 +1,5 @@
-1 | Mã khách hàng: 1
-Sản phẩm: Laptop, 2
-Tổng tiền: 20000000
-Trạng thái: Đã giao
-
-2 | Mã khách hàng: 2
-Sản phẩm: Điện thoại, 1
-Tổng tiền: 15000000
-Trạng thái: Đang vận chuyển
+1 | 5
+quan , 1    |    ao , 5
+700000
+địa chỉ:
+đã giao

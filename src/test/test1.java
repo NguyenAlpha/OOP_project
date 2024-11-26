@@ -1,18 +1,18 @@
 package test;
 
+import java.io.FileWriter;
+
 public class test1 {
-    static int x = 100;
     public static void main(String[] args) {
-        // try {
-        //     Scanner sc = new Scanner(new File("src/test/test.txt"));
-        //     while(sc.hasNextLine()) {
-        //         System.out.println("===");
-        //         System.out.println(sc.nextLine());
-        //         System.out.println("=>=");
-        //     }
-        // } catch (Exception e) {
-        // }
-        String z = "83429834fksdj";
-        System.out.println(z.matches("\\d*"));
+        try {
+            FileWriter r = new FileWriter("src/test/test.txt");
+
+
+            r.write(String.format("%-20s|%-14s|%-6s\n", "giày", "500000","1000"));
+            r.write(String.format("%-20s|%-14s|%-6s", "áo", "200000","500"));
+
+            r.close();
+        } catch (Exception e) {
+        }
     }   
 }
