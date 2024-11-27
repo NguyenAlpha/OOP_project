@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.Payment.payment;
+import mainoop.huytoan.Ordermanager;
+import mainoop.huytoan.PayedBill;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
 import mainoop.user.Admin;
 import mainoop.user.AdminList;
 import mainoop.user.Customer;
 import mainoop.user.CustomerList;
-import mainoop.user.Ordermanager;
-import mainoop.user.PayedBill;
 
 public class Running { 
     private static ProductList productList = new ProductList(FilePaths.PRODUCT_PATH);
@@ -338,6 +338,7 @@ public class Running {
 
                                  // Gọi phương thức quản lý đơn hàng từ file ShoppingCart.txt
                                  orderManager.manageOrdersFromFile(inputFilePath);
+                                
                             }
                             
                             case 7 ->{
