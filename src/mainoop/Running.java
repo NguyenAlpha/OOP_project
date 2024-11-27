@@ -243,11 +243,14 @@ public class Running {
                                 switch (check2) {
                                     case 1 -> {
                                         
+                                        currentCustomer.setCartItemsEmpty();
+                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
                                         
                                     }
-                                        
+                                    
                                     case 2 -> {
+                                        
                                         System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
                                     }
                                         
@@ -288,7 +291,7 @@ public class Running {
                         System.out.println("=======================MENU=======================");
                         System.out.println("1. Xem danh sách sản phẩm.");
                         System.out.println("2. Tìm sản phẩm.");
-                        System.out.println("3. Thên sản phẩm.");
+                        System.out.println("3. Thêm sản phẩm.");
                         System.out.println("4. Xóa sản phẩm.");
                         System.out.println("5. Sửa sản phẩm.");
                         System.out.println("6. Xem tình trạng đơn hàng.");
@@ -318,13 +321,21 @@ public class Running {
                                 sc.nextLine();
                                 productList.addProduct(nameProduct, priceProduct, quantityProduct);
                             }
-                            case 4 ->  {
-                                productList.viewProductsList();
+                            case 4 ->  {   // 4. Xóa sản phẩm khỏi hệ thống
+                                productList.viewProductsList();  // Hiển thị danh sách sản phẩm
                                 System.out.print("Nhập mã sản phẩm cần xóa: ");
                                 int id = sc.nextInt();
                                 sc.nextLine();
-                                Product product = productList.getProductById(id);
-                                productList.RemoveProduct(product);
+                                Product product = productList.getProductById(id);  // Lấy sản phẩm theo mã
+                                if (product != null) {
+                                    // Xóa sản phẩm khỏi danh sách sản phẩm của hệ thống
+                                    productList.RemoveProduct(product);
+                                    customerList.removeProductFromAllCustomers(product);  // Gọi phương thức xóa sản phẩm khỏi giỏ hàng của tất cả khách hàng
+                            
+                                    System.out.println("Sản phẩm đã được xóa khỏi hệ thống và giỏ hàng của tất cả khách hàng.");
+                                } else {
+                                    System.out.println("Sản phẩm không tồn tại.");
+                                }
                             }
                             case 5 ->  {
                                 productList.viewProductsList();

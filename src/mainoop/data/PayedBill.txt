@@ -1,5 +1,5 @@
-1 | 5
-quan , 1    |    ao , 5
-700000
-địa chỉ:
+DH1  | mã kh
+DSSP
+giá
+ĐC
 đã giao
