@@ -53,7 +53,7 @@ public class CustomerList implements ListInterface{
         
         ProductList productList = Running.getProductList();
         try {
-            Scanner reader = new Scanner(new File(FilePaths.CUSTOMER_PATH));
+            Scanner reader = new Scanner(new File(FilePaths.SHOPPING_CART_PATH));
             while(reader.hasNextLine()) {
                 int id = Integer.parseInt(reader.nextLine());
                 Customer customer = getCustomerById(id);
