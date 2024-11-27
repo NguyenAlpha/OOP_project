@@ -228,7 +228,7 @@ public class Running {
                                 System.out.println("================Thanh Toán=============== ");
                                 if (currentCustomer.getCartItem().isEmpty())
                                  {
-                                    System.out.println("===========Giỏ hàng trống. Không thể thanh toán========");
+                                    System.out.println("================Giỏ hàng trống. Không thể thanh toán========");
                                     return;
                                 }
                                 else{
