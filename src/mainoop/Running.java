@@ -225,26 +225,43 @@ public class Running {
 
                             case 9 -> {     // 9. Thanh toán
                                 payment payment = new payment();
+                                payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
                                 payment.bill();
                                 Scanner scanner = new Scanner(System.in);
-                                System.out.println("Thanh Toán=============== ");
-                                System.out.println("1.Tiền mặt");
+                                System.out.println("================Thanh Toán=============== ");
+                                if (currentCustomer.getCartItem().isEmpty())
+                                 {
+                                    System.out.println("Giỏ hàng trống. Không thể thanh toán.");
+                                    return;
+                                }
+                                else{
+                                System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
                                 System.out.println("3.Thoát chương trình");
-                               System.out.println("Chọn phương thanh toán: ");
-                               int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
-                              switch (check2) {
-                                  case 1    : System.out.println("Bạn đã thanh toán bằng tiền mặt !");
-                                      
-                                      break;
-                                  case 2  : System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
-                                  break;
-                                  default: System.out.println("Thoát chương trình!");
-                                      return;
-                              }
-                              sc.close();
+                                System.out.print("Chọn phương thức thanh toán: ");
+                                int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
+                                switch (check2) {
+                                    case 1 -> {
+                                        
+                                        currentCustomer.setCartItemsEmpty();
+                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
+                                        System.out.println("Bạn đã thanh toán bằng tiền mặt !");
+                                        
+                                    }
+                                    
+                                    case 2 -> {
+                                        
+                                        System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
+                                    }
+                                        
+                                    default -> System.out.println("Thoát chương trình!");
+                                }
+                                
                             }
-
+                            sc.close();
+                            }
+                            // xem trạng thái đơn hàng
+                            // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
                             case 10 ->  {   // 10. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
@@ -274,7 +291,7 @@ public class Running {
                         System.out.println("=======================MENU=======================");
                         System.out.println("1. Xem danh sách sản phẩm.");
                         System.out.println("2. Tìm sản phẩm.");
-                        System.out.println("3. Thên sản phẩm.");
+                        System.out.println("3. Thêm sản phẩm.");
                         System.out.println("4. Xóa sản phẩm.");
                         System.out.println("5. Sửa sản phẩm.");
                         System.out.println("6. Xem tình trạng đơn hàng.");
@@ -304,13 +321,21 @@ public class Running {
                                 sc.nextLine();
                                 productList.addProduct(nameProduct, priceProduct, quantityProduct);
                             }
-                            case 4 ->  {
-                                productList.viewProductsList();
+                            case 4 ->  {   // 4. Xóa sản phẩm khỏi hệ thống
+                                productList.viewProductsList();  // Hiển thị danh sách sản phẩm
                                 System.out.print("Nhập mã sản phẩm cần xóa: ");
                                 int id = sc.nextInt();
                                 sc.nextLine();
-                                Product product = productList.getProductById(id);
-                                productList.RemoveProduct(product);
+                                Product product = productList.getProductById(id);  // Lấy sản phẩm theo mã
+                                if (product != null) {
+                                    // Xóa sản phẩm khỏi danh sách sản phẩm của hệ thống
+                                    productList.RemoveProduct(product);
+                                    customerList.removeProductFromAllCustomers(product);  // Gọi phương thức xóa sản phẩm khỏi giỏ hàng của tất cả khách hàng
+                            
+                                    System.out.println("Sản phẩm đã được xóa khỏi hệ thống và giỏ hàng của tất cả khách hàng.");
+                                } else {
+                                    System.out.println("Sản phẩm không tồn tại.");
+                                }
                             }
                             case 5 ->  {
                                 productList.viewProductsList();
