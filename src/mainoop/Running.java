@@ -229,7 +229,6 @@ public class Running {
                                 if (currentCustomer.getCartItem().isEmpty())
                                  {
                                     System.out.println("================Giỏ hàng trống. Không thể thanh toán========");
-                                    return;
                                 }
                                 else{
                                     payment payment = new payment();
@@ -245,16 +244,14 @@ public class Running {
                                 int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
                                 switch (check2) {
                                     case 1 -> {
-                                        
-                                        currentCustomer.setCartItemsEmpty();
-                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
+
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
                                         paymentlist.writeToFile(payment, "Bill.txt", isOrderConfirmed);
-
+                                        currentCustomer.setCartItemsEmpty();   //xóa giỏ hàng của khách hàng
                                     }
                                     
                                     case 2 -> {
-                                        
+                                        currentCustomer.setCartItemsEmpty(); //xóa giỏ hàng của khách hàng hiện tại 
                                         System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
                                         paymentlist.writeToFile(payment, "Bill.txt", isOrderConfirmed);
                                     }
@@ -263,7 +260,6 @@ public class Running {
                                 }
                                 
                             }
-                            sc.close();
                             }
                             // xem trạng thái đơn hàng
                             // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
