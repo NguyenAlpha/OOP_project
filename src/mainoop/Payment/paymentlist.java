@@ -3,24 +3,26 @@ package mainoop.Payment;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import mainoop.product.Product;
 
 public class paymentlist {
     /**
      * Ghi hóa đơn vào file.
-     * @param payment Nội dung hóa đơn từ lớp payment
-     * @param filePath Đường dẫn file cần lưu hóa đơn
+     *
+     * @param payment         Đối tượng payment chứa thông tin thanh toán
+     * @param filePath        Đường dẫn file cần lưu hóa đơn
+     * @param isOrderConfirmed Trạng thái đơn hàng: true nếu đã giao, false nếu đang giao
      */
-    public void writeToFile(payment payment, String filePath) {
-        // Đảm bảo payment không null và có dữ liệu
+    public void writeToFile(payment payment, String filePath, boolean isOrderConfirmed) {
+        // Kiểm tra tính hợp lệ của đối tượng payment
         if (payment == null || payment.getcustomer() == null) {
             System.out.println("Không có thông tin thanh toán để ghi vào file!");
             return;
         }
 
-        // Tạo nội dung hóa đơn
-        String billContent = generateBillContent(payment);
+        // Lấy nội dung hóa đơn
+        String billContent = generateBillContent(payment, isOrderConfirmed);
 
         // Thực hiện ghi file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
@@ -34,40 +36,48 @@ public class paymentlist {
 
     /**
      * Tạo nội dung hóa đơn từ đối tượng payment.
-     * 
-     * @param payment Đối tượng payment chứa thông tin hóa đơn
+     *
+     * @param payment          Đối tượng payment chứa thông tin hóa đơn
+     * @param isOrderConfirmed Trạng thái đơn hàng
      * @return Chuỗi chứa nội dung hóa đơn
      */
-    private String generateBillContent(payment payment) {
-        // Lấy thông tin ngày giờ hiện tại
-        LocalDateTime now = LocalDateTime.now();
-        String dateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
+    private String generateBillContent(payment payment, boolean isOrderConfirmed) {
         // Xây dựng hóa đơn
         StringBuilder billBuilder = new StringBuilder();
-        billBuilder.append("============== HÓA ĐƠN ================\n");
+        billBuilder.append("========================= HÓA ĐƠN =====================\n");
         billBuilder.append("Tên khách hàng: ").append(payment.getcustomer().getCustomerName()).append("\n");
+        billBuilder.append("Địa chỉ: ").append(payment.getcustomer().getCustomerAddress()).append("\n");
         billBuilder.append("------------------------------------------------------\n");
         billBuilder.append(String.format("%-20s | %-10s | %-15s | %-15s\n",
                 "Tên hàng", "SL", "Đơn giá", "Thành tiền"));
 
         // Duyệt qua các sản phẩm trong giỏ hàng
-        for (var entry : payment.getcustomer().getCartItems().entrySet()) {
-            String productName = entry.getKey().getProductName();
+        long totalAmount = 0;
+        for (Map.Entry<Product, Integer> entry : payment.getcustomer().getCartItem().entrySet()) {
+            Product product = entry.getKey();
             int quantity = entry.getValue();
-            long price = entry.getKey().getProductPrice();
+            long price = product.getProductPrice();
             long total = price * quantity;
+            totalAmount += total;
 
             // Thêm thông tin sản phẩm vào hóa đơn
             billBuilder.append(String.format("%-20s | %-10d | %-15d | %-15d\n",
-                    productName, quantity, price, total));
+                    product.getProductName(), quantity, price, total));
         }
 
         // Tổng tiền
         billBuilder.append("------------------------------------------------------\n");
-        billBuilder.append("Tổng cộng: ").append(payment.getTotal()).append(" VND\n");
-        billBuilder.append("======================================================\n");
+        billBuilder.append("Tổng cộng: ").append(totalAmount).append(" VND\n");
 
+        // Trạng thái đơn hàng
+        if (isOrderConfirmed) {
+            billBuilder.append("Đơn hàng đã được giao.\n");
+        } else {
+            billBuilder.append("Đang chuẩn bị đơn hàng.\n");
+        }
+
+        billBuilder.append("======================================================\n");
         return billBuilder.toString();
     }
+    
 }
