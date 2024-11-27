@@ -225,20 +225,19 @@ public class Running {
                             }
 
                             case 9 -> {     // 9. Thanh toán
-                                payment payment = new payment();
-                                payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
-                                payment.bill();
-                                
-                                paymentlist paymentlist = new paymentlist();
-                                boolean isOrderConfirmed = false; // Hàm mặc định đơn hàng chưa giao 
-                                Scanner scanner = new Scanner(System.in);
                                 System.out.println("================Thanh Toán=============== ");
                                 if (currentCustomer.getCartItem().isEmpty())
                                  {
-                                    System.out.println("Giỏ hàng trống. Không thể thanh toán.");
+                                    System.out.println("===========Giỏ hàng trống. Không thể thanh toán========");
                                     return;
                                 }
                                 else{
+                                    payment payment = new payment();
+                                    payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
+                                    payment.bill();
+                                    boolean isOrderConfirmed = false; 
+                                    paymentlist paymentlist = new paymentlist();
+                                    Scanner scanner = new Scanner(System.in);
                                 System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
                                 System.out.println("3.Thoát chương trình");
@@ -251,6 +250,7 @@ public class Running {
                                         customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
                                         paymentlist.writeToFile(payment, "Bill.txt", isOrderConfirmed);
+
                                     }
                                     
                                     case 2 -> {

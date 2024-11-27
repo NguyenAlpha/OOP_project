@@ -28,7 +28,7 @@ public class paymentlist {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(billContent); // Ghi nội dung hóa đơn vào file
             writer.newLine(); // Xuống dòng
-            System.out.println("Hóa đơn đã được ghi vào file: " + filePath);
+            System.out.println("Hóa đơn đã được thanh toán thành công!");
         } catch (IOException e) {
             System.out.println("Lỗi khi ghi file: " + e.getMessage());
         }
@@ -44,18 +44,18 @@ public class paymentlist {
     private String generateBillContent(payment payment, boolean isOrderConfirmed) {
         // Xây dựng hóa đơn
         StringBuilder billBuilder = new StringBuilder();
-        billBuilder.append("========================= HÓA ĐƠN =====================\n");
-        billBuilder.append("Tên khách hàng: ").append(payment.getcustomer().getCustomerName()).append("\n");
-        billBuilder.append("Địa chỉ: ").append(payment.getcustomer().getCustomerAddress()).append("\n");
+        billBuilder.append("========================= Hoa Don =====================\n");
+        billBuilder.append("Ten khach hang: ").append(payment.getcustomer().getCustomerName()).append("\n");
+        billBuilder.append("Dia chi: ").append(payment.getcustomer().getCustomerAddress()).append("\n");
         billBuilder.append("------------------------------------------------------\n");
         billBuilder.append(String.format("%-20s | %-10s | %-15s | %-15s\n",
-                "Tên hàng", "SL", "Đơn giá", "Thành tiền"));
+                "Ten hang", "SL", "Don gia", "Thanh tien"));
 
         // Duyệt qua các sản phẩm trong giỏ hàng
         long totalAmount = 0;
         for (Map.Entry<Product, Integer> entry : payment.getcustomer().getCartItem().entrySet()) {
             Product product = entry.getKey();
-            int quantity = entry.getValue();
+            int quantity = entry.getValue(); 
             long price = product.getProductPrice();
             long total = price * quantity;
             totalAmount += total;
@@ -67,13 +67,13 @@ public class paymentlist {
 
         // Tổng tiền
         billBuilder.append("------------------------------------------------------\n");
-        billBuilder.append("Tổng cộng: ").append(totalAmount).append(" VND\n");
+        billBuilder.append("Tong cong: ").append(totalAmount).append(" VND\n");
 
         // Trạng thái đơn hàng
         if (isOrderConfirmed) {
-            billBuilder.append("Đơn hàng đã được giao.\n");
+            billBuilder.append("Don hang dang giao.\n");
         } else {
-            billBuilder.append("Đang chuẩn bị đơn hàng.\n");
+            billBuilder.append("Dang chuan bi don hang.\n");
         }
 
         billBuilder.append("======================================================\n");
