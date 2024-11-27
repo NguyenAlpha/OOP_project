@@ -247,11 +247,15 @@ public class Running {
 
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
                                         paymentlist.writeToFile(payment, "Bill.txt", isOrderConfirmed);
-                                        currentCustomer.setCartItemsEmpty();   //xóa giỏ hàng của khách hàng
+                                        currentCustomer.setCartItemsEmpty();  //xóa giỏ hàng của khách hàng
+                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
+                                        currentCustomer.setSumPriceProduct(temp);//gán lại tiền trong giỏ hàng cho khách 
                                     }
                                     
                                     case 2 -> {
                                         currentCustomer.setCartItemsEmpty(); //xóa giỏ hàng của khách hàng hiện tại 
+                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer); // gán lại tiền cho giỏ hàng cho khách hiện tại
+                                        currentCustomer.setSumPriceProduct(temp);
                                         System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
                                         paymentlist.writeToFile(payment, "Bill.txt", isOrderConfirmed);
                                     }
