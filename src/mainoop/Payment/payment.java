@@ -34,11 +34,12 @@ public class payment {
 
     // --------- Hóa Đơn ----------
     public void bill() {
-        if (customer == null) {
-            System.out.println("Không có thông tin khách hàng!");
-            return;
-        }
+        // if (customer == null) {
+        //     System.out.println("Không có thông tin khách hàng!");
+        //     return;
+        // }
 
+        
         System.out.println("Xin chào, " + customer.getCustomerName());
         System.out.println("========================= HÓA ĐƠN =====================");
         System.out.println("Tên khách hàng: " + customer.getCustomerName());
@@ -61,4 +62,5 @@ public class payment {
         System.out.println("------------------------------------------------------");
         System.out.println("Tổng cộng: " + total + " VND");
     }
+    
 }

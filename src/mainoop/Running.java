@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.Payment.payment;
+import mainoop.Payment.paymentlist;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
 import mainoop.user.Admin;
@@ -225,9 +226,19 @@ public class Running {
 
                             case 9 -> {     // 9. Thanh toán
                                 payment payment = new payment();
+                                payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
                                 payment.bill();
+                                
+                                paymentlist paymentlist = new paymentlist();
+                                boolean isOrderConfirmed = false; // Hàm mặc định đơn hàng chưa giao 
                                 Scanner scanner = new Scanner(System.in);
-                                System.out.println("Thanh Toán=============== ");
+                                System.out.println("================Thanh Toán=============== ");
+                                if (currentCustomer.getCartItem().isEmpty())
+                                 {
+                                    System.out.println("Giỏ hàng trống. Không thể thanh toán.");
+                                    return;
+                                }
+                                else{
                                 System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
                                 System.out.println("3.Thoát chương trình");
@@ -239,16 +250,20 @@ public class Running {
                                         currentCustomer.setCartItemsEmpty();
                                         customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
+                                        paymentlist.writeToFile(payment, "Bill.txt", isOrderConfirmed);
                                     }
                                     
                                     case 2 -> {
                                         
                                         System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
+                                        paymentlist.writeToFile(payment, "Bill.txt", isOrderConfirmed);
                                     }
                                         
                                     default -> System.out.println("Thoát chương trình!");
                                 }
-                                sc.close();
+                                
+                            }
+                            sc.close();
                             }
                             // xem trạng thái đơn hàng
                             // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
