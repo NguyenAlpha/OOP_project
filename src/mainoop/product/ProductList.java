@@ -71,9 +71,9 @@ public class ProductList implements ListInterface{
     }
     // in ra danh sách các sản phẩm
     public void viewProductsList() {
-        System.out.println(" Mã |             Tên              |        giá         |   số lượng");
+        System.out.printf("%-5s|%-25s|%-16s|%s\n","MÃ","TÊN SẢN PHẨM", "GIÁ", "SỐ LƯỢNG");
         for (Product product : productList) {
-            viewAlignedProductList(product);
+            System.out.printf("%-5d|%-25s|%-16s|%d\n",product.getProductId(),product.getProductName(),product.getProductPrice(),product.getProductQuantity());
         }
     }
 

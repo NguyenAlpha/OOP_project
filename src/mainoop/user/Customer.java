@@ -153,7 +153,6 @@ public class Customer extends User {
             System.out.println(val);
         }
         System.out.println("Tổng tiền: " + sumPriceProduct);
-        System.out.println("Trạng thái đơn hàng: " + orderStatus);
     }
 
     
