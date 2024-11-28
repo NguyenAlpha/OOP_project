@@ -82,6 +82,7 @@ public class Ordermanager {
                 System.out.printf("  Giá tiền: %s\n", order[3]);
                 System.out.printf("  Trạng thái: %s\n", order[4]);
                 System.out.printf("  Địa chỉ: %s\n", order[5]);
+                System.out.println("-------------------------------------------------------------");
             }
 
             System.out.print("Nhập số thứ tự của đơn hàng để cập nhật (0 để thoát): ");

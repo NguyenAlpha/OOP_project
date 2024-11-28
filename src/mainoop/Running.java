@@ -356,7 +356,8 @@ public class Running {
                             }
                             case 6 ->{
                                 Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp chính xác
-
+                                System.out.println(" === TÌNH TRẠNG ĐƠN HÀNG ===");
+                                System.out.println("-----------------------------");
                                  // Đường dẫn file đầu vào và đầu ra
                                 String inputFilePath = FilePaths.BILL_PATH; // Đường dẫn đến file ShoppingCart.txt
                                 String outputFilePath = FilePaths.BILL_PATH;        // Đường dẫn đến file Bill.txt
