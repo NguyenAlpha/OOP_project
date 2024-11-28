@@ -116,10 +116,14 @@ public class Customer extends User {
         if (cartItems.containsKey(product)) {
             int currentQuantity = cartItems.get(product);
             cartItems.put(product, currentQuantity + quantity);
-        } else {
-            cartItems.put(product, quantity);
+            calcuaSumPriceProduct();
         }
-        calcuaSumPriceProduct();
+        if(product != null) {
+            cartItems.put(product, quantity);
+            calcuaSumPriceProduct();
+        } else {
+            System.out.println("Không thể thêm!");
+        }
     }
 
     // xóa sản phẩm khỏi giỏ hàng
