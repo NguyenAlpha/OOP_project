@@ -41,7 +41,7 @@ public class payment {
 
         
         System.out.println("Xin chào, " + customer.getCustomerName());
-        System.out.println("========================= HÓA ĐƠN =====================");
+        System.out.println("========================= Hoa Don =====================");
         System.out.println("Tên khách hàng: " + customer.getCustomerName());
         System.out.println("Danh sách sản phẩm:");
         System.out.printf("%-20s | %-10s | %-15s | %-15s\n", "Tên hàng", "SL", "Đơn giá", "Thành tiền");
@@ -60,7 +60,7 @@ public class payment {
         }
 
         System.out.println("------------------------------------------------------");
-        System.out.println("Tổng cộng: " + total + " VND");
+        System.out.println("Tong cong: " + total + " VND");
     }
     
 }

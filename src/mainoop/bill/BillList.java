@@ -41,7 +41,7 @@ public class BillList implements ListInterface{
     // thêm bill
     public void addBill(Customer customer) {
         count++;
-        billList.add();
+        // billList.add();
         try {
             FileWriter writer = new FileWriter(FilePaths.BILL_PATH, true);
             writer.write(count + " | " + customer.getUserId() + "\n");

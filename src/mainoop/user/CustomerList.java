@@ -145,5 +145,5 @@ public class CustomerList implements ListInterface{
         // Cập nhật lại file ShoppingCart.txt
         writeToFile();
     }
-    
+
 }
