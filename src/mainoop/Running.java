@@ -306,15 +306,15 @@ public class Running {
                         sc.nextLine();
 
                         switch(thaoTac2) {
-                            case 1 ->  {    //Xem danh sách sản phẩm
+                            case 1 ->  {    //1. Xem danh sách sản phẩm
                                 productList.viewProductsList();
                             }
 
-                            case 2 ->  {    //Tìm sản phẩm
+                            case 2 ->  {    //2. Tìm sản phẩm
                                 productList.searchProduct();
                             }
 
-                            case 3 ->  {    //Thêm sản phẩm
+                            case 3 ->  {    //3. Thêm sản phẩm
                                 System.out.print("Nhập tên sản phẩm: ");
                                 String nameProduct = sc.nextLine();
                                 nameProduct = nameProduct.toLowerCase();
@@ -327,7 +327,7 @@ public class Running {
                                 productList.addProduct(nameProduct, priceProduct, quantityProduct);
                             }
 
-                            case 4 ->  {   // 4. Xóa sản phẩm
+                            case 4 ->  {    //4. Xóa sản phẩm
                                 productList.viewProductsList();  // Hiển thị danh sách sản phẩm
                                 System.out.print("Nhập mã sản phẩm cần xóa: ");
                                 int id = sc.nextInt();
@@ -344,7 +344,7 @@ public class Running {
                                 }
                             }
 
-                            case 5 ->  {    //Sửa sản phẩm
+                            case 5 ->  {    //5. Sửa sản phẩm
                                 productList.viewProductsList();
                                 System.out.print("Nhập mã sản phẩm cần sửa: ");
                                 int id = sc.nextInt();
