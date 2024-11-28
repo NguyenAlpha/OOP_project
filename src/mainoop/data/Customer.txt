@@ -1,2 +1,6 @@
-1 | c | c | trai dat | vietcombank | 3123411200
-2 | cc | cc | sao hoa |   N/A   |  N/A
+======================= DANH SACH KHACH HANG =======================
+MA SO|TEN                 |MAT KHAU        |DIA CHI                 |BANK NAME       |BANK ID
+1    |c                   |c               |trai dat                |vietcombank     |3123411200
+2    |cc                  |cc              |sao hoa                 |dhasjkda        |3479382313
+3    |ccc                 |ccc             |quan 10                 |vietcombank     |81273617824
+4    |c4                  |c4              |quan 5                  |TBbank          |39847592452

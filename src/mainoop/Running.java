@@ -146,7 +146,6 @@ public class Running {
                                 customerList.addCustomerToList(currentCustomer);
                                 loginCheck = true;
                                 System.out.println("Đăng ký thành công!");
-
                             }
                             
                             case 3 ->  {   // 3. Xem chi tiết tài khoản
@@ -179,7 +178,7 @@ public class Running {
                                                 }
                                             }
                                             currentCustomer.setBank(bankId, bankName);
-                                            customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
+                                            customerList.writeToFile();
                                         }
                                         default -> {}
                                     }
@@ -203,12 +202,15 @@ public class Running {
                                 System.out.print("Nhập mã sản phẩm muốn mua: ");
                                 int id = sc.nextInt();
                                 sc.nextLine();
+
                                 System.out.print("Nhập số lượng sản phẩm muốn mua: ");
                                 int quantity = sc.nextInt();
                                 sc.nextLine();
+
                                 currentCustomer.addCartItems(productList.getProductById(id), quantity);
+                                customerList.writeToFile();
+
                                 System.out.println("Thêm sản phẩm thành công!");
-                                customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
                             }
 
                             case 8 ->  {   // 8. Xóa sản phẩm khỏi giỏ hàng
@@ -216,11 +218,13 @@ public class Running {
                                 System.out.print("Nhập mã sản phẩm muốn xóa: ");
                                 int id = sc.nextInt();
                                 sc.nextLine();
+
                                 System.out.print("Nhập số lượng sản phẩm muốn xóa: ");
                                 int quantity = sc.nextInt();
                                 sc.nextLine();
+
                                 currentCustomer.removeCartItems(productList.getProductById(id), quantity);
-                                customerList.set(currentCustomer.getUserId() - 1,currentCustomer);
+                                customerList.writeToFile();
                             }
 
                             case 9 -> {     // 9. Thanh toán
@@ -235,6 +239,13 @@ public class Running {
                                     return;
                                 }
                                 else{
+                                    // payment payment = new payment();
+                                    payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
+                                    payment.bill();
+                                    boolean isOrderConfirmed = false; 
+                                    // paymentlist paymentlist = new paymentlist();
+                                    // Scanner scanner = new Scanner(System.in);
+                                    String outputFilePath = FilePaths.BILL_PATH; // Gọi đường dẫn đến file bill.txt
                                 System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
                                 System.out.println("3.Thoát chương trình");
@@ -246,7 +257,6 @@ public class Running {
                                         currentCustomer.setCartItemsEmpty();
                                         customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
-                                        
                                     }
                                     
                                     case 2 -> {
@@ -260,8 +270,7 @@ public class Running {
                             }
                             sc.close();
                             }
-                            // xem trạng thái đơn hàng
-                            // if(đơn đang vận chuyển) nhập sô 1 để xác nhận đã nhận hàng
+
                             case 10 ->  {   // 10. Đăng xuất
                                 currentCustomer = null;
                                 loginCheck = false;
@@ -304,15 +313,18 @@ public class Running {
                         sc.nextLine();
 
                         switch(thaoTac2) {
-                            case 1 ->  {
+                            case 1 ->  {    //Xem danh sách sản phẩm
                                 productList.viewProductsList();
                             }
-                            case 2 ->  {   
+
+                            case 2 ->  {    //Tìm sản phẩm
                                 productList.searchProduct();
                             }
-                            case 3 ->  {
+
+                            case 3 ->  {    //Thêm sản phẩm
                                 System.out.print("Nhập tên sản phẩm: ");
                                 String nameProduct = sc.nextLine();
+                                nameProduct = nameProduct.toLowerCase();
                                 System.out.println("Nhập giá sản phẩm: ");
                                 long priceProduct = sc.nextLong();
                                 sc.nextLine();
@@ -321,7 +333,8 @@ public class Running {
                                 sc.nextLine();
                                 productList.addProduct(nameProduct, priceProduct, quantityProduct);
                             }
-                            case 4 ->  {   // 4. Xóa sản phẩm khỏi hệ thống
+
+                            case 4 ->  {   // 4. Xóa sản phẩm
                                 productList.viewProductsList();  // Hiển thị danh sách sản phẩm
                                 System.out.print("Nhập mã sản phẩm cần xóa: ");
                                 int id = sc.nextInt();
@@ -337,7 +350,8 @@ public class Running {
                                     System.out.println("Sản phẩm không tồn tại.");
                                 }
                             }
-                            case 5 ->  {
+
+                            case 5 ->  {    //Sửa sản phẩm
                                 productList.viewProductsList();
                                 System.out.print("Nhập mã sản phẩm cần sửa: ");
                                 int id = sc.nextInt();
@@ -351,9 +365,10 @@ public class Running {
                                 System.out.println("Nhập số lượng sản phẩm: ");
                                 int newQuantity = sc.nextInt();
                                 sc.nextLine();
-                                Product product = productList.getProductById(id);
-                                productList.updateProductById(id, newName, newPrice, newQuantity);
+                                productList.updateProduct(id, newName, newPrice, newQuantity);
+                                customerList.writeToFile();
                             }
+
                             case 6 ->{
                                 Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp chính xác
                                 System.out.println(" === TÌNH TRẠNG ĐƠN HÀNG ===");

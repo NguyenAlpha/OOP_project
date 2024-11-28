@@ -37,11 +37,13 @@ public class CustomerList implements ListInterface{
             // đọc file
             File read = new File(path);
             Scanner reader = new Scanner(read);
+            reader.nextLine();
+            reader.nextLine();
             while(reader.hasNextLine()) {   //nếu có dòng để đọc file
                 String s = reader.nextLine();   //đọc dòng đó
                 String[] sSplit = s.split("[ ]*[|][ ]*");   //tách các thuộc tính của dòng đó ra
-                Customer temp = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3], sSplit[4], sSplit[5]); //lưu vào 1 đối tượng
-                customerList.add(temp); //lưu vào danh sách các đối tượng
+                Customer customer = new Customer(Integer.parseInt(sSplit[0]), sSplit[1], sSplit[2], sSplit[3], sSplit[4], sSplit[5]); //lưu vào 1 đối tượng
+                customerList.add(customer); //lưu vào danh sách các đối tượng
                 customerCount++;
             }
             reader.close();
@@ -49,7 +51,6 @@ public class CustomerList implements ListInterface{
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
         
         ProductList productList = Running.getProductList();
         try {
@@ -61,41 +62,51 @@ public class CustomerList implements ListInterface{
                 String[] splitProducts = productLine.split("[ ]*[|][ ]*");
                 for (String productEntry : splitProducts) {
                     String[] splitDetails = productEntry.split("[ ]*[,][ ]*");
-                    customer.addCartItems(
-                        productList.getProductByName(splitDetails[0]),
-                        Integer.parseInt(splitDetails[1])
-                    );
+                    customer.addCartItems(productList.getProductByName(splitDetails[0]), Integer.parseInt(splitDetails[1]));
                 }
-                customer.setSumPriceProduct(Long.parseLong(reader.nextLine()));
                 reader.nextLine();
-                customerList.set(id - 1, customer);
             }
             reader.close();
         } catch (Exception e) {}
     }
 
-
     @Override
     public void writeToFile() {
         try {
-            FileWriter writer = new FileWriter(FilePaths.SHOPPING_CART_PATH);
+            FileWriter writer = new FileWriter(FilePaths.CUSTOMER_PATH);
+            writer.write("======================= DANH SACH KHACH HANG =======================");
+            writer.write(String.format("\n%-5s|%-20s|%-16s|%-24s|%-16s|%s", "MA SO", "TEN", "MAT KHAU", "DIA CHI", "BANK NAME", "BANK ID"));
+
+            for(Customer customer : customerList) { 
+                writer.write("\n" + customer.getAll());
+            }
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter writerr = new FileWriter(FilePaths.SHOPPING_CART_PATH);
             for( Customer customer : customerList) {
                 if(!customer.checkCartItem()) {
                     boolean check = false;
-                    writer.write(String.valueOf(customer.getUserId()) + "\n");
+                    writerr.write(String.valueOf(customer.getUserId()) + "\n");
                     for(Map.Entry<Product, Integer> en : customer.getCartItem().entrySet()) {
                         Product product = en.getKey();
                         int quantity = en.getValue();
-                        if(check) {
-                            writer.write("    |    ");
+                        if (product == null) {
+                            continue;
                         }
-                        writer.write(product.getProductName() + " , " + quantity);
+                        if(check) {
+                            writerr.write("    |    ");
+                        }
+                        writerr.write(product.getProductName() + " , " + quantity);
                         check = true;
                     }
-                    writer.write("\n" + customer.getSumPriceProduct() + "\n");
+                    writerr.write("\n" + customer.getSumPriceProduct() + "\n");
                 }
             }
-            writer.close();
+            writerr.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,7 +134,7 @@ public class CustomerList implements ListInterface{
     public void addCustomerToList(Customer customer) {
         customerList.add(customer); //thêm vào danh sách khách hàng
         customerCount++;    //tăng tổng số khách hàng lên 1
-        customer.addCustomer(customer); //thêm 1 khách hàng mới vào file lưu trữ
+        writeToFile();
     }
 
     // Xem danh sách khách hàng
