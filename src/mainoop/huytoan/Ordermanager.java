@@ -62,6 +62,31 @@ public class Ordermanager {
         }
     }
 
+    // Phương thức hiển thị hóa đơn theo định dạng mới
+    private void displayOrder(String[] order) {
+        System.out.println("=====================================================");
+        System.out.println("                     Hóa Đơn                        ");
+        System.out.println("=====================================================");
+        System.out.printf("%-20s: %s\n", "Tên khách hàng", order[1]);
+        System.out.printf("%-20s: %s\n", "Địa chỉ", order[5]);
+        System.out.println("-----------------------------------------------------");
+        System.out.printf("%-15s | %-5s | %-10s | %-10s\n", "Tên hàng", "SL", "Đơn giá", "Thành tiền");
+        System.out.println("-----------------------------------------------------");
+
+        // Tách thông tin sản phẩm và số lượng
+        String[] productDetails = order[2].split(","); // Giả sử định dạng là "Tên sản phẩm, số lượng"
+        String productName = productDetails[0].trim(); // Tên sản phẩm
+        int quantity = Integer.parseInt(productDetails[1].trim()); // Số lượng
+        int unitPrice = Integer.parseInt(order[3]); // Giá tiền một sản phẩm
+        int totalPrice = quantity * unitPrice; // Tính thành tiền
+
+        System.out.printf("%-15s | %-5d | %-10d | %-10d\n", productName, quantity, unitPrice, totalPrice);
+        System.out.println("-----------------------------------------------------");
+        System.out.printf("Tổng cộng: %d VND\n", totalPrice);
+        System.out.printf("Trạng thái đơn hàng: %s\n", order[4]);
+        System.out.println("=====================================================");
+    }
+
     // Phương thức hiển thị danh sách đơn hàng
     public void manageOrdersFromFile(String filePath) {
         Scanner scanner = new Scanner(System.in);
@@ -75,17 +100,10 @@ public class Ordermanager {
         while (true) {
             System.out.println("Danh sách đơn hàng:");
             for (int i = 0; i < orders.size(); i++) {
-                String[] order = orders.get(i);
-                System.out.printf("%d | Mã đơn hàng: %s\n", i + 1, order[0]);
-                System.out.printf("  Mã khách hàng: %s\n", order[1]);
-                System.out.printf("  Tên sản phẩm và số lượng: %s\n", order[2]);
-                System.out.printf("  Giá tiền: %s\n", order[3]);
-                System.out.printf("  Trạng thái: %s\n", order[4]);
-                System.out.printf("  Địa chỉ: %s\n", order[5]);
-                System.out.println("-------------------------------------------------------------");
+                System.out.printf("%d | Mã đơn hàng: %s\n", i + 1, orders.get(i)[0]);
             }
 
-            System.out.print("Nhập số thứ tự của đơn hàng để cập nhật (0 để thoát): ");
+            System.out.print("Nhập số thứ tự của đơn hàng để xem chi tiết (0 để thoát): ");
             int choice;
             try {
                 choice = Integer.parseInt(scanner.nextLine());
@@ -104,20 +122,20 @@ public class Ordermanager {
                 continue;
             }
 
-            String[] selectedOrder = orders.get(choice - 1);
-            System.out.printf("Đơn hàng đã chọn:\n  Mã đơn hàng: %s\n  Mã khách hàng: %s\n  Tên sản phẩm: %s\n  Giá tiền: %s\n  Trạng thái: %s\n  Địa chỉ: %s\n",
-                    selectedOrder[0], selectedOrder[1], selectedOrder[2], selectedOrder[3], selectedOrder[4], selectedOrder[5]);
+            // Hiển thị hóa đơn chi tiết
+            displayOrder(orders.get(choice - 1));
 
+            // Xác nhận trạng thái đơn hàng
             System.out.print("Xác nhận (1), hủy xác nhận (2), giữ nguyên (3): ");
             String action = scanner.nextLine().trim().toLowerCase();
 
             switch (action) {
                 case "1": // Xác nhận đơn hàng
-                    selectedOrder[4] = "đang vận chuyển";
+                    orders.get(choice - 1)[4] = "đang vận chuyển";
                     System.out.println("Đã xác nhận đơn hàng.");
                     break;
                 case "2": // Hủy đơn hàng
-                    selectedOrder[4] = "đã hủy";
+                    orders.get(choice - 1)[4] = "đã hủy";
                     System.out.println("Đã hủy đơn hàng.");
                     break;
                 case "3": // Giữ nguyên trạng thái
@@ -128,6 +146,7 @@ public class Ordermanager {
                     break;
             }
 
+            // Ghi cập nhật vào file
             writeFile(filePath, orders);
             System.out.println("Đã cập nhật file.");
         }

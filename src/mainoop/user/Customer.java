@@ -49,9 +49,6 @@ public class Customer extends User {
     public String getBankName() {
         return this.bankName;
     }
-    public Map<Product, Integer> getCartItems() {
-        return this.cartItems;
-    }
     @Override
     public String getAll() {
         return String.format("%-5s|%-20s|%-16s|%-24s|%-16s|%s", userId, customerName, userPassword, customerAddress, bankName, bankId);
