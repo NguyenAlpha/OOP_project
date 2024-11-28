@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.Payment.payment;
+import mainoop.Payment.paymentlist;
 import mainoop.huytoan.Ordermanager;
 import mainoop.huytoan.PayedBill;
 import mainoop.product.Product;
@@ -229,6 +230,8 @@ public class Running {
 
                             case 9 -> {     // 9. Thanh toán
                                 payment payment = new payment();
+                                paymentlist paymentlist = new paymentlist();
+                                String filePath ="src/mainoop/data/Bill.txt"; // đường dẫn đến file 
                                 payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
                                 payment.bill();
                                 Scanner scanner = new Scanner(System.in);
@@ -236,7 +239,6 @@ public class Running {
                                 if (currentCustomer.getCartItem().isEmpty())
                                  {
                                     System.out.println("Giỏ hàng trống. Không thể thanh toán.");
-                                    return;
                                 }
                                 else{
                                     // payment payment = new payment();
@@ -252,23 +254,27 @@ public class Running {
                                 System.out.print("Chọn phương thức thanh toán: ");
                                 int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
                                 switch (check2) {
-                                    case 1 -> {
+                                    case 1 -> { //Thanh toán tiền mặt
                                         
-                                        currentCustomer.setCartItemsEmpty();
-                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
+
                                         System.out.println("Bạn đã thanh toán bằng tiền mặt !");
+                                        paymentlist.writeToFile(payment, filePath, isOrderConfirmed);
+                                         currentCustomer.setCartItemsEmpty();
+                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
                                     }
                                     
-                                    case 2 -> {
+                                    case 2 -> { // Chuyển khoản
                                         
                                         System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
+                                        currentCustomer.setCartItemsEmpty();
+                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
+                                        paymentlist.writeToFile(payment, filePath, isOrderConfirmed);
                                     }
                                         
                                     default -> System.out.println("Thoát chương trình!");
                                 }
                                 
                             }
-                            sc.close();
                             }
 
                             case 10 ->  {   // 10. Đăng xuất

@@ -1,6 +1,3 @@
-1
-quat treo tuong , 1
-250000
 4
 quan dui , 5    |    ip13 , 2
-40450000
+650000
