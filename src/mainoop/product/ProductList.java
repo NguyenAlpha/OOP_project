@@ -25,14 +25,17 @@ public class ProductList implements ListInterface{
     }
 
     //===============================getter============================
-    public ArrayList<Product> getProductList() {
-        return productList;
-    }
     public int getProductCount() {
         return productCount;
     }
+    public ArrayList<Product> getProductList() {
+        return productList;
+    }
 
     //===============================setter============================
+    public void setProductCount(int count) {
+        this.productCount = count;
+    }
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }
@@ -41,6 +44,8 @@ public class ProductList implements ListInterface{
     public void addFromFile(String path) {
         try (Scanner reader = new Scanner(new File(path))) { //sử dụng scanner để đọc luồng file ở trên
             lastProdectId = Integer.parseInt(reader.nextLine());//lưu id của sản phẩm cuối cùng
+            reader.nextLine();
+            reader.nextLine();
             while (reader.hasNextLine()) {  //khi file cần đọc vẫn còn dòng
                 productCount++;
                 String s = reader.nextLine();   //đọc dòng đó
@@ -61,6 +66,8 @@ public class ProductList implements ListInterface{
         try {
             FileWriter writer = new FileWriter(FilePaths.PRODUCT_PATH);
             writer.write(String.valueOf(lastProdectId));
+            writer.write("\n======================== DANH SACH SAN PHAM =================");
+            writer.write(String.format("\n%-6s|%-25s|%-16s|%s","MA","TEN SAN PHAM", "GIA", "SO LUONG"));
             for(Product product : productList) {
                 writer.write("\n" + product.getAll());
             }
@@ -69,7 +76,17 @@ public class ProductList implements ListInterface{
             System.out.println("An error occurred.");
         }
     }
-    // in ra danh sách các sản phẩm
+
+    // Thêm sản phẩm
+    public void addProduct(String productName, long productPrice, int productQuantity) {
+        productCount++;
+        lastProdectId++;
+        Product newProduct = new Product(lastProdectId, productName, productPrice, productQuantity);
+        productList.add(newProduct);
+        writeToFile();
+    }
+
+    // Hàm Xem danh sách sản phẩn
     public void viewProductsList() {
         System.out.printf("%-5s|%-25s|%-16s|%s\n","MÃ","TÊN SẢN PHẨM", "GIÁ", "SỐ LƯỢNG");
         for (Product product : productList) {
@@ -77,50 +94,24 @@ public class ProductList implements ListInterface{
         }
     }
 
-    private void viewAlignedProductList(Product product) {
-        System.out.print(product.getProductId());   //xuất id sản phẩm
-        int temp = 4 - String.valueOf(product.getProductId()).length(); //chuyển id sang String và lấy đội dài của String id
-        while(temp > 0) {
-            System.out.print(" ");
-            temp--;
-        }
-        System.out.print("|");
-
-        System.out.print(product.getProductName());
-        temp = 30 - product.getProductName().length();
-        while(temp > 0) {
-            System.out.print(" ");
-            temp--;
-        }
-        System.out.print("|");
-
-        System.out.print(product.getProductPrice());
-        temp = 20 - String.valueOf(product.getProductPrice()).length();
-        while(temp > 0) {
-            System.out.print(" ");
-            temp--;
-        }
-        System.out.print("|");
-
-        System.out.println(product.getProductQuantity());
-    }
-
-    // Tìm sản phẩm 
+    // Hàm Tìm sản phẩm 
     public void searchProduct() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("==================MENU TÌM KIẾM=======================");
         System.out.println("1. Tìm theo tên sản phẩm");
         System.out.println("2. Tìm theo khoản giá sản phẩm");
         System.out.println("==============================================");
 
-        System.out.print("Nhập thao tác: ");
-        Scanner scanner = new Scanner(System.in);
-        int search = scanner.nextInt();
-        scanner.nextLine();
-
-        while((search < 1) || (search > 2)) {
-            System.out.print("Thao tác không đúng.\nNhập thao tác: ");
+        int search;
+        while(true) {
+            System.out.print("Nhập thao tác: ");
             search = scanner.nextInt();
             scanner.nextLine();
+            if((search < 1) || (search > 2)) {
+                System.out.println("Thao tác không đúng.");
+            } else {
+                break;
+            }
         }
 
         if(search == 1) {
@@ -128,7 +119,7 @@ public class ProductList implements ListInterface{
             String searchProductName = scanner.nextLine();
             for (Product product : productList) {
                 if(product.getProductName().toLowerCase().contains(searchProductName.toLowerCase())) {
-                    viewAlignedProductList(product);
+                    System.out.println(product.getAll());
                 }
             }
         }
@@ -136,51 +127,24 @@ public class ProductList implements ListInterface{
         if(search == 2) {
             System.out.print("Nhập tên sản phẩm cần tìm: ");
             String searchProductName = scanner.nextLine();
+
             System.out.print("Nhập khoản giá thấp nhất cần tìm: ");
             long lowestPrice = scanner.nextLong();
             scanner.nextLine();
+
             System.out.print("Nhập khoản giá cao nhất cần tìm: ");
             long highestPrice = scanner.nextLong();
             scanner.nextLine();
 
             for (Product product : productList) {
                 if(product.getProductName().toLowerCase().contains(searchProductName.toLowerCase()) && (product.getProductPrice() >= lowestPrice) && (product.getProductPrice() <= highestPrice)) {
-                    viewAlignedProductList(product);
+                    System.out.println(product.getAll());
                 }
             }
         }
         
     }
-
-    public void addProduct(String productName, long productPrice, int productQuantity) {
-        productCount++;
-        lastProdectId++;
-        Product newProduct = new Product(lastProdectId, productName, productPrice, productQuantity);
-        productList.add(newProduct);
-        newProduct.addProduct(newProduct);
-        writeToFile();
-    }   
     
-    public void removeProductById(String filePath) {
-        Scanner productremove = new Scanner(System.in);
-        System.out.print("Nhập Id của sản phẩm cần xóa: ");
-        int productIdToRemove = productremove.nextInt();
-        Product productToRemove = null;
-        for (Product product : productList) {
-            if (product.getProductId() == productIdToRemove) {
-                productToRemove = product;
-                break;
-            }
-        }
-        if (productToRemove != null) {
-            productList.remove(productToRemove);
-            productCount--;
-            System.out.println("Đã xóa thành công sản phẩm " + productToRemove + "với Id " + productIdToRemove + "!" );
-        } else {
-            System.out.println("Sản phẩm với ID " + productIdToRemove + " không thể được tìm thấy.");
-        }
-    }
-
     // Tìm sản phẩm từ Id
     public Product getProductById(int id) {
         for(Product product : productList) {
@@ -214,18 +178,18 @@ public class ProductList implements ListInterface{
 
     // Xóa sản phẩm
     public void RemoveProduct(Product product) {
-        if(product == null)
-        {
+        if(product != null) {
+            productList.remove(location(product));
+            writeToFile();
+            System.out.println("Xóa thành công.");
+            product = new Product();
+        } else {
             System.out.println("Sản phẩm này không tồn tại.");
-            return;
         }
-        productList.remove(location(product));
-        writeToFile();
-        System.out.println("Xóa thành công.");
-
     }
+
     // Sửa sản phẩm
-    public void updateProductById(int id, String newName, long newPrice, int newQuantity) {
+    public void updateProduct(int id, String newName, long newPrice, int newQuantity) {
         Product idproductToUpdate = getProductById(id); // Tìm sản phẩm theo ID
         if (idproductToUpdate != null) {
             // Cập nhật thông tin sản phẩm
@@ -235,7 +199,7 @@ public class ProductList implements ListInterface{
             
             // Ghi lại vào file
             writeToFile();
-            System.out.println("Cập nhật sản phẩm thành công: " + idproductToUpdate);
+            System.out.println("Cập nhật sản phẩm thành công!");
         } else {
             System.out.println("Sản phẩm với ID " + id + " không thể được tìm thấy.");
         }
