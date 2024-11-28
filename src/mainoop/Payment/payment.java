@@ -6,7 +6,6 @@ import mainoop.user.Admin;
 import mainoop.user.Customer;
 
 public class payment {
-    private long total; // Tổng tiền
     private Customer customer; // Tên khách hàng
     private Admin admin;
 
@@ -19,9 +18,6 @@ public class payment {
         return this.admin;
     }
 
-    public long getTotal() {
-        return this.total;
-    }
 
     // ------------------ Setter ---------------------
     public void setcustomer(Customer customer) {
@@ -46,13 +42,10 @@ public class payment {
         System.out.println("Danh sách sản phẩm:");
         System.out.printf("%-20s | %-10s | %-15s | %-15s\n", "Tên hàng", "SL", "Đơn giá", "Thành tiền");
 
-        // Tính tổng tiền
-        total = 0;
         for (Map.Entry<Product, Integer> entry : customer.getCartItem().entrySet()) {
             Product product = entry.getKey();
             int quantity = entry.getValue();
             long productTotal = product.getProductPrice() * quantity;
-            total += productTotal;
 
             // Hiển thị chi tiết sản phẩm
             System.out.printf("%-20s | %-10d | %-15d | %-15d\n",
@@ -60,7 +53,7 @@ public class payment {
         }
 
         System.out.println("------------------------------------------------------");
-        System.out.println("Tong cong: " + total + " VND");
+        System.out.println("Tong cong: " + customer.getSumPriceProduct() + " VND");
     }
     
 }
