@@ -239,12 +239,12 @@ public class Running {
                                     return;
                                 }
                                 else{
-                                    payment payment = new payment();
+                                    // payment payment = new payment();
                                     payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
                                     payment.bill();
                                     boolean isOrderConfirmed = false; 
-                                    paymentlist paymentlist = new paymentlist();
-                                    Scanner scanner = new Scanner(System.in);
+                                    // paymentlist paymentlist = new paymentlist();
+                                    // Scanner scanner = new Scanner(System.in);
                                     String outputFilePath = FilePaths.BILL_PATH; // Gọi đường dẫn đến file bill.txt
                                 System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
