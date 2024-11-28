@@ -9,10 +9,16 @@ public class payment {
     private long total; // Tổng tiền
     private Customer customer; // Tên khách hàng
     private Admin admin;
+    private int paymentID; // mã đơn hàng
+    private static int currentID = 100;//biến tĩnh để theo giõi đơn hàng
 
     // ================== Getter ======================
-    public Customer getcustomer() {
-        return this.customer;
+    public int getpaymentID() {
+        return paymentID;
+    }
+    public  Customer getcustomer()
+    {
+        return customer;
     }
 
     public Admin getAdmin() {
@@ -31,6 +37,9 @@ public class payment {
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }
+    public void setpaymentID(int paymentID) {
+        this.paymentID =  currentID++;
+    }
 
     // --------- Hóa Đơn ----------
     public void bill() {
@@ -42,6 +51,7 @@ public class payment {
         
         System.out.println("Xin chào, " + customer.getCustomerName());
         System.out.println("========================= Hoa Don =====================");
+        System.out.println("Mã Đơn hàng: " + getpaymentID());
         System.out.println("Tên khách hàng: " + customer.getCustomerName());
         System.out.println("Danh sách sản phẩm:");
         System.out.printf("%-20s | %-10s | %-15s | %-15s\n", "Tên hàng", "SL", "Đơn giá", "Thành tiền");

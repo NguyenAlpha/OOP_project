@@ -16,6 +16,7 @@ public class paymentlist {
      */
     public void writeToFile(payment payment, String filePath, boolean isOrderConfirmed) {
         // Kiểm tra tính hợp lệ của đối tượng payment
+
         if (payment == null || payment.getcustomer() == null) {
             System.out.println("Không có thông tin thanh toán để ghi vào file!");
             return;
@@ -45,6 +46,7 @@ public class paymentlist {
         // Xây dựng hóa đơn
         StringBuilder billBuilder = new StringBuilder();
         billBuilder.append("========================= Hoa Don =====================\n");
+        billBuilder.append("Ma don hang: ").append(payment.getpaymentID()).append("\n");
         billBuilder.append("Ten khach hang: ").append(payment.getcustomer().getCustomerName()).append("\n");
         billBuilder.append("Dia chi: ").append(payment.getcustomer().getCustomerAddress()).append("\n");
         billBuilder.append("------------------------------------------------------\n");

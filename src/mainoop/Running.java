@@ -229,24 +229,20 @@ public class Running {
                             }
 
                             case 9 -> {     // 9. Thanh toán
-                                payment payment = new payment();
-                                paymentlist paymentlist = new paymentlist();
-                                String filePath ="src/mainoop/data/Bill.txt"; // đường dẫn đến file 
-                                payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
-                                payment.bill();
-                                Scanner scanner = new Scanner(System.in);
                                 System.out.println("================Thanh Toán=============== ");
                                 if (currentCustomer.getCartItem().isEmpty())
                                  {
                                     System.out.println("Giỏ hàng trống. Không thể thanh toán.");
                                 }
                                 else{
-                                    // payment payment = new payment();
+                                    payment payment = new payment();
+                                    paymentlist paymentlist = new paymentlist();
+                                    String filePath ="src/mainoop/data/Bill.txt"; // đường dẫn đến file 
                                     payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
+                                    payment.setpaymentID(temp);
                                     payment.bill();
+                                    Scanner scanner = new Scanner(System.in);
                                     boolean isOrderConfirmed = false; 
-                                    // paymentlist paymentlist = new paymentlist();
-                                    // Scanner scanner = new Scanner(System.in);
                                     String outputFilePath = FilePaths.BILL_PATH; // Gọi đường dẫn đến file bill.txt
                                 System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
                                 System.out.println("2.Chuyển khoản");
