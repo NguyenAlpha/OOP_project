@@ -1,2 +1,8 @@
-2
-2   |   quan   |   200000   |   100
+7
+======================== DANH SACH SAN PHAM =================
+MA    |TEN SAN PHAM             |GIA             |SO LUONG
+3     |quan dui                 |90000           |900
+4     |non bao hiem             |110000          |100
+5     |quat treo tuong          |250000          |1000
+6     |giay the thao            |450000          |100
+7     |ip13                     |100000          |10

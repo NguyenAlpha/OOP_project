@@ -1,10 +1,7 @@
 package mainoop.user;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import mainoop.FilePaths;
 import mainoop.product.Product;
 
 // Customer kế thừa attribute và method của class User 
@@ -15,7 +12,7 @@ public class Customer extends User {
     private long sumPriceProduct = 0;    //tổng tiền sản phẩm trong giỏ hàng
     private String bankName;    //tên ngân hàng
     private String bankId;  //mã số tài khoản ngân hàng
-    private String orderStatus; //trạng thái đơn hàng
+
     //hàm tạo không tham số
     public Customer() {
         super();
@@ -52,15 +49,12 @@ public class Customer extends User {
     public String getBankName() {
         return this.bankName;
     }
-    public String getOrderStatus() {
-        return orderStatus;
-    }
     public Map<Product, Integer> getCartItems() {
         return this.cartItems;
     }
     @Override
     public String getAll() {
-        return userId + " | " + customerName + " | " + userPassword + " | " + customerAddress;
+        return String.format("%-5s|%-20s|%-16s|%-24s|%-16s|%s", userId, customerName, userPassword, customerAddress, bankName, bankId);
     }
     //==================seter======================
     public void setCustomerName(String customerName) {
@@ -82,9 +76,6 @@ public class Customer extends User {
         this.bankId = bankId;
         this.bankName = bankName;
     }
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
     public void setCartItems(Map<Product, Integer> cartItem) {
         this.cartItems = cartItem;
     }
@@ -94,25 +85,13 @@ public class Customer extends User {
 
     //viết lại hàm mặc định toString
     @Override public String toString() {
-        return userId + " , " + customerName + " , " + userPassword + " , " + customerAddress + " , " + orderStatus;
+        return userId + " , " + customerName + " , " + userPassword + " , " + customerAddress;
     }
 
     // viết lại hàm trừu tượng của class User 
     @Override
     public boolean checkUserName(String userName) {
         return customerName.equals(userName);
-    }
-
-    // thêm 1 khách hàng mới vào file lưu trữ
-    public void addCustomer(Customer customer) {
-        try {
-            FileWriter writer = new FileWriter(FilePaths.CUSTOMER_PATH, true);
-            writer.write("\n" + customer.getAll());
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
     }
 
     // kiểm tra giỏ hàng có trống không
@@ -122,50 +101,24 @@ public class Customer extends User {
 
     // xem giỏ hàng
     public void viewCartItems() {
-        System.out.println("  mã  |       tên sản phẩm      |    giá sản phẩm    |   sô lượng");
+        System.out.printf("%-6s|%-20s|%-20s|%s", "MÃ SP", "TÊN SẢN PHẨM", "GIÁ", "SỐ LƯỢNG");
         for (Map.Entry<Product, Integer> en : cartItems.entrySet()) {
-            Product key = en.getKey();
+            Product product = en.getKey();
             int val = en.getValue();
-            System.out.print(key.getProductId());
-            int temp = 6 - String.valueOf(key.getProductId()).length();
-            while(temp > 0) {
-                System.out.print(" ");
-                temp--;
-            }
-            System.out.print("|");
-
-            System.out.print(key.getProductName());
-            temp = 25 - key.getProductName().length();
-            while(temp > 0) {
-                System.out.print(" ");
-                temp--;
-            }
-            System.out.print("|");
-
-            System.out.print(key.getProductPrice());
-            temp = 20 - String.valueOf(key.getProductPrice()).length();
-            while(temp > 0) {
-                System.out.print(" ");
-                temp--;
-            }
-            System.out.print("|");
-
-            System.out.println(val);
+            System.out.printf("\n%-6s|%-20s|%-20s|%s",product.getProductId(), product.getProductName(), product.getProductPrice(), val);
         }
-        System.out.println("Tổng tiền: " + sumPriceProduct);
+        System.out.println("\nTổng tiền: " + sumPriceProduct);
     }
 
     
     // thêm sản phẩm mới vào giỏ hàng
     public void addCartItems(Product product, int quantity) {
-        for(Map.Entry<Product, Integer> en : cartItems.entrySet()) {
-            if(en.getKey().getProductName() == product.getProductName()) {
-                cartItems.put(product, en.getValue() + quantity);
-                calcuaSumPriceProduct();
-                return;
-            }
+        if (cartItems.containsKey(product)) {
+            int currentQuantity = cartItems.get(product);
+            cartItems.put(product, currentQuantity + quantity);
+        } else {
+            cartItems.put(product, quantity);
         }
-        cartItems.put(product, quantity);
         calcuaSumPriceProduct();
     }
 
@@ -173,18 +126,18 @@ public class Customer extends User {
     public void removeCartItems(Product product, int quantityToRemove) {
         if (cartItems.containsKey(product)) {
             int currentQuantity = cartItems.get(product);
-            
             if (quantityToRemove >= currentQuantity) {
                 // Xóa hoàn toàn sản phẩm
                 cartItems.remove(product);
-
             } else {
                 // Giảm số lượng
                 cartItems.put(product, currentQuantity - quantityToRemove);
             }
             calcuaSumPriceProduct();
+            System.out.println("Đã xóa!");
+        } else {
+            System.out.println("Không thể xóa!");
         }
-        
     }
 
     // tính tổng tiền giỏ hàng
