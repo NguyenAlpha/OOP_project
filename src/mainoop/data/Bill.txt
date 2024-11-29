@@ -1,20 +1,112 @@
+========================= Hoa Don =====================
+Ten khach hang: c
+Dia chi: trai dat
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+------------------------------------------------------
+Tong cong: 0 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
+Ten khach hang: c
+Dia chi: trai dat
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+ao                   | 1          | 100000          | 100000         
+------------------------------------------------------
+Tong cong: 100000 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
+Ten khach hang: c
+Dia chi: trai dat
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+------------------------------------------------------
+Tong cong: 0 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
+Ten khach hang: cc
+Dia chi: sao hoa
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+------------------------------------------------------
+Tong cong: 0 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
+Ten khach hang: c
+Dia chi: trai dat
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+ip13                 | 9          | 100000          | 900000         
+------------------------------------------------------
+Tong cong: 900000 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
+Ten khach hang: c
+Dia chi: trai dat
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+ip13                 | 9          | 100000          | 900000         
+quat treo tuong      | 5          | 250000          | 1250000        
+------------------------------------------------------
+Tong cong: 2150000 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
+Ma don hang: 0
+Ten khach hang: c
+Dia chi: trai dat
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+giay the thao        | 6          | 450000          | 2700000        
+------------------------------------------------------
+Tong cong: 2700000 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
+Ma don hang: 0
+Ten khach hang: c
+Dia chi: trai dat
+------------------------------------------------------
+Ten hang             | SL         | Don gia         | Thanh tien     
+quat treo tuong      | 5          | 250000          | 1250000        
+------------------------------------------------------
+Tong cong: 1250000 VND
+Dang chuan bi don hang.
+======================================================
+
+========================= Hoa Don =====================
 Ma don hang: 100
-Ten khach hang:c
-Dia chi:trai dat
+Ten khach hang: c
+Dia chi: trai dat
 ------------------------------------------------------
-Ten hang             | SL         | Don gia         | Thanh tien
-quan dui             | 12         | 90000           | 1080000
+Ten hang             | SL         | Don gia         | Thanh tien     
+quat treo tuong      | 5          | 250000          | 1250000        
 ------------------------------------------------------
-Tong cong: 1080000 VND
-Dang van chuyen.
+Tong cong: 1250000 VND
+Dang chuan bi don hang.
 ======================================================
-Ma don hang:101
-Ten khach hang:cc
-Dia chi:sao hỏa
+
+========================= Hoa Don =====================
+Ma don hang: 101
+Ten khach hang: c
+Dia chi: trai dat
 ------------------------------------------------------
-Ten hang             | SL         | Don gia         | Thanh tien
-quan dui             | 11         | 90000           | 1280000
+Ten hang             | SL         | Don gia         | Thanh tien     
+ip13                 | 7          | 100000          | 700000         
 ------------------------------------------------------
-Tong cong: 1280000 VND
-Da huy.
+Tong cong: 700000 VND
+Dang chuan bi don hang.
 ======================================================
+

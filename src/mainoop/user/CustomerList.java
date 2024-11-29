@@ -35,8 +35,7 @@ public class CustomerList implements ListInterface{
     public final void addFromFile(String path) {
         try {
             // đọc file
-            File read = new File(path);
-            Scanner reader = new Scanner(read);
+            Scanner reader = new Scanner(new File(path));
             reader.nextLine();
             reader.nextLine();
             while(reader.hasNextLine()) {   //nếu có dòng để đọc file
@@ -148,6 +147,17 @@ public class CustomerList implements ListInterface{
     public Customer getCustomerById(int i) {
         return customerList.get(i - 1);
     }
+
+    // trả về khách hàng từ tên
+    public Customer getCustomerByName(String name) {
+        for(Customer customer : customerList) {
+            if(customer.getCustomerName().equals(name)) {
+                return customer;
+            }
+        }
+        return null;
+    }
+
     public void removeProductFromAllCustomers(Product product) {
         for (Customer customer : customerList) {
             // Xóa sản phẩm khỏi giỏ hàng của khách hàng
