@@ -1,6 +1,5 @@
 package mainoop;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import mainoop.Payment.paymentlist;
 import mainoop.product.Product;
@@ -41,25 +40,10 @@ public class Running {
             System.out.println("==============================================");
             System.out.print("Nhập thao tác: ");
 
-            int temp = 0;
-            boolean checkInPut = false;
-            while(!checkInPut) {
-                try {
-                    temp = sc.nextInt();
-                    sc.nextLine();
+            int thaoTac0 = sc.nextInt();
+            sc.nextLine();
 
-                    if (temp >= 1 && temp <= 3) {
-                        checkInPut = true;
-                    } else {
-                        System.out.print("Thao tác không đúng. Nhập lại: ");
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.print("Thao tác không đúng. Nhập lại: ");
-                    sc.nextLine();
-                }
-            }
-
-            switch(temp) {
+            switch(thaoTac0) {
                 case 1 ->  {    // 1. Khách hàng
                     Customer currentCustomer = new Customer();
                     boolean check1 = true;
@@ -131,16 +115,25 @@ public class Running {
                       
                             case 2 ->  {   // 2. Đăng ký
                                 // nhập tên đăng nhập
-                                String name;
-                                while (true) {
-                                    System.out.print("Nhập tên tài khoản (chỉ bao gồm số): ");
-                                    name = sc.nextLine();
-                                    // Kiểm tra nếu chuỗi chỉ bao gồm số
-                                    if (name.matches("\\d+")) { // Sử dụng regex để kiểm tra chỉ chứa số
-                                        break;
-                                    } else {
-                                        System.out.println("Tên tài khoản không hợp lệ! Vui lòng nhập lại.");
+                                String name = "";
+                                boolean exist = true;
+                                while(exist) {
+                                    while (true) {
+                                        System.out.print("Nhập tên tài khoản (chỉ bao gồm số): ");
+                                        name = sc.nextLine();
+                                        // Kiểm tra nếu chuỗi chỉ bao gồm số
+                                        if (name.matches("\\d+")) { // Sử dụng regex để kiểm tra chỉ chứa số
+                                            break;
+                                        } else {
+                                            System.out.println("Tên tài khoản không hợp lệ! Vui lòng nhập lại.");
+                                        }
                                     }
+                                    if(customerList.checkAlreadyExists(name)) {
+                                        System.out.println("tên tài khoản đã tồn tại.");
+                                    } else {
+                                        exist = false;
+                                    }
+
                                 }
 
                                 // nhập mật khẩu
