@@ -1,110 +1,24 @@
 package mainoop.huytoan;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Ordermanager {
 
-    // Phương thức đọc file và trả về danh sách đơn hàng từ file
-    private List<String[]> readFile(String filePath) {
-        List<String[]> orders = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            List<String> tempOrder = new ArrayList<>();
-            int lineCount = 0;
-
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (line.isEmpty()) continue; // Bỏ qua dòng trống
-
-                tempOrder.add(line);
-                lineCount++;
-
-                // Khi đủ 6 dòng cho một đơn hàng
-                if (lineCount == 6) {
-                    orders.add(tempOrder.toArray(new String[0])); // Chuyển danh sách tạm thành mảng
-                    tempOrder.clear(); // Reset danh sách tạm
-                    lineCount = 0; // Reset bộ đếm dòng
-                }
-            }
-
-            // Kiểm tra nếu còn dữ liệu thừa (đơn hàng không đủ 6 dòng)
-            if (!tempOrder.isEmpty()) {
-                System.err.println("Dữ liệu không đầy đủ cho một đơn hàng, bỏ qua: " + tempOrder);
-            }
-
-        } catch (FileNotFoundException e) {
-            System.err.println("Lỗi khi đọc file: " + e.getMessage());
-        }
-        return orders;
-    }
-
-    // Phương thức ghi danh sách đơn hàng vào file
-    private void writeFile(String filePath, List<String[]> orders) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            for (String[] order : orders) {
-                bw.write(order[0]); // Mã đơn hàng
-                bw.newLine();
-                bw.write(order[1]); // Mã khách hàng
-                bw.newLine();
-                bw.write(order[2]); // Tên sản phẩm và số lượng
-                bw.newLine();
-                bw.write(order[3]); // Giá tiền
-                bw.newLine();
-                bw.write(order[4]); // Trạng thái đơn hàng
-                bw.newLine();
-                bw.write(order[5]); // Địa chỉ khách hàng
-                bw.newLine(); // Thêm một dòng trống giữa các đơn hàng
-            }
-        } catch (IOException e) {
-            System.err.println("Lỗi khi ghi file: " + e.getMessage());
-        }
-    }
-
-    // Phương thức hiển thị hóa đơn theo định dạng mới
-    private void displayOrder(String[] order) {
-        System.out.println("=====================================================");
-        System.out.println("                     Hóa Đơn                        ");
-        System.out.println("=====================================================");
-        System.out.printf("%-20s: %s\n", "Tên khách hàng", order[1]);
-        System.out.printf("%-20s: %s\n", "Địa chỉ", order[5]);
-        System.out.println("-----------------------------------------------------");
-        System.out.printf("%-15s | %-5s | %-10s | %-10s\n", "Tên hàng", "SL", "Đơn giá", "Thành tiền");
-        System.out.println("-----------------------------------------------------");
-
-        // Tách thông tin sản phẩm và số lượng
-        String[] productDetails = order[2].split(","); // Giả sử định dạng là "Tên sản phẩm, số lượng"
-        String productName = productDetails[0].trim(); // Tên sản phẩm
-        int quantity = Integer.parseInt(productDetails[1].trim()); // Số lượng
-        int unitPrice = Integer.parseInt(order[3]); // Giá tiền một sản phẩm
-        int totalPrice = quantity * unitPrice; // Tính thành tiền
-
-        System.out.printf("%-15s | %-5d | %-10d | %-10d\n", productName, quantity, unitPrice, totalPrice);
-        System.out.println("-----------------------------------------------------");
-        System.out.printf("Tổng cộng: %d VND\n", totalPrice);
-        System.out.printf("Trạng thái đơn hàng: %s\n", order[4]);
-        System.out.println("=====================================================");
-    }
-
-    // Phương thức hiển thị danh sách đơn hàng
-    public void manageOrdersFromFile(String filePath) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        List<String[]> orders = readFile(filePath);
-        if (orders.isEmpty()) {
-            System.out.println("File không có dữ liệu hoặc không tồn tại.");
-            return;
-        }
+        String filePath = "Bill.txt";
 
         while (true) {
-            System.out.println("Danh sách đơn hàng:");
-            for (int i = 0; i < orders.size(); i++) {
-                System.out.printf("%d | Mã đơn hàng: %s\n", i + 1, orders.get(i)[0]);
-            }
+            System.out.println("\n========== MENU ==========");
+            System.out.println("1. Hiển thị danh sách hóa đơn");
+            System.out.println("2. Xác nhận hoặc thay đổi trạng thái đơn hàng");
+            System.out.println("0. Thoát");
+            System.out.println("==========================");
 
-            System.out.print("Nhập số thứ tự của đơn hàng để xem chi tiết (0 để thoát): ");
+            System.out.print("Lựa chọn của bạn: ");
             int choice;
+
             try {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
@@ -112,50 +26,129 @@ public class Ordermanager {
                 continue;
             }
 
-            if (choice == 0) {
-                System.out.println("Đã thoát chương trình.");
-                return;
+            switch (choice) {
+                case 1 -> manageOrdersFromFile(filePath); // Hiển thị danh sách hóa đơn
+                case 2 -> updateOrderStatus(filePath); // Xác nhận/thay đổi trạng thái đơn hàng
+                case 0 -> {
+                    System.out.println("Thoát chương trình.");
+                    return; // Kết thúc chương trình
+                }
+                default -> System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
             }
-
-            if (choice < 1 || choice > orders.size()) {
-                System.out.println("Số thứ tự không hợp lệ.");
-                continue;
-            }
-
-            // Hiển thị hóa đơn chi tiết
-            displayOrder(orders.get(choice - 1));
-
-            // Xác nhận trạng thái đơn hàng
-            System.out.print("Xác nhận (1), hủy xác nhận (2), giữ nguyên (3): ");
-            String action = scanner.nextLine().trim().toLowerCase();
-
-            switch (action) {
-                case "1": // Xác nhận đơn hàng
-                    orders.get(choice - 1)[4] = "đang vận chuyển";
-                    System.out.println("Đã xác nhận đơn hàng.");
-                    break;
-                case "2": // Hủy đơn hàng
-                    orders.get(choice - 1)[4] = "đã hủy";
-                    System.out.println("Đã hủy đơn hàng.");
-                    break;
-                case "3": // Giữ nguyên trạng thái
-                    System.out.println("Giữ nguyên trạng thái đơn hàng.");
-                    break;
-                default:
-                    System.out.println("Lựa chọn không hợp lệ, trạng thái đơn hàng không thay đổi.");
-                    break;
-            }
-
-            // Ghi cập nhật vào file
-            writeFile(filePath, orders);
-            System.out.println("Đã cập nhật file.");
         }
     }
 
-    // Phương thức main để chạy chương trình
-    public static void main(String[] args) {
-        Ordermanager orderManager = new Ordermanager();
-        String filePath = "bill.txt"; // Đường dẫn file chứa danh sách đơn hàng
-        orderManager.manageOrdersFromFile(filePath);
+    // Hàm hiển thị danh sách hóa đơn
+    public static void manageOrdersFromFile(String filePath) {
+        List<String[]> orders = readAllOrders(filePath);
+        if (orders.isEmpty()) {
+            System.out.println("Không có hóa đơn nào để hiển thị.");
+            return;
+        }
+
+        System.out.println("\n========== DANH SÁCH HÓA ĐƠN ==========");
+        for (int i = 0; i < orders.size(); i++) {
+            System.out.printf("%d. Mã đơn hàng: %s, Tên khách hàng: %s\n",
+                    i + 1, orders.get(i)[0], orders.get(i)[1]);
+        }
+        System.out.println("=======================================");
+    }
+
+    // Hàm cập nhật trạng thái đơn hàng dựa trên lựa chọn của người dùng
+    public static void updateOrderStatus(String filePath) {
+        Scanner scanner = new Scanner(System.in);
+        List<String[]> orders = readAllOrders(filePath);
+
+        if (orders.isEmpty()) {
+            System.out.println("Không có hóa đơn nào để cập nhật.");
+            return;
+        }
+
+        System.out.println("\n========== DANH SÁCH HÓA ĐƠN ==========");
+        for (int i = 0; i < orders.size(); i++) {
+            System.out.printf("%d.%s, Trạng thái: %s\n",
+                    i + 1, orders.get(i)[0], orders.get(i)[orders.get(i).length - 1]);
+        }
+        System.out.println("=======================================");
+
+        System.out.print("Chọn số thứ tự hóa đơn để cập nhật (0 để hủy): ");
+        int choice;
+
+        try {
+            choice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Lựa chọn không hợp lệ.");
+            return;
+        }
+
+        if (choice == 0) {
+            System.out.println("Hủy cập nhật.");
+            return;
+        }
+
+        if (choice < 1 || choice > orders.size()) {
+            System.out.println("Số thứ tự không hợp lệ.");
+            return;
+        }
+
+        String[] selectedOrder = orders.get(choice - 1);
+        System.out.println("\nChi tiết hóa đơn:");
+        for (String detail : selectedOrder) {
+            System.out.println(detail);
+        }
+
+        System.out.print("\nXác nhận (1), Hủy đơn hàng (2), Giữ nguyên (3): ");
+        String action = scanner.nextLine().trim();
+
+        switch (action) {
+            case "1" -> selectedOrder[selectedOrder.length - 1] = "Dang van chuyen.";
+            case "2" -> selectedOrder[selectedOrder.length - 1] = "Da huy.";
+            case "3" -> System.out.println("Không thay đổi trạng thái.");
+            default -> {
+                System.out.println("Lựa chọn không hợp lệ.");
+                return;
+            }
+        }
+
+        // Cập nhật file
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            for (String[] order : orders) {
+                for (String line : order) {
+                    bw.write(line);
+                    bw.newLine();
+                }
+                bw.write("======================================================");
+                bw.newLine();
+            }
+            System.out.println("\nCập nhật trạng thái hóa đơn thành công.");
+        } catch (IOException e) {
+            System.err.println("Lỗi khi ghi file: " + e.getMessage());
+        }
+    }
+
+    // Hàm đọc toàn bộ hóa đơn từ file
+    private static List<String[]> readAllOrders(String filePath) {
+        List<String[]> orders = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            List<String> currentOrder = new ArrayList<>();
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty() || line.startsWith("=")) { // Dấu phân cách giữa các hóa đơn
+                    if (!currentOrder.isEmpty()) {
+                        orders.add(currentOrder.toArray(new String[0]));
+                        currentOrder.clear();
+                    }
+                } else {
+                    currentOrder.add(line);
+                }
+            }
+            if (!currentOrder.isEmpty()) { // Thêm hóa đơn cuối cùng
+                orders.add(currentOrder.toArray(new String[0]));
+            }
+        } catch (IOException e) {
+            System.err.println("Lỗi khi đọc file: " + e.getMessage());
+        }
+        return orders;
     }
 }

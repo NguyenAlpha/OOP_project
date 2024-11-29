@@ -129,8 +129,17 @@ public class Running {
                       
                             case 2 ->  {   // 2. Đăng ký
                                 // nhập tên đăng nhập
-                                System.out.print("Nhập tên tài khoản: ");
-                                String name = sc.nextLine();
+                                String name;
+                                while (true) {
+                                    System.out.print("Nhập tên tài khoản (chỉ bao gồm số): ");
+                                    name = sc.nextLine();
+                                    // Kiểm tra nếu chuỗi chỉ bao gồm số
+                                    if (name.matches("\\d+")) { // Sử dụng regex để kiểm tra chỉ chứa số
+                                        break;
+                                    } else {
+                                        System.out.println("Tên tài khoản không hợp lệ! Vui lòng nhập lại.");
+                                    }
+                                }
 
                                 // nhập mật khẩu
                                 System.out.print("Nhập mật khẩu: ");
@@ -372,17 +381,40 @@ public class Running {
                             }
 
                             case 6 ->{
-                                Ordermanager orderManager = new Ordermanager(); // Đảm bảo tên lớp chính xác
-                                System.out.println(" === TÌNH TRẠNG ĐƠN HÀNG ===");
-                                System.out.println("-----------------------------");
-                                 // Đường dẫn file đầu vào và đầu ra
-                                String inputFilePath = FilePaths.BILL_PATH; // Đường dẫn đến file ShoppingCart.txt
-                                String outputFilePath = FilePaths.BILL_PATH;        // Đường dẫn đến file Bill.txt
+                             Scanner scanner = new Scanner(System.in);
+                            Ordermanager orderManager = new Ordermanager();
+                            String filePath = FilePaths.BILL_PATH;
 
-                                 // Gọi phương thức quản lý đơn hàng từ file ShoppingCart.txt
-                                 orderManager.manageOrdersFromFile(inputFilePath);
+
+                            while (true) {
+                            System.out.println("\n========== MENU ==========");
+                            System.out.println("1. Quản lý và hiển thị hóa đơn");
+                            System.out.println("2. Thay đổi trạng thái đơn hàng");
+                            System.out.println("0. Thoát");
+                            System.out.println("==========================");
+
+                            System.out.print("Lựa chọn của bạn: ");
+                            int choice;
+
+                            try {
+                                choice = Integer.parseInt(scanner.nextLine());
+                            } catch (NumberFormatException e) {
+                                System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập số.");
+                                continue;
+                            }
+
+                            switch (choice) {
+                                case 1 -> orderManager.manageOrdersFromFile(filePath); // Gọi hàm quản lý hóa đơn
+                                case 2 -> orderManager.updateOrderStatus(filePath); // Gọi hàm thay đổi trạng thái
+                                case 0 -> {
+                                    System.out.println("Thoát chương trình.");
+                                    return; // Kết thúc chương trình
+                                }
+                                default -> System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
                                 
                             }
+                        }
+                    }
                             
                             case 7 ->{
                                 System.out.println("=== XEM LỊCH SỬ ĐƠN HÀNG ===");
