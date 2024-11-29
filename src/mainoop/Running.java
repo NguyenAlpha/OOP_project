@@ -18,6 +18,7 @@ public class Running {
     private static ProductList productList = new ProductList(FilePaths.PRODUCT_PATH);
     private static AdminList adminList = new AdminList(FilePaths.ADMIN_PATH);
     private static CustomerList customerList = new CustomerList(FilePaths.CUSTOMER_PATH);
+    private static paymentlist paymentListArray = new paymentlist(FilePaths.BILL_PATH);
 
     public static ProductList getProductList() {
         return productList;
@@ -27,6 +28,9 @@ public class Running {
     }
     public static CustomerList getCustomerList() {
         return customerList;
+    }
+    public static paymentlist getPaymentListArray() {
+        return paymentListArray;
     }
 
     public static void main(String[] args) {
@@ -80,6 +84,9 @@ public class Running {
                             System.out.println("8. Xóa sản phẩm khỏi giỏ hàng");
                             System.out.println("9. Thanh toán");
                             System.out.println("10. Đăng xuất");
+                            System.out.println("15. Thanh toán(code Nhat Nguyen)");
+                            System.out.println("16. Xem tình trạng các đơn hàng(code Nhat Nguyen)");
+                            System.out.println("17. Xem các đơn đã được giao(code Nhat Nguyen)");
                         }
                         System.out.println("==============================================");
                         
@@ -88,7 +95,7 @@ public class Running {
                         sc.nextLine();
 
                         if(loginCheck) {
-                            while((thaoTac1 < 3) || (thaoTac1 > 10)) {
+                            while((thaoTac1 < 3) || (thaoTac1 > 17)) {
                                 System.out.print("Thao tác không đúng.\nNhập thao tác: ");
                                 thaoTac1 = sc.nextInt();
                                 sc.nextLine();
@@ -150,40 +157,8 @@ public class Running {
                             }
                             
                             case 3 ->  {   // 3. Xem chi tiết tài khoản
-                                System.out.println("Mã số: " + currentCustomer.getUserId());
-                                System.out.println("Tên: " + currentCustomer.getCustomerName());
-                                System.out.println("Mật khẩu: " + currentCustomer.getUserPassword());
-                                System.out.println("Địa chỉ: " + currentCustomer.getCustomerAddress());
-                                System.out.println("Tài khoản ngân hàng: " + currentCustomer.getBankName() + " " + currentCustomer.getBankId());
-                                if(currentCustomer.getBankId().equals("N/A")) {
-                                    System.out.println("0. quay lại");
-                                    System.out.println("1. Liên kết tài khoản ngân hàng");
-                                    System.out.print("Nhập thao tác: ");
-                                    int thaoTacCase3 = sc.nextInt();
-                                    sc.nextLine();
-
-                                    switch (thaoTacCase3) {
-                                        case 1 -> {
-                                            System.out.print("Nhập tên ngân hàng: ");
-                                            String bankName = sc.nextLine();
-                                            String bankId;
-                                            while (true) {
-                                                System.out.print("Nhập số tài khoản ngân hàng: ");
-                                                bankId = sc.nextLine();
-                                                if (bankId.length() < 8) {
-                                                    System.out.println("Số tài khoản ngân hàng phải hơn 8 ký tự.");
-                                                } else if (!bankId.matches("\\d+")) {
-                                                    System.out.println("Số tài khoản ngân hàng chỉ được chứa các ký tự số.");
-                                                } else {
-                                                    break; // Thoát vòng lặp nếu chuỗi hợp lệ
-                                                }
-                                            }
-                                            currentCustomer.setBank(bankId, bankName);
-                                            customerList.writeToFile();
-                                        }
-                                        default -> {}
-                                    }
-                                }
+                                currentCustomer.viewAccount();
+                                customerList.writeToFile();
                             }
 
                             case 4 ->  {   // 4. Xem Danh sách sản phẩm
@@ -238,7 +213,7 @@ public class Running {
                                     payment payment = new payment();
                                     paymentlist paymentlist = new paymentlist();
                                     String filePath ="src/mainoop/data/Bill.txt"; // đường dẫn đến file 
-                                    payment.setcustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
+                                    payment.setCustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
                                     payment.setpaymentID(temp);
                                     payment.bill();
                                     Scanner scanner = new Scanner(System.in);
@@ -261,10 +236,10 @@ public class Running {
                                     
                                     case 2 -> { // Chuyển khoản
                                         
-                                        System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
+                                        paymentlist.writeToFile(payment, filePath, isOrderConfirmed);
                                         currentCustomer.setCartItemsEmpty();
                                         customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
-                                        paymentlist.writeToFile(payment, filePath, isOrderConfirmed);
+                                        System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
                                     }
                                         
                                     default -> System.out.println("Thoát chương trình!");
@@ -277,6 +252,51 @@ public class Running {
                                 currentCustomer = null;
                                 loginCheck = false;
                                 System.out.println("Đã đăng Xuất");
+                            }
+
+                            case 15 -> {
+                                if (currentCustomer.getCartItem().isEmpty()) {
+                                    System.out.println("Giỏ hàng trống. Không thể thanh toán.");
+                                    break;
+                                }
+                                currentCustomer.viewCartItems();
+                                System.out.println("================Thanh Toán=============== ");
+                                System.out.println("1. Xác nhận thanh toán bằng tiền mặt");
+                                System.out.println("2. Xác nhận thanh toán qua tài khoản ngân hàng");
+                                System.out.println("3. Thoát chương trình");
+                                System.out.print("Chọn phương thức thanh toán: ");
+                                int check2 = sc.nextInt(); // Sự lựa chọn của khách hàng 
+                                sc.nextLine();
+                                switch (check2) {
+                                    case 1 -> { //1. Xác nhận thanh toán bằng tiền mặt
+                                        paymentListArray.addBill(currentCustomer);
+                                        currentCustomer.setCartItemsEmpty();
+                                        customerList.writeToFile();
+                                        System.out.println("Bạn đã thanh toán bằng tiền mặt !");
+
+                                    }
+                                    
+                                    case 2 -> { //2. Xác nhận thanh toán qua tài khoản ngân hàng
+                                        if(currentCustomer.getBankName().equals("N/A")) {   //chưa thêm tài khoản ngân hàng
+                                            System.out.println("bạn chưa liên kết tài khoản ngân hàng");
+                                        } else {    //đã thêm
+                                            paymentListArray.addBill(currentCustomer);
+                                            currentCustomer.setCartItemsEmpty();
+                                            customerList.writeToFile();
+                                            System.out.println("Bạn đã thanh toán bằng tài khoản ngân hàng!");
+                                        }
+                                    }
+                                        
+                                    default -> System.out.println("Thoát chương trình!");
+                                }
+                            }
+
+                            case 16 -> {
+                                paymentListArray.viewCustomerOrderStatus(currentCustomer);;
+                            }
+
+                            case 17 -> {
+                                paymentListArray.viewCustomerDeliveredOrders(currentCustomer);
                             }
                         }
                     }
@@ -307,6 +327,9 @@ public class Running {
                         System.out.println("5. Sửa sản phẩm.");
                         System.out.println("6. Xem tình trạng đơn hàng.");
                         System.out.println("7. Xem lịch sử đơn hàng.");
+                        System.out.println("8. Thoát.");
+                        System.out.println("15. Xem tình trạng đơn hàng.(code Nhật Nguyên)");
+                        System.out.println("16. Xem lịch sử đơn hàng.(code Nhật Nguyên)");
                         System.out.println("8. Thoát.");
                         System.out.println("==============================================");
                         
@@ -394,11 +417,32 @@ public class Running {
                                     PayedBill.viewOrderHistory(payedBillFilePath);; // Gọi phương thức từ lớp PayedBill
                                 } catch (IOException e) {
                                     System.out.println("Lỗi: Không thể đọc file. Chi tiết: " + e.getMessage());
+                                }
                             }
-                        }
                             case 8 ->  {
                                 check2 = false;
                                 System.out.println("Đã thoát!");
+                            }
+
+                            case 15 -> {
+                                paymentListArray.viewOrderStatus();
+                                System.out.println("Nhập mã đơn để xác nhận đang giao hàng");
+                                System.out.println("Hoặc nhập -1 để xác nhận tất cả");
+                                System.out.println("Hoặc nhập 0 để thoát");
+                                System.out.print("Thao tác: ");
+                                int check3 = sc.nextInt();
+                                sc.nextLine();
+                                if(check3 == 0) {
+                                    System.out.println("Đã thoát!");
+                                } else if(check3 == -1) {
+                                    paymentListArray.confirmedShippingAll();
+                                } else {
+                                    paymentListArray.confirmedShipping(paymentListArray.getOrderById(check3));
+                                }
+                            }
+
+                            case 16 -> {
+                                paymentListArray.viewDeliveredOrders();
                             }
                         }
                     }
@@ -408,10 +452,7 @@ public class Running {
                     System.out.println("Đã thoát!");
                 }
             }
-            // 1. Khách hàng
-            // 2. Quản lý
-            // 3. Thoát
-                    }
+        }
 
         sc.close();
     }

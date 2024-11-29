@@ -2,6 +2,7 @@ package mainoop.user;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import mainoop.product.Product;
 
 // Customer kế thừa attribute và method của class User 
@@ -78,6 +79,7 @@ public class Customer extends User {
     }
     public void setCartItemsEmpty() {
         this.cartItems = new HashMap<>();
+        this.sumPriceProduct = 0;
     }
 
     //viết lại hàm mặc định toString
@@ -89,6 +91,46 @@ public class Customer extends User {
     @Override
     public boolean checkUserName(String userName) {
         return customerName.equals(userName);
+    }
+
+    // xem tài khoản
+    public void viewAccount() {
+        System.out.println("Mã số: " + getUserId());
+        System.out.println("Tên: " + getCustomerName());
+        System.out.println("Mật khẩu: " + getUserPassword());
+        System.out.println("Địa chỉ: " + getCustomerAddress());
+        System.out.println("Tài khoản ngân hàng: " + getBankName() + " " + getBankId());
+        Scanner sc = new Scanner(System.in);
+        if(getBankId().equals("N/A")) {
+            System.out.println("0. quay lại");
+            System.out.println("1. Liên kết tài khoản ngân hàng");
+            System.out.print("Nhập thao tác: ");
+            int thaoTacCase3 = sc.nextInt();
+            sc.nextLine();
+
+            switch (thaoTacCase3) {
+                case 1 -> {
+                    System.out.print("Nhập tên ngân hàng: ");
+                    String bankName = sc.nextLine();
+                    String bankId;
+                    while (true) {
+                        System.out.print("Nhập số tài khoản ngân hàng: ");
+                        bankId = sc.nextLine();
+                        if (bankId.length() < 8) {
+                            System.out.println("Số tài khoản ngân hàng phải hơn 8 ký tự.");
+                        } else if (!bankId.matches("\\d+")) {
+                            System.out.println("Số tài khoản ngân hàng chỉ được chứa các ký tự số.");
+                        } else {
+                            break; // Thoát vòng lặp nếu chuỗi hợp lệ
+                        }
+                    }
+                    setBank(bankId, bankName);
+                    System.out.println("đã thêm tài khoản ngân hàng!");
+                }
+                default -> {}
+            }
+        }
+
     }
 
     // kiểm tra giỏ hàng có trống không
@@ -114,12 +156,11 @@ public class Customer extends User {
             int currentQuantity = cartItems.get(product);
             cartItems.put(product, currentQuantity + quantity);
             calcuaSumPriceProduct();
-        }
-        if(product != null) {
+        } else if(product == null) {
+            System.out.println("Không thể thêm!");
+        } else {
             cartItems.put(product, quantity);
             calcuaSumPriceProduct();
-        } else {
-            System.out.println("Không thể thêm!");
         }
     }
 
