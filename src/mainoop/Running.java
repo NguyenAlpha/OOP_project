@@ -287,9 +287,6 @@ public class Running {
                         System.out.println("6. Xem tình trạng đơn hàng.");
                         System.out.println("7. Xem lịch sử đơn hàng.");
                         System.out.println("8. Thoát.");
-                        System.out.println("15. Xem tình trạng đơn hàng.(code Nhật Nguyên)");
-                        System.out.println("16. Xem lịch sử đơn hàng.(code Nhật Nguyên)");
-                        System.out.println("8. Thoát.");
                         System.out.println("==============================================");
                         
                         System.out.print("Nhập thao tác: ");
