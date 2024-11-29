@@ -131,6 +131,7 @@ public class Ordermanager {
         List<String[]> orders = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
+            br.readLine();
             List<String> currentOrder = new ArrayList<>();
             while ((line = br.readLine()) != null) {
                 line = line.trim();

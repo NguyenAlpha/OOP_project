@@ -1,12 +1,8 @@
 package mainoop;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import mainoop.Payment.payment;
 import mainoop.Payment.paymentlist;
-import mainoop.huytoan.Ordermanager;
-import mainoop.huytoan.PayedBill;
 import mainoop.product.Product;
 import mainoop.product.ProductList;
 import mainoop.user.Admin;
@@ -83,10 +79,9 @@ public class Running {
                             System.out.println("7. Thêm sản phẩm vào giỏ hàng");
                             System.out.println("8. Xóa sản phẩm khỏi giỏ hàng");
                             System.out.println("9. Thanh toán");
-                            System.out.println("10. Đăng xuất");
-                            System.out.println("15. Thanh toán(code Nhat Nguyen)");
-                            System.out.println("16. Xem tình trạng các đơn hàng(code Nhat Nguyen)");
-                            System.out.println("17. Xem các đơn đã được giao(code Nhat Nguyen)");
+                            System.out.println("10. Xem tình trạng các đơn hàng");
+                            System.out.println("11. Xem các đơn đã được giao");
+                            System.out.println("12. Đăng xuất");
                         }
                         System.out.println("==============================================");
                         
@@ -95,7 +90,7 @@ public class Running {
                         sc.nextLine();
 
                         if(loginCheck) {
-                            while((thaoTac1 < 3) || (thaoTac1 > 17)) {
+                            while((thaoTac1 < 3) || (thaoTac1 > 12)) {
                                 System.out.print("Thao tác không đúng.\nNhập thao tác: ");
                                 thaoTac1 = sc.nextInt();
                                 sc.nextLine();
@@ -213,57 +208,6 @@ public class Running {
                             }
 
                             case 9 -> {     // 9. Thanh toán
-                                System.out.println("================Thanh Toán=============== ");
-                                if (currentCustomer.getCartItem().isEmpty())
-                                 {
-                                    System.out.println("Giỏ hàng trống. Không thể thanh toán.");
-                                }
-                                else{
-                                    payment payment = new payment();
-                                    paymentlist paymentlist = new paymentlist();
-                                    String filePath ="src/mainoop/data/Bill.txt"; // đường dẫn đến file 
-                                    payment.setCustomer(currentCustomer); // Gán khách hàng hiện tại cho payment
-                                    payment.setpaymentID(temp);
-                                    payment.bill();
-                                    Scanner scanner = new Scanner(System.in);
-                                    boolean isOrderConfirmed = false; 
-                                    String outputFilePath = FilePaths.BILL_PATH; // Gọi đường dẫn đến file bill.txt
-                                System.out.println("1.Xác nhận thanh toán bằng tiền mặt");
-                                System.out.println("2.Chuyển khoản");
-                                System.out.println("3.Thoát chương trình");
-                                System.out.print("Chọn phương thức thanh toán: ");
-                                int check2 = scanner.nextInt(); // Sự lựa chọn của khách hàng 
-                                switch (check2) {
-                                    case 1 -> { //Thanh toán tiền mặt
-                                        
-
-                                        System.out.println("Bạn đã thanh toán bằng tiền mặt !");
-                                        paymentlist.writeToFile(payment, filePath, isOrderConfirmed);
-                                         currentCustomer.setCartItemsEmpty();
-                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
-                                    }
-                                    
-                                    case 2 -> { // Chuyển khoản
-                                        
-                                        paymentlist.writeToFile(payment, filePath, isOrderConfirmed);
-                                        currentCustomer.setCartItemsEmpty();
-                                        customerList.set(currentCustomer.getUserId() - 1, currentCustomer);
-                                        System.out.println("Bạn đã thanh toán bằng chuyển khoản !");
-                                    }
-                                        
-                                    default -> System.out.println("Thoát chương trình!");
-                                }
-                                
-                            }
-                            }
-
-                            case 10 ->  {   // 10. Đăng xuất
-                                currentCustomer = null;
-                                loginCheck = false;
-                                System.out.println("Đã đăng Xuất");
-                            }
-
-                            case 15 -> {
                                 if (currentCustomer.getCartItem().isEmpty()) {
                                     System.out.println("Giỏ hàng trống. Không thể thanh toán.");
                                     break;
@@ -300,12 +244,18 @@ public class Running {
                                 }
                             }
 
-                            case 16 -> {
-                                paymentListArray.viewCustomerOrderStatus(currentCustomer);;
+                            case 10 -> {    //10. Xem tình trạng các đơn hàng
+                                paymentListArray.viewCustomerOrderStatus(currentCustomer);
+                            }
+                        
+                            case 11 -> {    //11. Xem các đơn đã được giao
+                                paymentListArray.viewCustomerDeliveredOrders(currentCustomer);
                             }
 
-                            case 17 -> {
-                                paymentListArray.viewCustomerDeliveredOrders(currentCustomer);
+                            case 12 ->  {   // 12. Đăng xuất
+                                currentCustomer = null;
+                                loginCheck = false;
+                                System.out.println("Đã đăng Xuất");
                             }
                         }
                     }
@@ -403,60 +353,7 @@ public class Running {
                                 customerList.writeToFile();
                             }
 
-                            case 6 ->{
-                             Scanner scanner = new Scanner(System.in);
-                            Ordermanager orderManager = new Ordermanager();
-                            String filePath = FilePaths.BILL_PATH;
-
-
-                            while (true) {
-                            System.out.println("\n========== MENU ==========");
-                            System.out.println("1. Quản lý và hiển thị hóa đơn");
-                            System.out.println("2. Thay đổi trạng thái đơn hàng");
-                            System.out.println("0. Thoát");
-                            System.out.println("==========================");
-
-                            System.out.print("Lựa chọn của bạn: ");
-                            int choice;
-
-                            try {
-                                choice = Integer.parseInt(scanner.nextLine());
-                            } catch (NumberFormatException e) {
-                                System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập số.");
-                                continue;
-                            }
-
-                            switch (choice) {
-                                case 1 -> orderManager.manageOrdersFromFile(filePath); // Gọi hàm quản lý hóa đơn
-                                case 2 -> orderManager.updateOrderStatus(filePath); // Gọi hàm thay đổi trạng thái
-                                case 0 -> {
-                                    System.out.println("Thoát chương trình.");
-                                    return; // Kết thúc chương trình
-                                }
-                                default -> System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
-                                
-                            }
-                        }
-                    }
-                            
-                            case 7 ->{
-                                System.out.println("=== XEM LỊCH SỬ ĐƠN HÀNG ===");
-    
-                                String payedBillFilePath = FilePaths.PAYEDBILL_PATH; // Đường dẫn đến file payedbill.txt
-
-                                // Gọi hàm xử lý hóa đơn
-                                try {
-                                    PayedBill.viewOrderHistory(payedBillFilePath);; // Gọi phương thức từ lớp PayedBill
-                                } catch (IOException e) {
-                                    System.out.println("Lỗi: Không thể đọc file. Chi tiết: " + e.getMessage());
-                                }
-                            }
-                            case 8 ->  {
-                                check2 = false;
-                                System.out.println("Đã thoát!");
-                            }
-
-                            case 15 -> {
+                            case 6 -> { //6. Xem tình trạng đơn hàng.
                                 paymentListArray.viewOrderStatus();
                                 System.out.println("Nhập mã đơn để xác nhận đang giao hàng");
                                 System.out.println("Hoặc nhập -1 để xác nhận tất cả");
@@ -473,19 +370,24 @@ public class Running {
                                 }
                             }
 
-                            case 16 -> {
+                            case 7 -> { //7. Xem lịch sử đơn hàng.
                                 paymentListArray.viewDeliveredOrders();
+                            }
+
+                            case 8 ->  {    //8. Thoát.
+                                check2 = false;
+                                System.out.println("Đã thoát!");
                             }
                         }
                     }
                 }
-                case 3 ->  {
+
+                case 3 ->  {    //3. Thoát
                     check = false;
                     System.out.println("Đã thoát!");
                 }
             }
         }
-
         sc.close();
     }
 }
