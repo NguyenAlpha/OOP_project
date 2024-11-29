@@ -111,11 +111,6 @@ public class CustomerList implements ListInterface{
         }
     }
 
-    public void set(int index, Customer customer) {
-        customerList.set(index, customer);
-        writeToFile();
-    }
-
     // kiểm tra tài khoản cần đăng nhập có tồn tại không
     public Customer login(String name, String password) {
         // duyệt qua danh sách khách hàng
@@ -141,6 +136,15 @@ public class CustomerList implements ListInterface{
         for(Customer customer : customerList) {
             System.out.println(customer);
         }
+    }
+
+    // kiểm tra đã tồn tại tên tài khoản này chưa
+    public boolean checkAlreadyExists(String name) {
+        for(Customer customer : customerList) {
+            if(customer.getCustomerName().equals(name)) 
+            return true;
+        }
+        return false;
     }
 
     // trả về khác hàng từ id
