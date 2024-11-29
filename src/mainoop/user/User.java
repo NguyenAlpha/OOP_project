@@ -41,7 +41,10 @@ public abstract class User {
         return (this.userPassword.equals(password));
     }
 
+    public String getAll(){
+        return ("id: " + userId + "| password: " + userPassword);
+    }
+
     // Các class abstract
-    public abstract String getAll();
     public abstract boolean checkUserName(String userName);
 }

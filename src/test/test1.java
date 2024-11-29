@@ -1,6 +1,7 @@
 package test;
 
 import java.io.FileWriter;
+import mainoop.Running;
 
 public class test1 {
     public static void main(String[] args) {
@@ -14,5 +15,7 @@ public class test1 {
             r.close();
         } catch (Exception e) {
         }
+
+        CustomerList c = Running.
     }   
 }
