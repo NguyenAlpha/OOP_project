@@ -17,10 +17,10 @@ public class paymentlist implements ListInterface{
     private int maxDaDon = 0;  //mã đơn lớn nhất
     private ArrayList<payment> paymentList = new ArrayList<>(); //danh sách các đơn
 
-    // khởi tạo không tham sô
+    // hàm tạo không tham số
     public paymentlist() {}
     
-    // khởi tạo có tham số
+    // hàm tạo có tham số
     public paymentlist(String path) {
         addFromFile(path);
     }
@@ -43,8 +43,8 @@ public class paymentlist implements ListInterface{
 
     @Override
     public void addFromFile(String path) {
-        CustomerList customerList = Running.getCustomerList();
-        ProductList productList = Running.getProductList();
+        CustomerList customerList = Running.getCustomerList();  //lấy danh sách khách hàng
+        ProductList productList = Running.getProductList(); //lấy danh sách sản phẩm
 
         // đọc file
         try {
@@ -75,7 +75,7 @@ public class paymentlist implements ListInterface{
                     // tách các thông tin của sản phẩm
                     String[] s3Split = s3.split("[ ]*[|][ ]*");
                     // thêm sản phẩm vào đơn
-                    order.addProductInBill(productList.getProductByName(s3Split[0]), Integer.parseInt(s3Split[1]) );
+                    order.ThemDanhSachSanPham(productList.getProductByName(s3Split[0]), Integer.parseInt(s3Split[1]) );
                     s3 = reader.nextLine();
                 }
                 order.calcuaSumPriceProduct();
@@ -118,7 +118,7 @@ public class paymentlist implements ListInterface{
                     // tách các thông tin của sản phẩm
                     String[] s3Split = s3.split("[ ]*[|][ ]*");
                     // thêm sản phẩm vào đơn
-                    order.addProductInBill(productList.getProductByName(s3Split[0]), Integer.parseInt(s3Split[1]) );
+                    order.ThemDanhSachSanPham(productList.getProductByName(s3Split[0]), Integer.parseInt(s3Split[1]) );
                     s3 = reader.nextLine();
                 }
                 order.calcuaSumPriceProduct();
@@ -154,7 +154,7 @@ public class paymentlist implements ListInterface{
                 writer.write("\n------------------------------------------------------\n");
                 writer.write(String.format("%-20s|%-6s|%-14s|%s\n", "Ten hang", "SL", "Don gia", "Thanh tien"));
                 // lặp qua các sản phẩm trong đơn
-                for (Map.Entry<Product,Integer> en : order.getProductInBill().entrySet()) {
+                for (Map.Entry<Product,Integer> en : order.getDanhSachSanPham().entrySet()) {
                     Product product = en.getKey();
                     Integer quantity = en.getValue();
                     // viết sản phẩm trong đơn
@@ -180,7 +180,7 @@ public class paymentlist implements ListInterface{
 
         ProductList productList = Running.getProductList(); //lấy danh sách sản phẩm
         // lặp qua các sản phẩm trong đơn
-        for (Map.Entry<Product,Integer> en : order.getProductInBill().entrySet()) {
+        for (Map.Entry<Product,Integer> en : order.getDanhSachSanPham().entrySet()) {
             Product product = en.getKey();
             Integer quantity = en.getValue();
             // giảm số sản phẩm trong kho
@@ -202,6 +202,9 @@ public class paymentlist implements ListInterface{
 
     // xem đơn bất kỳ 
     public void viewOrder(payment order) {
+        if(order == null) {
+            return;
+        }
         System.out.print("\n========================= Hoa Don =====================\n");
         System.out.print("Ma don hang: " + order.getId() + "\n");
         System.out.print("Ten khach hang: " + order.getCustomer().getCustomerName() + "\n");
@@ -209,7 +212,7 @@ public class paymentlist implements ListInterface{
         System.out.print("\n------------------------------------------------------\n");
         System.out.print(String.format("%-20s|%-6s|%-14s|%s\n", "Ten hang", "SL", "Don gia", "Thanh tien"));
         // lặp qua các sản phẩm trong đơn
-        for (Map.Entry<Product,Integer> en : order.getProductInBill().entrySet()) {
+        for (Map.Entry<Product,Integer> en : order.getDanhSachSanPham().entrySet()) {
             Product product = en.getKey();
             Integer quantity = en.getValue();
             // in ra sản phẩm trong đơn
@@ -266,7 +269,7 @@ public class paymentlist implements ListInterface{
                             writer.write("\n------------------------------------------------------\n");
                             writer.write(String.format("%-20s|%-6s|%-14s|%s\n", "Ten hang", "SL", "Don gia", "Thanh tien"));
                             // lặp qua các sản phẩm trong đơn
-                            for (Map.Entry<Product,Integer> en : order.getProductInBill().entrySet()) {
+                            for (Map.Entry<Product,Integer> en : order.getDanhSachSanPham().entrySet()) {
                                 Product product = en.getKey();
                                 Integer quantity = en.getValue();
                                 // viết sản phẩm trong đơn
